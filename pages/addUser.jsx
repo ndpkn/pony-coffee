@@ -3,10 +3,8 @@ import Layout from '../components/layout/Layout'
 const addUser = () => {
     return (
         <Layout title="Добавление пользователя">
-            <h1>
-                addUser
-            </h1>
-            <input type="text" placeholder='name'/>
+            <h1>Добавление пользователя</h1>
+            <input type="text" placeholder='Имя'/>
 
         </Layout>
     )

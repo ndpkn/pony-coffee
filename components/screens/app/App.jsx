@@ -4,7 +4,7 @@ const App = () => {
     return (
         <Layout title="Главная страница">
             <div className="home">
-                <h1>App</h1>
+                <h1>Главная</h1>
             </div>
         </Layout>
     )

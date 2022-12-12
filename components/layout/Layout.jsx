@@ -1,18 +1,18 @@
-import Link from 'next/link'
 import Meta from '../../app/utils/Meta'
+import GetHeader from '../ui/headers/GetHeader'
 
-const Layout = ({children, title} ) => {
+const Layout = ({children, title}, role) => {
+  
   return (
     <>
     <Meta title={title} description="Описание страницы"/>
-    <header>
-        <Link href="/">home</Link>
-        <br />
-        <Link href="/addUser">add user</Link>
-    </header>
+    <GetHeader/>
     <div>{children}</div>
     </>
   )
 }
+
+
+
 
 export default Layout

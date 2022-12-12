@@ -17,5 +17,5 @@ const users = [
     }
 ]
 export default function handler(req, res) {
-    res.status(200).json(users[3].role)
+    res.status(200).json(users)
 }
