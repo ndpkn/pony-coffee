@@ -1,6 +1,6 @@
 import LogoutComp from "../components/libs/LogoutComp"
 
-const logout = () => {
+const Logout = () => {
     return(
         <LogoutComp/>
 
@@ -8,4 +8,4 @@ const logout = () => {
 
 }
 
-export default logout
+export default Logout
