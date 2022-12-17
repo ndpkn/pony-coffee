@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../components/layout/Layout'
+import LoginForm from '../components/ui/LoginForm'
 
 const auth = () => {
+
     return (
         <Layout title="Вход">
             <h1>Вход</h1>
-            <input type="tel" placeholder='Номер телефона' />
-            <input type="password" placeholder='пароль' />
+            <LoginForm/>
         </Layout>
     )
 }
+
 
 export default auth

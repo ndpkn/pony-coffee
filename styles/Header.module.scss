@@ -1,0 +1,26 @@
+@import './variables.scss';
+
+.header {
+    height: 7rem;
+    background-color: $accentColor;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    &_menu {
+        display: none;
+        &_open {
+            display: block;
+            position: absolute;
+            top: 7rem;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 15px;
+        }
+    }
+    &_button {
+        border: none;
+        background-color: transparent;
+    }
+}

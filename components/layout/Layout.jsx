@@ -1,13 +1,13 @@
 import Meta from '../../app/utils/Meta'
-import GetHeader from '../ui/headers/GetHeader'
+import Header from '../ui/Header'
 
-const Layout = ({children, title}, role) => {
+const Layout = ({children, title}) => {
   
   return (
     <>
-    <Meta title={title} description="Описание страницы"/>
-    <GetHeader/>
-    <div>{children}</div>
+      <Meta title={title} description="Описание страницы"/>
+      <Header/>
+      <main>{children}</main>
     </>
   )
 }
