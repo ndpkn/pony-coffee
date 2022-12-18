@@ -2,25 +2,26 @@
 
 .header {
     height: 7rem;
+    width: 100%;
     background-color: $accentColor;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    &_menu {
-        display: none;
-        &_open {
-            display: block;
-            position: absolute;
-            top: 7rem;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding: 15px;
+    position: fixed;
+    z-index: 9999;
+    margin-bottom: 7rem;
+    &_block {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &_logo {
+            margin-left: 20px;
+        }
+        &_button {
+            border: none;
+            background-color: transparent;
+            margin-right: 20px;
         }
     }
-    &_button {
-        border: none;
-        background-color: transparent;
-    }
 }
+
+

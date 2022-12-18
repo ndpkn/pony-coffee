@@ -6,10 +6,13 @@ import Image from 'next/image'
 import burger from '../../images/burger.png'
 import closeBurger from '../../images/menu-close.png'
 import qrcode from '../../images/qrcode.png'
+import { useRouter } from "next/router"
+import HeaderMenu from '../ui/HeaderMenu'
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [header, setHeader] = useState([])
+
     
     useEffect(() => {
         axios
@@ -26,21 +29,15 @@ const Header = () => {
     
     return (
         <header className={styles.header}>
-            <button
-                className={styles.header_button}>
-                    <Image src={qrcode} alt='qr code'/>
-            </button>
-            <button 
-                className={styles.header_button} 
-                onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <Image src= {closeBurger} alt='burger menu close'/> : <Image src= {burger} alt='burger menu'/>}
-            </button>
-            <div className={isOpen ? styles.header_menu_open : styles.header_menu}>
-                {header.map((item, i) => {
-                    return <Link key={i} href={item.href}>{item.text}</Link>
-                    })
-                }
+            <div className={styles.header_block}>
+                <Image className={styles.header_block_logo} src={qrcode} alt="logo"/>
+                <button 
+                    className={styles.header_block_button} 
+                    onClick={() => setIsOpen(!isOpen)}>
+                        {isOpen ? <Image src= {closeBurger} alt='burger menu close'/> : <Image src= {burger} alt='burger menu'/>}
+                </button>
             </div>
+            {isOpen ? <HeaderMenu headerItems={header}/> : null}
         </header>
     )
 }

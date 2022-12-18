@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+.button {
+    position: relative;
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    &_action {
+        color: $accentColor;
+        margin-bottom: 0.5rem;
+    }
+    &_value {
+        color: $secondaryTextColor;
+    }
+}
