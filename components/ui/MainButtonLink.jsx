@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import styles from '../../styles/MainButton.module.scss'
 
-const MainButton = ({buttonName, action}) => {
+const MainButtonLink = ({buttonName, action, href}) => {
     let colorChange
     switch (action) {
         case 'danger' : 
@@ -11,7 +11,7 @@ const MainButton = ({buttonName, action}) => {
         case 'warning' : 
             colorChange = '#FFA700';
             break
-        case 'primary' : 
+        case 'confirm' : 
             colorChange = '#0082FF';
             break
         default: 
@@ -19,7 +19,7 @@ const MainButton = ({buttonName, action}) => {
     }
     return (
         <div style={{flexGrow:'1', alignItems:'flex-end', display:'flex', justifyContent:'center'}}>
-            <Link href='/logout' className={styles.button} style={{color:`${colorChange}`}}>
+            <Link href={href} className={styles.button} style={{color:`${colorChange}`}}>
                 {buttonName}
             </Link>
 
@@ -27,4 +27,4 @@ const MainButton = ({buttonName, action}) => {
     )
 }
 
-export default MainButton
+export default MainButtonLink

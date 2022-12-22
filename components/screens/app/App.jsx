@@ -1,4 +1,4 @@
-import Layout from '../../layout/Layout'
+import Layout from '../../Layout'
 
 const App = () => {
     return (
@@ -6,7 +6,6 @@ const App = () => {
             <div className="home">
                 <h1>Главная</h1>
             </div>
-            
         </Layout>
     )
 }

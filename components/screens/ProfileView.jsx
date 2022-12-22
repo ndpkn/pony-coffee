@@ -3,7 +3,7 @@ import React from 'react'
 import styles from '../../styles/Profile.module.scss'
 import profileIcon from '../../images/profileIcon.svg'
 import EditButton from '../ui/EditButton'
-import MainButton from '../ui/MainButton'
+import MainButtonLink from '../ui/MainButtonLink'
 
 
 const ProfileView = () => {
@@ -21,21 +21,21 @@ const ProfileView = () => {
                     <EditButton 
                         actionName='Изменить имя'
                         currentValue='Дмитрий' 
-                        link='/'/>
+                        link='/profile/change-name'/>
                     <EditButton 
                         actionName='Изменить номер'
                         currentValue='+7999888888' 
-                        link='/'/>
+                        link='/profile/change-tel'/>
                     <EditButton 
                         actionName='Изменить email'
                         currentValue='email@email.com' 
-                        link='/'/>
+                        link='/profile/change-mail'/>
                     <EditButton 
                         actionName='Изменить пароль'
                         currentValue=' ' 
-                        link='/'/>
+                        link='/profile/change-password'/>
                 </div>
-                <MainButton buttonName='Выйти из аккаунта' action='danger'/>
+                <MainButtonLink buttonName='Выйти из аккаунта' action='danger' href='/logout'/>
             </div>
         </div>
     )

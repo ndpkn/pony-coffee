@@ -1,6 +1,6 @@
 import React from 'react'
-import Layout from '../components/layout/Layout'
-import ProfileView from '../components/screens/ProfileView'
+import Layout from '../../components/Layout'
+import ProfileView from '../../components/screens/ProfileView'
 
 const Profile = () => {
     return (
