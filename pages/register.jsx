@@ -5,7 +5,6 @@ import RegisterForm from '../components/ui/RegisterForm'
 const Register = () => {
     return (
         <Layout title="Регистрация">
-            <h1>Регистрация</h1>
             <RegisterForm/>
         </Layout>
     )

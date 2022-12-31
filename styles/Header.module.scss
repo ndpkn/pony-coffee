@@ -10,6 +10,8 @@
     margin-bottom: 7rem;
     &_block {
         width: 100%;
+        max-width: 100rem;
+        margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -17,11 +19,21 @@
             margin-left: 20px;
         }
         &_button {
+            cursor: pointer;
             border: none;
             background-color: transparent;
             margin-right: 20px;
+            height: 2rem;
         }
     }
 }
+
+// .openBurger {
+//     width: 2rem;
+//     height: 0.3rem;
+//     color: #fff;
+//     margin-bottom: 1rem;
+// }
+/* добавляем "гамбургер" */
 
 

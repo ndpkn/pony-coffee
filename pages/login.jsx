@@ -6,7 +6,6 @@ const auth = () => {
 
     return (
         <Layout title="Вход">
-            <h1>Вход</h1>
             <LoginForm/>
         </Layout>
     )

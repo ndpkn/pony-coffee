@@ -18,7 +18,12 @@ const MainButtonType = ({buttonName, action, type, onClick}) => {
             colorChange = '#0082FF';
     }
     return (
-        <div style={{flexGrow:'1', alignItems:'flex-end', display:'flex', justifyContent:'center'}}
+        <div 
+            style={{flexGrow:'1', 
+                    alignItems:'flex-end', 
+                    display:'flex', 
+                    justifyContent:'center'
+                }}
             onClick={onClick}>
             <button type={type} className={styles.button} style={{color:`${colorChange}`, border: 'none'}}>
                 {buttonName}
