@@ -14,7 +14,8 @@ const HeaderMenu = ({headerItems}) => {
                         })
                     }
                 </div>
-                <div style={{height: '100%'}}></div>
+                {/* пустое место для закрытия меню */}
+                <div style={{height: '100%'}}></div> 
             </div>
     )
 }

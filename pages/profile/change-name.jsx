@@ -10,30 +10,31 @@ const ChangeName = () => {
     
     const handleChange = (e) => {
         setUserName(e.target.value)
-        // console.log(userName);
     }
     const handleSubmit = (e) => {
-        axios
-            .post('http://localhost:8000/api/profile', {
-                name: userName,
-                // last_name:'',
-                // phone:'',
-                // email:'',
-                _method: 'put',
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
+        axios({
+            method: 'put',
+            url: 'http://localhost:8000/api/profile',
+            headers: {
+                accept: 'application/json',
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: {
+                    name: userName,
+                    phone: '+79997777779'
                 }
             })
             .then((res) => {
                 console.log(res);
+                window.location.href = '/profile'
             })
             .catch((err) => {
                 console.log(err);
-            })
-
-        e.preventDefault()
-    }
+            });
+            
+            e.preventDefault()
+        
+        }
     return (
         <Layout title='Изменение имени'>
             <div className={styles.changeProfile}>

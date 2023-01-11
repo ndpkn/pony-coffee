@@ -22,7 +22,6 @@ const ProfileView = () => {
             .then((res) => {
                 // console.log(res.data.data.user);
                 setProfileData(res.data.data.user)
-                
             })
     }, [])
     useEffect(() => {

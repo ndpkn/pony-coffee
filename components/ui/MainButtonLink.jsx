@@ -18,9 +18,17 @@ const MainButtonLink = ({buttonName, action, href}) => {
             colorChange = '#0082FF';
     }
     return (
-        <div style={{flexGrow:'1', alignItems:'flex-end', display:'flex', justifyContent:'center'}}>
-            <Link href={href} className={styles.button} style={{color:`${colorChange}`}}>
-                {buttonName}
+        <div style={{
+                flexGrow:'1', 
+                alignItems:'flex-end', 
+                display:'flex', 
+                justifyContent:'center'
+            }}>
+            <Link 
+                href={href} 
+                className={styles.button} 
+                style={{color:`${colorChange}`}}>
+                <p>{buttonName}</p>
             </Link>
 
         </div>

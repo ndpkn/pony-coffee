@@ -1,0 +1,39 @@
+@import './variables.scss';
+
+.history {
+    padding-top: 3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+.input {
+    &_block {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-radius: 10rem;
+    }
+    &_form {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        // background-color: #fff;
+        
+        // align-items: space-evenly;
+    }
+    &_text {
+        width: 89%;
+        border: none;
+        padding: 1.5rem;
+        border-radius: 10rem 0 0 10rem;
+    }
+    &_send {
+        width: 11%;
+        border: none;
+        background-color: #fff;
+        padding: 0.5rem;
+        border-radius: 0 10rem 10rem 0;
+    }
+}

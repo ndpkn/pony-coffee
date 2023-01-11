@@ -1,6 +1,8 @@
 import React, { use, useEffect, useState } from 'react'
 import axios from "axios"
 import Layout from '../../components/Layout'
+import styles from '../../styles/CoffeePot.module.scss'
+import EditButton from '../../components/ui/EditButton'
 
 
 const CoffeePot = () => {
@@ -23,7 +25,7 @@ const CoffeePot = () => {
             
         }
         
-        // получения списка кофеен
+    // получения списка кофеен
     const [data, setData] = useState([])
     
     useEffect(() => {
@@ -39,9 +41,7 @@ const CoffeePot = () => {
                 console.log(data.data);
             })
     },[data.data])
-        
-        //
-        
+
     //добавление кофейни
     const addCoffeePot = async (name, address) => {
         await axios
@@ -81,36 +81,43 @@ const CoffeePot = () => {
     }
     return (
         <Layout>
-            <div>CoffeePot
-                <form onSubmit={handleSubmit} method='POST'>
-                <div>
-                    <input 
-                        name='name' 
-                        type="text" 
-                        placeholder='Название кофейни' 
-                        onChange={handleChange}
-                        />
-                    <input 
-                        name='address' 
-                        type="text" 
-                        placeholder='Адрес' 
-                        onChange={handleChange}
-                        />
-                    <button type='submit'>Добавить</button>
-                </div>
-            </form>
-            </div>
-
-            <ul>
+            <div 
+                className={styles.coffeePot}
+            >
+                <h1>кофейни</h1>
+                {/* <form onSubmit={handleSubmit} method='POST'>
+                    <div>
+                        <input 
+                            name='name' 
+                            type="text" 
+                            placeholder='Название кофейни' 
+                            onChange={handleChange}
+                            />
+                        <input 
+                            name='address' 
+                            type="text" 
+                            placeholder='Адрес' 
+                            onChange={handleChange}
+                            />
+                        <button type='submit'>Добавить</button>
+                    </div>
+                </form> */}
                 {data.map((item, i) => {
                     return (
                         <div key={i}>
-                        <li>{item.name}: {item.address} </li>
-                        <button onClick={() => deleteCoffeePot(item.id)}>Удалить</button>
+                            <EditButton
+                                actionName={item.address}
+                                // currentValue= 
+                                link={`coffeePot/${item.id}`}/>
                         </div>
+                        // <div key={i}>
+                        // <li>{item.name}: {item.address} </li>
+                        // {/* <button onClick={() => deleteCoffeePot(item.id)}>Удалить</button> */}
+                        // </div>
                         )
                 })}
-            </ul>
+            </div>
+
         </Layout>
     )
 }

@@ -26,7 +26,7 @@ const MainButtonType = ({buttonName, action, type, onClick}) => {
                 }}
             onClick={onClick}>
             <button type={type} className={styles.button} style={{color:`${colorChange}`, border: 'none'}}>
-                {buttonName}
+                <p>{buttonName}</p>
             </button>
         </div>
     )

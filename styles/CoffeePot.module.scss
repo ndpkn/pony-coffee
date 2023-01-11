@@ -1,0 +1,9 @@
+.coffeePot {
+    padding: 3rem 3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    &>h1 {
+        margin-bottom: 1rem;
+    }
+}

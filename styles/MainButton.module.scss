@@ -6,7 +6,12 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    font-size: 2rem;
     width: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+    >p {
+        font-size: 2rem;
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
 }

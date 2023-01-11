@@ -65,18 +65,9 @@ const RegisterForm = () => {
                         sx={{ '& .MuiSvgIcon-root': { fontSize: '3rem' },
                             '& .MuiTypography-root': {fontSize: '1.5rem', lineHeight: '1.3rem'}  }}  
                     />
-                    {/* <Checkbox name='agreement' defaultChecked onChange={handleChange}/> */}
-                    {/* <input 
-                        name='agreement' 
-                        type="checkbox" 
-                        onChange={handleChange}
-                        /> */}
-                    {/* <label htmlFor="agreement">Согласие</label> */}
                     <MainButtonType buttonName='Зарегистрироваться' action='confirm' type='submit'/>
-
                 </div>
             </form>
-
         </div>
     )
 }
