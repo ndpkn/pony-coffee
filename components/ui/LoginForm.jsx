@@ -4,7 +4,7 @@ import Input from './Input'
 import styles from '../../styles/LoginForm.module.scss'
 import MainButtonType from './MainButtonType'
 import axios from 'axios'
-import { set } from 'react-hook-form'
+import PhoneInput from './PhoneInput'
 
 const LoginForm = () => {
     const [user, setUser] = useState({
@@ -44,11 +44,12 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit} method='POST'>
                 <AuthError error={error}/>
                 <div>
-                    <Input 
-                        name='phone' 
-                        type="tel" 
-                        placeholder='Номер телефона' 
+                    <PhoneInput 
+                        name='phone'
+                        type='tel' 
+                        placeholder='Телефон' 
                         onChange={handleChange}
+                        pattern="\+?[0-9\s\-\(\)]+"
                         />
                     <Input 
                         name='password' 

@@ -1,9 +1,10 @@
 import React from 'react'
+import PageHeader from '../ui/PageHeader'
 
 const NotificationsView = () => {
     return (
         <div>
-            <h1>Уведомления</h1>
+            <PageHeader text='Уведомления'/>
         </div>
     )
 }

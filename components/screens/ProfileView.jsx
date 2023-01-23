@@ -5,6 +5,7 @@ import profileIcon from '../../images/profileIcon.svg'
 import EditButton from '../ui/EditButton'
 import MainButtonLink from '../ui/MainButtonLink'
 import axios from 'axios'
+import PageHeader from '../ui/PageHeader'
 
 
 const ProfileView = () => {
@@ -42,7 +43,7 @@ const ProfileView = () => {
     return (
         <div className={styles.profile}>
             <div className={styles.profile_header}>
-                <h1>Личный кабинет</h1>  
+                <PageHeader text='Личный кабинет'/>
                 <Image src={profileIcon} alt='profile icon'/>
                 <p className={styles.profile_header_id}>{`Ваш ID: ${profileData.id}`}</p>
                 <p className={styles.profile_header_bonus}>{`Количество бонусов: ${bonuses.count}`}</p>

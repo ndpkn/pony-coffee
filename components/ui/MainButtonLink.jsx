@@ -19,8 +19,7 @@ const MainButtonLink = ({buttonName, action, href}) => {
     }
     return (
         <div style={{
-                flexGrow:'1', 
-                alignItems:'flex-end', 
+                
                 display:'flex', 
                 justifyContent:'center'
             }}>

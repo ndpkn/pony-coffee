@@ -9,9 +9,12 @@ export const registerUser = async (phone, password, password_confirmation, name,
             // localStorage.setItem('token', res.data.token.accessToken)// засунуть в редакс
         })
         .catch((err) => {
-            err.response.data.errors.map((item) => {
+            err.response.data.errors.name.map((item) => {
                 return console.log(item);
             });
-            
+            err.response.data.errors.password.map((item) => {
+                return console.log(item);
+            });
+            console.log(err.response.data.errors);
         })
 }

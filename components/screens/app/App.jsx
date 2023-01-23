@@ -1,10 +1,11 @@
 import Layout from '../../Layout'
+import PageHeader from '../../ui/PageHeader'
 
 const App = () => {
     return (
         <Layout title="Главная страница">
             <div className="home">
-                <h1>Главная</h1>
+                <PageHeader text='Главная'/>
             </div>
         </Layout>
     )

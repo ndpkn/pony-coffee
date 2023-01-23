@@ -10,22 +10,7 @@ import Link from "next/link"
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false) //добавить состояние в редакс и закрывать меню по клику на пустое место
-    const [header, setHeader] = useState([])
 
-    
-    useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/header', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then(({data}) => {
-                setHeader(data.data)
-                // console.log(header.header);
-            })
-    }, [])
     
     return (
         <header className={styles.header}>
@@ -39,7 +24,7 @@ const Header = () => {
                         {isOpen ? <Image src= {closeBurger} alt='burger menu close'/> : <Image src= {burger} alt='burger menu'/>}
                 </button>
             </div>
-            {isOpen ? <HeaderMenu headerItems={header.header}/> : null}
+            {isOpen ? <HeaderMenu/> : null}
         </header>
     )
 }

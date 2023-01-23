@@ -1,0 +1,67 @@
+@import './variables.scss';
+
+.bonuses {
+    padding: 3rem;
+    &_table {
+        background-color: #fff;
+        width: 100%;
+        padding: 0;
+        font-size: 1.3rem;
+        text-align: center;
+        border-radius: 1rem;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+        &> thead {
+            
+            &> tr {
+                color: rgba(0, 0, 0, 0.6);
+                font-weight: 600;
+                &> th {
+                    padding: 1rem;
+                    border-bottom: 1px solid $warningColor;
+                }
+            }
+        }
+        &>tbody {
+            &>tr {
+                &>td {
+                    color: rgba(0, 0, 0, 0.6);
+                    padding: 1rem;
+                }
+            }
+        }
+        &_wrap{
+            overflow-x: auto;
+            margin-top: 1rem;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+            margin-bottom: 2rem;
+        }
+        &_button{
+            &_left {
+                background-color: $accentColor;
+                border: none;
+                color: #fff;
+                font-size: 2rem;
+                line-height: 1rem;
+                padding: 0.5rem 1rem;
+                min-width: 3rem;
+                border-radius: 1rem 0 0 1rem ;
+            }
+            &_count {
+                padding: 0.2rem 1rem 0.2rem 1rem;
+                margin: 0 0.2rem 0 0.2rem;
+                background-color: $accentColor;
+                color: #fff;
+            }
+            &_right {
+                background-color: $accentColor;
+                border: none;
+                color: #fff;
+                font-size: 2rem;
+                line-height: 1rem;
+                padding: 0.5rem 1rem;
+                min-width: 3rem;
+                border-radius: 0 1rem 1rem 0 ;
+            }
+        }
+    }
+}

@@ -56,7 +56,7 @@ const FeedbackView = () => {
         <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
             <select className={styles.select} {...register("coffeePot", { required: 'Выберите место' })}>
                 {options.map((item, i) => {
-                    return <option key={i} value={`${item.id}`}>{`${item.address}`}</option>
+                    return <option key={i} value={item.id}>{item.address}</option>
                 })}
                 
             </select>

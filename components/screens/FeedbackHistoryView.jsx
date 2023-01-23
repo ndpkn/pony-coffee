@@ -4,6 +4,7 @@ import styles from '../../styles/FeedbackHistory.module.scss'
 import send from '../../images/send.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import PageHeader from '../ui/PageHeader'
 
 const FeedbackHistoryView = () => {
     const [feedbacks, setFeedbacks] = useState([])
@@ -31,7 +32,7 @@ const FeedbackHistoryView = () => {
                 style={{
                     padding:'0 3rem 0 3rem'
             }}>
-                <h1>история ваших обращений</h1>
+                <PageHeader text='история ваших обращений'/>
                 <p
                     style={{
                         fontSize:'1.3rem',

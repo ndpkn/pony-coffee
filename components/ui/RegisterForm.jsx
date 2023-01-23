@@ -4,6 +4,7 @@ import styles from '../../styles/LoginForm.module.scss'
 import Input from './Input'
 import MainButtonType from './MainButtonType'
 import { Checkbox, FormControlLabel } from '@mui/material'
+import PhoneInput from './PhoneInput'
 
 
 
@@ -33,11 +34,12 @@ const RegisterForm = () => {
             <h1 style={{ marginBottom: '2rem'}}>Регистрация</h1>
             <form onSubmit={handleSubmit} method='POST'>
                 <div>
-                    <Input
-                        name='phone' 
-                        type="tel" 
-                        placeholder='Номер телефона' 
+                    <PhoneInput 
+                        name='phone'
+                        type='tel' 
+                        placeholder='Телефон' 
                         onChange={handleChange}
+                        pattern="\+?[0-9\s\-\(\)]+"
                         />
                     <Input 
                         name='user_name' 
@@ -51,19 +53,19 @@ const RegisterForm = () => {
                         placeholder='Пароль' 
                         onChange={handleChange}
                         />
-                    <Input 
+                    <Input
                         name='password_confirmation' 
                         type="password" 
-                        placeholder='Пароль' 
+                        placeholder='Подтверждение пароля' 
                         onChange={handleChange}
                         />
-                    <FormControlLabel 
+                    <FormControlLabel
                         name='agreement'
                         onChange={handleChange}
                         control={<Checkbox />} 
                         label="Согласие на использование персональных данных" 
                         sx={{ '& .MuiSvgIcon-root': { fontSize: '3rem' },
-                            '& .MuiTypography-root': {fontSize: '1.5rem', lineHeight: '1.3rem'}  }}  
+                            '& .MuiTypography-root': {fontSize: '1.5rem', lineHeight: '1.3rem', color:'#0000006c'}  }}  
                     />
                     <MainButtonType buttonName='Зарегистрироваться' action='confirm' type='submit'/>
                 </div>

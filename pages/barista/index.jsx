@@ -6,27 +6,26 @@ import EditButton from '../../components/ui/EditButton'
 import MainButtonLink from '../../components/ui/MainButtonLink'
 
 
-const CoffeePot = () => {
+const Barista = () => {
     // получения списка кофеен
-    const [data, setData] = useState([])
+    const [barista, setBarista] = useState([])
     
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/admin/coffeePot', {
+            .get('http://localhost:8000/api/barista', {
                 headers: {
                     accept: 'application/json',
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
             .then(({data}) => {
-                setData(data.data.coffeePots)
-                // console.log(data.data);
+                setBarista(data.data.users)
             })
             .catch(err => {
                 console.log(err)
                 err.response.status == '403' ? window.location.href='/404' : '';
             })
-        },[data.data])
+        },[])
         
     return (
         <Layout>
@@ -35,22 +34,23 @@ const CoffeePot = () => {
             >
                 <h1 style={{
                     marginBottom:'3rem'
-                }}>кофейни</h1>
-                {data.map((item, i) => {
+                }}>Сотрудники</h1>
+                {barista.map((item, i) => {
+                    const address = item.user_coffee_pot
                     return (
                         <div key={i}>
                             <EditButton
-                                actionName={item.address}
-                                currentValue={item.name == null ? "Нет названия" : item.name}
-                                link={`coffeePot/${item.id}`}/>
+                                currentValue={`${address == null ? 'Нет места работы' : address.coffee_pot.address}`}
+                                actionName={`${item.name == null ? "Нет названия" : item.name} ${item.last_name}`}
+                                link={`barista/${item.id}`}/>
                         </div>
                         )
-                    })}
-                    <MainButtonLink buttonName='Добавить кофейню' action='confirm' href='coffeePot/add'/>
+                })}
+                <MainButtonLink buttonName='Добавить сотрудника' action='confirm' href='barista/add'/>
             </div>
 
         </Layout>
     )
 }
 
-export default CoffeePot
+export default Barista

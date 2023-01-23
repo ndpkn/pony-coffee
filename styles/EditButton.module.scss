@@ -16,4 +16,18 @@
     &_value {
         color: $secondaryTextColor;
     }
+    &_input {
+        border: none;
+        font-size: 1.6rem;
+        color: $secondaryTextColor;
+        width: 100%;
+        &::placeholder {
+            color: $secondaryTextColor;
+        }
+        &:focus {
+            border: none;
+            color: $textColor;
+            outline: none;
+        }
+    }
 }
