@@ -10,7 +10,9 @@ const Message = ({position, text, grade, coffeePot, time}) => {
                     style={{
                             fontSize:'1.3rem', 
                             color: 'rgba(0, 0, 0, 0.5)',
-                            marginRight: '1rem'
+                            marginRight: '1rem',
+                            marginBottom: '1rem'
+                            
                         }}>
                     {text}
                 </p>
@@ -41,7 +43,8 @@ const  AddressBlock = ({coffeePot}) => {
     return(
         <p style={{
             fontSize:'1.1rem', 
-            color: '#0082FF'
+            color: '#0082FF',
+            marginRight: '1rem'
             }}>
             Адрес кофейни: 
                     <span style={{

@@ -19,6 +19,7 @@ const FeedbackHistoryView = () => {
             })
             .then(({data}) => {
                 setFeedbacks(data.data.feedbacks)
+                // console.log(data.data.feedbacks);
             })
     }, [])
     const onSubmit = (e) => {
@@ -55,9 +56,9 @@ const FeedbackHistoryView = () => {
                                 position='left' 
                                 text={item.messages[0].text} 
                                 grade={item.grade} 
-                                coffeePot={item.coffee_pot_name}
+                                coffeePot={item.coffee_pot.address}
                                 time={(item.messages[0].created_at).slice(11,16)}
-                                key={item.messages[0].feedback_id}/>
+                                key={item.id}/>
                         )
                     })}
                     {/* <Message 

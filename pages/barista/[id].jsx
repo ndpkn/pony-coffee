@@ -59,7 +59,7 @@ const BaristaPage = () => {
                     name: name,
                     last_name: last_name,
                     phone: phone,
-                    coffeePot_id: coffeePot
+                    coffee_pot_id: coffeePot
                 }
             })
             .then(res => {
@@ -68,8 +68,7 @@ const BaristaPage = () => {
             })
             .catch((err) => {
                 console.log(err);
-                setErrors(err.response.data.errors)
-
+                setErrors(err.response.data.errors.messages)
             })
 
         console.log(name, last_name, phone, coffeePot);
@@ -89,7 +88,7 @@ const BaristaPage = () => {
         // console.log(barista.coffeePot, coffeePots);
     }
 
-    //удаление кофейни
+    //удаление баристы
     const deleteBarista = (id) => {
         axios
         .delete(`http://localhost:8000/api/barista/${id}`, {
@@ -116,7 +115,7 @@ const BaristaPage = () => {
                     onSubmit={handleSubmit}>
                     <InputEditButton 
                         inputName='name'
-                        actionName='Введите другое имя'
+                        actionName='Введите имя'
                         currentValue={barista.name == null ? 'Нет названия' : barista.name}
                         onChange={handleChange}
                         />
@@ -127,7 +126,7 @@ const BaristaPage = () => {
                         onChange={handleChange}/>
                     <InputEditButton 
                         inputName='phone'
-                        actionName='Введите другой номер'
+                        actionName='Введите номер'
                         currentValue={barista.phone == null ? 'Номер не указан' : barista.phone}
                         onChange={handleChange}/>
                     <select 
@@ -143,7 +142,7 @@ const BaristaPage = () => {
                     </select>
                     {errors == null ? ''
                     : errors.map((item, i) => {
-                        return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item.message}</p>
+                        return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item}</p>
                     })}
                     <MainButtonType buttonName='сохранить' action='access' type='submit'/>
                     <MainButtonType buttonName='Удалить' action='danger' type='submit' onClick={() => deleteBarista(id)}/>

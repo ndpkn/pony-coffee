@@ -10,6 +10,7 @@ import MainButtonLink from "../../components/ui/MainButtonLink";
 const FeedbackView = () => {
 
     const [coffeePots, setCoffeePots] = useState([])    
+    const [error, setError] = useState([])
     const options = [...coffeePots]
     const { register, handleSubmit, control, reset } = useForm();
 
@@ -22,7 +23,7 @@ const FeedbackView = () => {
                 }
             })
             .then(({data}) => {
-                setCoffeePots(data.data.coffeePots)
+                setCoffeePots(data.data.coffeePots, data.data.coffeePots.unshift({id: 0, address:'Выберите место для отзыва'}))
             })
     }, [])
 
@@ -40,12 +41,15 @@ const FeedbackView = () => {
             })
             .then(res => {
                 console.log(res.data)
-                window.location.href= '/profile/history'
+                window.location.href= '/feedback/history'
             })
-            .catch(error => {console.log(error.data)});
+            .catch(error => {
+                setError(error.response.data.errors.messages)
+                // console.log(error.response.data.errors.messages);
+            })
+            
 
         reset({
-            coffeePot: '',
             text: '',
             grade: ''
         })
@@ -54,7 +58,7 @@ const FeedbackView = () => {
         <div className={styles.feedback}>
         <h1 className={styles.header}>Мы всегда на связи <Image src={pony} alt='pony'/></h1>
         <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
-            <select className={styles.select} {...register("coffeePot", { required: 'Выберите место' })}>
+            <select className={styles.select} {...register("coffee_pot_id")}>
                 {options.map((item, i) => {
                     return <option key={i} value={item.id}>{item.address}</option>
                 })}
@@ -85,11 +89,29 @@ const FeedbackView = () => {
                         )}
                 />
             </div>
+            <Error error={error}/>
             <MainButtonType buttonName='Отправить' action='confirm' type='submit'/>
             <MainButtonLink buttonName='все обращения' action='confirm' href='/feedback/history'/>
         </form>
     </div>
+    )
+}
 
+
+const Error = ({error}) => {
+    console.log(error)
+    return (
+        <div>
+            {error.map((item, i) => {
+                return (<p key={i}
+                            style={{
+                                color:'red',
+                                marginBottom:'1rem'
+                            }}>
+                                {item}
+                        </p>)
+            })}
+        </div>
     )
 }
 

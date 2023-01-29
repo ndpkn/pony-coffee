@@ -15,7 +15,7 @@ const Add = () => {
         phone:'',
         password:'',
         password_confirmation:'',
-        coffeePot_id:''
+        coffee_pot_id:''
     })
 
 
@@ -52,9 +52,9 @@ const Add = () => {
             })
     }, [])
 
-    const addNewBarista = async (name, last_name, phone, password, password_confirmation, coffeePot_id) => {
+    const addNewBarista = async (name, last_name, phone, password, password_confirmation, coffee_pot_id) => {
         await axios
-        .post('http://localhost:8000/api/barista', {name, last_name, phone, password, password_confirmation, coffeePot_id}, {
+        .post('http://localhost:8000/api/barista', {name, last_name, phone, password, password_confirmation, coffee_pot_id}, {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -65,8 +65,11 @@ const Add = () => {
             window.location.href = '/barista'
         })
         .catch((err) => {
-            console.log(err.response);
-            setErrors(err.response.data.errors)
+            // console.log(err.response.data.errors.messages);
+            setErrors(err.response.data.errors.messages)
+            errors.map(item => {
+                console.log(item);
+            });
         })
     }
     const handleChange = (e) => {
@@ -75,10 +78,10 @@ const Add = () => {
             [e.target.name]: e.target.value})
     }
     const onSubmit = (e) => {
-        const {name, last_name, phone, password, password_confirmation, coffeePot_id} = newBarista
+        const {name, last_name, phone, password, password_confirmation, coffee_pot_id} = newBarista
         e.preventDefault()
         console.log(newBarista);
-        addNewBarista(name, last_name, phone, password, password_confirmation, coffeePot_id)
+        addNewBarista(name, last_name, phone, password, password_confirmation, coffee_pot_id)
     }
     return (
         <Layout title='Добавление сотрудника' descr='Добавление сотрудника'>
@@ -109,7 +112,7 @@ const Add = () => {
                         />
                     <select 
                         className={styles.select} 
-                        name='coffeePot_id' 
+                        name='coffee_pot_id' 
                         onChange={handleChange}
                         >
                             {coffeePots.map((item, i) => {
@@ -132,7 +135,7 @@ const Add = () => {
                         />
                     {errors == null ? ''
                     : errors.map((item, i) => {
-                        return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item.message}</p>
+                        return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item}</p>
                     })}
                     <MainButtonType buttonName='добавить' action='confirm' type='submit'/>
                 </form>

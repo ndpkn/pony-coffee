@@ -4,7 +4,6 @@ import Input from './Input'
 import styles from '../../styles/LoginForm.module.scss'
 import MainButtonType from './MainButtonType'
 import axios from 'axios'
-import PhoneInput from './PhoneInput'
 
 const LoginForm = () => {
     const [user, setUser] = useState({
@@ -12,6 +11,7 @@ const LoginForm = () => {
         password:''
     })
     const [error, setError] = useState([])
+    const [isShow, setIsShow] = useState(false)
 
     const loginUser = async (phone, password) => {
         await axios
@@ -21,9 +21,9 @@ const LoginForm = () => {
                 window.location.href = '/'
             })
             .catch((err) => {
-                const errors = err.response.data.errors;
+                const errors = err.response.data.errors.messages;
                 setError(errors)
-                // console.log(errors);
+                console.log(err.response.data);
             })
     }
 
@@ -37,26 +37,39 @@ const LoginForm = () => {
         event.preventDefault();
         loginUser(phone, password)
     }
+    const isShowPass = (e) => {
+        e.preventDefault()
+        setIsShow(!isShow)
+    }
 
     return (
         <div className={styles.formPage}>
             <h1 style={{ marginBottom: '2rem'}}>Вход</h1>
             <form onSubmit={handleSubmit} method='POST'>
-                <AuthError error={error}/>
                 <div>
-                    <PhoneInput 
+                    {/* <PhoneInput 
                         name='phone'
                         type='tel' 
                         placeholder='Телефон' 
                         onChange={handleChange}
                         pattern="\+?[0-9\s\-\(\)]+"
-                        />
+                    /> */}
+                    <Input 
+                        name='phone' 
+                        type="tel" 
+                        placeholder='Телефон' 
+                        onChange={handleChange}
+                        pattern="\+?[0-9\s\-\(\)]+"
+                    />
                     <Input 
                         name='password' 
-                        type="password" 
-                        placeholder='Пароль' 
+                        type={isShow == false ? 'password' : 'text'} 
+                        placeholder='Пароль'
                         onChange={handleChange}
+                        isShowPass={isShowPass}
+                        isShow={isShow}
                     />
+                    <AuthError error={error}/>
                     <MainButtonType buttonName='Войти' action='confirm' type='submit'/>
                 </div>
             </form>
@@ -73,7 +86,7 @@ const AuthError = ({error}) => {
                         color:'red',
                         marginBottom:'1rem'
                     }}>
-                        {item.message}
+                        {item}
                     </p>)
             })}
         </div>

@@ -11,6 +11,10 @@
     min-height: 5.5rem;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
     transition: all 0.3s;
+    // position: relative;
+    &_block {
+        position: relative;
+    }
 
     &::placeholder {
         font-size: 1.6rem;
@@ -20,6 +24,18 @@
         outline-color: $accentColor;
         transition: all 0.3s;
         scale: 1.04;
+    }
+
+    &_span {
+        position: absolute;
+        top: 15%;
+        right: 10%;
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        background-color: transparent;
+        border: none;
+        outline: none;
     }
 
 }

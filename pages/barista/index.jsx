@@ -36,12 +36,12 @@ const Barista = () => {
                     marginBottom:'3rem'
                 }}>Сотрудники</h1>
                 {barista.map((item, i) => {
-                    const address = item.user_coffee_pot
+                    const address = item.user_coffee_pot.coffee_pot
                     return (
                         <div key={i}>
                             <EditButton
-                                currentValue={`${address == null ? 'Нет места работы' : address.coffee_pot.address}`}
-                                actionName={`${item.name == null ? "Нет названия" : item.name} ${item.last_name}`}
+                                currentValue={`${address == null ? 'Нет места работы' : address.address}`}
+                                actionName={`${item.name == null ? "Нет имени" : item.name} ${item.last_name == null ? "" : item.last_name} `}
                                 link={`barista/${item.id}`}/>
                         </div>
                         )

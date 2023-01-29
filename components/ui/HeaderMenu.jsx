@@ -18,7 +18,6 @@ const HeaderMenu = () => {
             })
             .then(({data}) => {
                 setHeader(data.data.header)
-                // console.log(data.data.header);
             })
             .catch(err => console.log(err))
     }, [])

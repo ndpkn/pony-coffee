@@ -11,7 +11,8 @@ const sortItems = [
     {label:'Использованные бонусы', key:'byUsed'},
     {label:'Сгоревшие бонусы', key:'byBurnt'},
     {label:'Бонусы за неделю', key:'byWeek'},
-    {label:'Бонус за месяц', key:'byPhone'},
+    {label:'Бонус за месяц', key:'byMonth'},
+    {label:'По телефону', key:'byPhone'},
 ]
 
 const UserStatView = () => {
@@ -25,6 +26,19 @@ const UserStatView = () => {
     }
     function SortByPhone(x,y){
         return x.phone.localeCompare(y.phone)
+    }
+    function SortByBonuses(x,y){
+        return y.active_bonuses_count - x.active_bonuses_count
+        // return x.active_bonuses_count.localeCompare(y.active_bonuses_count)
+    }
+    function SortByBurnt(x,y){
+        return y.burnt_bonuses_count - x.burnt_bonuses_count
+    }
+    function SortByUsing(x,y){
+        return y.using_bonuses_count - x.using_bonuses_count
+    }
+    function SortByCreate(x,y){
+        return x.created_at.localeCompare(y.created_at)
     }
 
 
@@ -40,6 +54,7 @@ const UserStatView = () => {
             .then((res) => {
                 setData(res.data.data.user)
                 setUserInfo(res.data.data.user)
+                console.log(res.data.data.user);
             })
     }, [])
     //изменение массива при клике
@@ -49,21 +64,30 @@ const UserStatView = () => {
             case 'byName':
                 newArr = [...userInfo.sort(SortByName)]
                 setUserInfo(newArr)
-                console.log(newArr, activeKey);
+                console.log(newArr);
                 break;
             case 'byPhone':
                 newArr = [...userInfo.sort(SortByPhone)]
                 setUserInfo(newArr)
-                console.log(newArr, activeKey);
+                break;
+            case 'byQnt':
+                newArr = [...userInfo.sort(SortByBonuses)]
+                setUserInfo(newArr)
+                break;
+            case 'byUsed':
+                newArr = [...userInfo.sort(SortByUsing)]
+                setUserInfo(newArr)
+                break;
+            case 'byBurnt':
+                newArr = [...userInfo.sort(SortByBurnt)]
+                setUserInfo(newArr)
                 break;
             case 'all':
-                // console.log(data);
-                newArr = [...data]
+                newArr = [...userInfo.sort(SortByPhone)]
                 setUserInfo(newArr)
-                console.log(data, activeKey);
                 break;
             default: 
-            setUserInfo(userInfo)
+                setUserInfo(data)
         }
     }, [activeKey])
 
@@ -102,12 +126,13 @@ const UserStatView = () => {
                 <table className={styles.userStat_table}>
                     <thead>
                         <tr>
+                            <th>№</th>
                             <th>Имя</th>
                             <th>Телефон</th>
                             <th>Кол-во бонусов</th>
                             <th>email</th>
-                            <th>Кол-во бонусов</th>
                             <th>Потрачено бонусов</th>
+                            <th>Сгорело бонусов</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,18 +144,19 @@ const UserStatView = () => {
                         :
                         filteredUserInfo.map((item,i) => {
                             return <tr key={i}>
-                                        <td>{item.name}</td>
-                                        <td>{item.phone}</td>
-                                        {/* <td>{item.bonuses.bonus}</td> */}
-                                        <td>Контент 1</td>
-                                        <td>Контент 2</td>
+                                        <td style={{padding:'0.5rem'}}>{i + 1}</td>
+                                        <td>{item.name == null ? 'Не указано' : item.name}</td>
+                                        <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
+                                        <td>{item.active_bonuses_count}</td>
+                                        <td>{item.email  == '' ? 'Не указан' : item.email}</td>
+                                        <td>{item.using_bonuses_count}</td>
+                                        <td>{item.burnt_bonuses_count}</td>
                                     </tr>
                         })}
                     </tbody>
                 </table>
             </div>
         </div>
-
     )
 }
 
