@@ -3,29 +3,45 @@ import styles from '../../styles/BonusesView.module.scss'
 import Input from '../ui/Input'
 import { useEffect, useState } from 'react'
 import MainButtonType from '../ui/MainButtonType'
-import axios from 'axios'
+import PonyService from '../../services/PonyServices'
+import ErrorMessage from '../ui/ErrorMessage'
+import LoadingMessage from '../ui/LoadingMessage'
 
 const BonusesView = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [allUsers, setAllusers] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
+    const ponyService = new PonyService()
+
+    // получение данных
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/users', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                setAllusers(res.data.data.users)
-                console.log(res.data.data.users);
-            })
-    }, [])
+        ponyService.getBonuses()
+                        .then(onBonusesLoaded)
+                        .catch(onError)
+        },[])
 
+    //данные загружены успешно
+    const onBonusesLoaded = (bonusesList) => {
+        setAllusers(bonusesList)
+        setLoading(false)
+    }
+
+    //при загрузке произошла ошибка
+    const onError = (err) => {
+        setError(true)
+        setLoading(false)
+        console.log(err);
+    }
     const filteredUsers = allUsers.filter(item => {
         return item.phone.includes(searchTerm)
     })
+
+    const errorMessage = error ? <ErrorMessage/> : null
+    const spinner = loading ? <LoadingMessage/> : null
+    const content = !(loading || error) ? <Table filteredUsers={filteredUsers}/> : null
+
     return (
         <div className={styles.bonuses}>
             <PageHeader text='Бонусы'/>
@@ -37,13 +53,11 @@ const BonusesView = () => {
                 pattern="\+?[0-9\s\-\(\)]+"
                 value={searchTerm}
             />
-            {searchTerm == '' 
-            ? null
-            : <Table filteredUsers={filteredUsers}/>
-            }
+                {errorMessage}
+                {spinner}
+                {searchTerm != '' ? content : null}
             <MainButtonType buttonName='Подтвердить' action='confirm' onClick={null}/>
         </div>
-
     )
 }
 
@@ -62,7 +76,7 @@ const Table = ({filteredUsers}) => {
             <tbody>
                 {filteredUsers.length == 0 
                 ?   <tr>
-                        <td colspan={6}>
+                        <td colSpan={6}>
                             Нет пользователя с таким номером
                         </td>
                     </tr>

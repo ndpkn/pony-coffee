@@ -7,25 +7,44 @@ import { useEffect, useState } from "react";
 import { Rating } from "@mui/material";
 import axios from "axios";
 import MainButtonLink from "../../components/ui/MainButtonLink";
+import PonyService from "../../services/PonyServices";
+
 const FeedbackView = () => {
 
     const [coffeePots, setCoffeePots] = useState([])    
-    const [error, setError] = useState([])
+    const [errors, setErrors] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
     const options = [...coffeePots]
     const { register, handleSubmit, control, reset } = useForm();
 
+    const ponyService = new PonyService()
+
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/coffeePot/address', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then(({data}) => {
-                setCoffeePots(data.data.coffeePots, data.data.coffeePots.unshift({id: 0, address:'Выберите место для отзыва'}))
-            })
-    }, [])
+        ponyService.getCoffeePot()
+                        .then(onCoffeePotsLoaded)
+                        .catch(onError)
+        },[])
+    
+    //данные загружены успешно
+    const onCoffeePotsLoaded = (coffeePotList) => {
+        setCoffeePots(coffeePotList, coffeePotList.unshift({id: 0, address:'Выберите место для отзыва'}))
+        setLoading(false)
+    }
+
+    //при загрузке произошла ошибка
+    const onError = () => {
+        setError(true)
+        setLoading(false)
+    }
+    
+    const items =   options.map((item, i) => {
+                        return <option key={i} value={item.id}>{item.address}</option>
+                    })
+
+    const errorMessage = error ? <option>Ошибка загрузки данных</option> : null
+    const spinner = loading ? <option>Загрузка ...</option> : null
+    const content = !(loading || error) ? items : null
 
     const onSubmit = (data) => {
         console.log('отправлено:', data);
@@ -43,9 +62,8 @@ const FeedbackView = () => {
                 console.log(res.data)
                 window.location.href= '/feedback/history'
             })
-            .catch(error => {
-                setError(error.response.data.errors.messages)
-                // console.log(error.response.data.errors.messages);
+            .catch(errors => {
+                setErrors(errors.response.data.errorss.messages)
             })
             
 
@@ -59,10 +77,9 @@ const FeedbackView = () => {
         <h1 className={styles.header}>Мы всегда на связи <Image src={pony} alt='pony'/></h1>
         <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
             <select className={styles.select} {...register("coffee_pot_id")}>
-                {options.map((item, i) => {
-                    return <option key={i} value={item.id}>{item.address}</option>
-                })}
-                
+                {errorMessage}
+                {spinner}
+                {content}
             </select>
             <div style={{display:'flex', flexDirection: 'column'}}>
                 <textarea 
@@ -89,7 +106,7 @@ const FeedbackView = () => {
                         )}
                 />
             </div>
-            <Error error={error}/>
+            <Error errors={errors}/>
             <MainButtonType buttonName='Отправить' action='confirm' type='submit'/>
             <MainButtonLink buttonName='все обращения' action='confirm' href='/feedback/history'/>
         </form>
@@ -98,11 +115,10 @@ const FeedbackView = () => {
 }
 
 
-const Error = ({error}) => {
-    console.log(error)
+const Error = ({errors}) => {
     return (
         <div>
-            {error.map((item, i) => {
+            {errors.map((item, i) => {
                 return (<p key={i}
                             style={{
                                 color:'red',

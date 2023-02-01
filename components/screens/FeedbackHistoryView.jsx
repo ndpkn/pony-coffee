@@ -5,28 +5,59 @@ import send from '../../images/send.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import PageHeader from '../ui/PageHeader'
+import PonyService from '../../services/PonyServices'
+import ErrorMessage from '../ui/ErrorMessage'
+import LoadingMessage from '../ui/LoadingMessage'
 
 const FeedbackHistoryView = () => {
     const [feedbacks, setFeedbacks] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
+    const ponyService = new PonyService()
+
+    // получение данных
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/feedback', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then(({data}) => {
-                setFeedbacks(data.data.feedbacks)
-                // console.log(data.data.feedbacks);
-            })
-    }, [])
+        ponyService.getFeedbackHistory()
+                        .then(onFeedbackLoaded)
+                        .catch(onError)
+        },[])
+
+    //данные загружены успешно
+    const onFeedbackLoaded = (feedbackList) => {
+        setFeedbacks(feedbackList)
+        setLoading(false)
+    }
+
+    //при загрузке произошла ошибка
+    const onError = () => {
+        setError(true)
+        setLoading(false)
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
         console.log(feedbacks);
         
     }
+
+    const items = feedbacks.map(item => {
+        let grade = Number(item.grade)
+        return (
+            <Message 
+                position='left' 
+                text={item.messages[0].text} 
+                grade= {grade}
+                coffeePot={item.coffee_pot}
+                time={(item.messages[0].created_at).slice(11,16)}
+                key={item.id}/>
+        )
+    })
+
+    const errorMessage = error ? <ErrorMessage/> : null
+    const spinner = loading ? <LoadingMessage/> : null
+    const content = !(loading || error) ? items : null
+
     return (
         <div className={styles.history}>
             <div
@@ -50,17 +81,10 @@ const FeedbackHistoryView = () => {
                         marginTop:'1rem'
                         }}>
                     
-                    {feedbacks.map(item => {
-                        return (
-                            <Message 
-                                position='left' 
-                                text={item.messages[0].text} 
-                                grade={item.grade} 
-                                coffeePot={item.coffee_pot.address}
-                                time={(item.messages[0].created_at).slice(11,16)}
-                                key={item.id}/>
-                        )
-                    })}
+                    {errorMessage}
+                    {spinner}
+                    {content}
+
                     {/* <Message 
                         position='right' 
                         text='Спасибо за отзыв'

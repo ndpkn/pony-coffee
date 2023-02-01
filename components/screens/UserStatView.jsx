@@ -4,6 +4,9 @@ import styles from '../../styles/UserStatView.module.scss'
 import Input from '../ui/Input'
 import classNames from 'classnames'
 import axios from 'axios'
+import PonyService from '../../services/PonyServices'
+import ErrorMessage from '../ui/ErrorMessage'
+import LoadingMessage from '../ui/LoadingMessage'
 
 const sortItems = [
     {label:'По имени', key:'byName'},
@@ -18,8 +21,11 @@ const sortItems = [
 const UserStatView = () => {
     const [activeKey, setActiveKey] = useState('')
     const [data, setData] = useState([])
-    const [userInfo, setUserInfo] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
+
+    const [userInfo, setUserInfo] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
     function SortByName(x,y){
         return x.name.localeCompare(y.name)
@@ -41,22 +47,29 @@ const UserStatView = () => {
         return x.created_at.localeCompare(y.created_at)
     }
 
+    const ponyService = new PonyService()
 
     // получение списка пользователей
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/statistic/users', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                setData(res.data.data.user)
-                setUserInfo(res.data.data.user)
-                console.log(res.data.data.user);
-            })
+        ponyService.getUserStat()
+                        .then(onUserInfoLoaded)
+                        .catch(onError)
     }, [])
+
+    //данные загружены успешно
+    const onUserInfoLoaded = (userInfoList) => {
+        setUserInfo(userInfoList)
+        setData(userInfoList)
+        setLoading(false)
+    }
+
+    //при загрузке произошла ошибка
+    const onError = (err) => {
+        console.log(err);
+        setError(true)
+        setLoading(false)
+    }
+
     //изменение массива при клике
     useEffect(() => {
         let newArr
@@ -91,6 +104,7 @@ const UserStatView = () => {
         }
     }, [activeKey])
 
+    //фильтрация списка по номеру телефона
     const filteredUserInfo = userInfo.filter(item => {
         return item.phone.includes(searchTerm)
     })
@@ -100,6 +114,24 @@ const UserStatView = () => {
         setActiveKey(activeKey === key ? 'all' : key)
         // console.log(activeKey);
     }
+
+    const items = filteredUserInfo.map((item,i) => {
+            return <tr key={i}>
+                        <td style={{padding:'0.5rem'}}>{i + 1}</td>
+                        <td>{item.name == null ? 'Не указано' : item.name}</td>
+                        <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
+                        <td>{item.active_bonuses_count}</td>
+                        <td>{item.email  == '' ? 'Не указан' : item.email}</td>
+                        <td>{item.using_bonuses_count}</td>
+                        <td>{item.burnt_bonuses_count}</td>
+                    </tr>
+                    })
+    // {filteredUserInfo.length == 0 ? 
+    //     <td colspan={6} style={{fontSize:'1.5rem', padding:'2rem'}}>Нет пользователей с таким номером</td> :
+    // }
+    const errorMessage = error ? <tr><td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>Ошибка загрузки данных</td></tr> : null;
+    const spinner = loading ? <tr><td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>Загрузка ...</td></tr> : null;
+    const content = !(loading || error) ? items : null;
     return (
         <div className={styles.userStat}>
             <PageHeader text='Статистика пользователя'/>
@@ -136,23 +168,11 @@ const UserStatView = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredUserInfo.length == 0 
-                        ? 
-                            <tr>
-                                <td colSpan={6} style={{fontSize:'1.5rem', padding:'2rem'}}>Нет пользователей с таким номером</td>
-                            </tr> 
-                        :
-                        filteredUserInfo.map((item,i) => {
-                            return <tr key={i}>
-                                        <td style={{padding:'0.5rem'}}>{i + 1}</td>
-                                        <td>{item.name == null ? 'Не указано' : item.name}</td>
-                                        <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
-                                        <td>{item.active_bonuses_count}</td>
-                                        <td>{item.email  == '' ? 'Не указан' : item.email}</td>
-                                        <td>{item.using_bonuses_count}</td>
-                                        <td>{item.burnt_bonuses_count}</td>
-                                    </tr>
-                        })}
+
+                        {errorMessage}
+                        {spinner}
+                        {content}
+
                     </tbody>
                 </table>
             </div>

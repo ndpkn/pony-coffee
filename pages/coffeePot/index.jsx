@@ -1,5 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
-import axios from "axios"
+import { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import styles from '../../styles/CoffeePot.module.scss'
 import EditButton from '../../components/ui/EditButton'
@@ -8,24 +7,23 @@ import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../../components/ui/ErrorMessage'
 import LoadingMessage from '../../components/ui/LoadingMessage'
 
-const Barista = () => {
-    
-    const [barista, setBarista] = useState([])
+const CoffeePot = () => {
+    const [coffeePot, setCoffeePot] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     
     const ponyService = new PonyService()
-    
-    // получения списка сотрудников
+
+    // получение данных
     useEffect(() => {
-        ponyService.getBarista()
+        ponyService.getCoffeePot()
                         .then(onBaristaLoaded)
                         .catch(onError)
         },[])
-    
+
     //данные загружены успешно
-    const onBaristaLoaded = (baristaList) => {
-        setBarista(baristaList)
+    const onBaristaLoaded = (coffeePotList) => {
+        setCoffeePot(coffeePotList)
         setLoading(false)
     }
 
@@ -35,23 +33,21 @@ const Barista = () => {
         setLoading(false)
     }
 
-    const items =  barista.map((item, i) => {
-            const address = item.user_coffee_pot.coffee_pot
-            return (
-                <div key={i}>
-                    <EditButton
-                        currentValue={`${address == null ? 'Нет места работы' : address.address}`}
-                        actionName={`${item.name == null ? "Нет имени" : item.name} ${item.last_name == null ? "" : item.last_name} `}
-                        link={`barista/${item.id}`}/>
-                </div>
-                )
+    const items = coffeePot.map((item, i) => {
+        return (
+            <div key={i}>
+                <EditButton
+                    actionName={item.address}
+                    currentValue={item.name == null ? "Нет названия" : item.name}
+                    link={`coffeePot/${item.id}`}/>
+            </div>
+            )
         })
     
-
-    const errorMessage = error ? <ErrorMessage/>: null
+    const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
     const content = !(loading || error) ? items : null
-
+        
     return (
         <Layout>
             <div 
@@ -59,16 +55,17 @@ const Barista = () => {
             >
                 <h1 style={{
                     marginBottom:'3rem'
-                }}>Сотрудники</h1>
-
+                }}>кофейни</h1>
+                
                 {errorMessage}
                 {spinner}
                 {content}
 
-                <MainButtonLink buttonName='Добавить сотрудника' action='confirm' href='barista/add'/>
+                <MainButtonLink buttonName='Добавить кофейню' action='confirm' href='coffeePot/add'/>
             </div>
+
         </Layout>
     )
 }
 
-export default Barista
+export default CoffeePot
