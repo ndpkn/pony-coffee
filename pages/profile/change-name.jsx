@@ -14,14 +14,13 @@ const ChangeName = () => {
     const handleSubmit = (e) => {
         axios({
             method: 'put',
-            url: 'http://localhost:8000/api/profile',
+            url: 'http://localhost:8000/api/profile/name',
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
             },
             data: {
                     name: userName,
-                    phone: '+79997777779'
                 }
             })
             .then((res) => {

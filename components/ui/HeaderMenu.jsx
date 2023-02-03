@@ -6,6 +6,7 @@ import PonyService from '../../services/PonyServices'
 import styles from '../../styles/HeaderMenu.module.scss'
 import ErrorMessage from '../../components/ui/ErrorMessage'
 import LoadingMessage from '../../components/ui/LoadingMessage'
+import HeaderMenuSkeleton from '../../components/ui/skeletons/HeaderMenuSkeleton'
 
 
 const HeaderMenu = () => {
@@ -42,7 +43,7 @@ const HeaderMenu = () => {
                     })
     
     const errorMessage = error ? <ErrorMessage/> : null
-    const spinner = loading ? <LoadingMessage/> : null
+    const spinner = loading ? <HeaderMenuSkeleton/> : null
     const content = !(loading || error) ? items : null
 
 return (

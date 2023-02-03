@@ -5,6 +5,23 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    &_textarea {
+        width: 100%;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.37);
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+        padding: 1rem;
+        font-size: 1.6rem;
+        outline-color: $accentColor;
+        font-family: 'Montserrat', sans-serif;
+        resize: none;
+        &::placeholder {
+            color: $secondaryTextColor;
+            font-family: 'Montserrat', sans-serif;
+    
+        }
+    }
 }
 
 
@@ -45,16 +62,5 @@
     padding: .6em .8em .5em 1.4em; 
     }
 
-    .textarea {
-        width: 100%;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.37);
-        border-radius: 10px;
-        margin-bottom: 0.5rem;
-        padding: 1rem;
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 1.6rem;
-        &::placeholder {
-            color: $secondaryTextColor;
-        }
-    }
+
+

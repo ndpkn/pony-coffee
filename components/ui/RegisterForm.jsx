@@ -58,7 +58,6 @@ const RegisterForm = () => {
     const isShowPass = (e) => {
         e.preventDefault()
         setIsShow(!isShow)
-        console.log(isShow);
     }
 
     return (
@@ -106,6 +105,7 @@ const RegisterForm = () => {
                         type='password'
                         placeholder='Подтверждение пароля' 
                         onChange={handleChange}
+                        isShow={isShow}
                         />
                     <FormControlLabel
                         name='agreement'

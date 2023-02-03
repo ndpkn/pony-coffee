@@ -75,18 +75,20 @@ const FeedbackView = () => {
     return (
         <div className={styles.feedback}>
         <h1 className={styles.header}>Мы всегда на связи <Image src={pony} alt='pony'/></h1>
-        <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
+        <form method="post" onSubmit={handleSubmit(onSubmit)}>
             <select className={styles.select} {...register("coffee_pot_id")}>
                 {errorMessage}
                 {spinner}
                 {content}
             </select>
             <div style={{display:'flex', flexDirection: 'column'}}>
+                
                 <textarea 
-                    className={styles.textarea}
+                    className={styles.feedback_textarea}
+                    name="textarea" 
+                    rows={5}
+                    placeholder='Введите текст рассылки'
                     {...register("text", { required: true })}
-                    placeholder='Для нас важно ваше мнение'
-                    rows='8'
                     >
                 </textarea>
                 <label style={{marginBottom: '2rem', color:'#0000002B', fontSize:'1.4rem'}} htmlFor="text">Минимум 15 символов</label>

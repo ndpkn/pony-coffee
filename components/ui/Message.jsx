@@ -51,7 +51,7 @@ const  AddressBlock = ({coffeePot}) => {
                         color: 'rgba(0, 0, 0, 0.7)', 
                             marginLeft: '1rem',
                             fontWeight:'300'}}>
-                        {coffeePot}
+                        {coffeePot.address}
                     </span>
         </p>
     )

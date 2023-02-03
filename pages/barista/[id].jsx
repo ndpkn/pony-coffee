@@ -15,7 +15,6 @@ import LoadingMessage from '../../components/ui/LoadingMessage'
 
 const BaristaPage = () => {
     const router = useRouter()
-    const id = router.query.id
     const [coffeePots, setCoffeePots] = useState([])
     const [userCoffeePotId, setUserCoffeePotId] = useState()
     const [errors, setErrors] = useState([])
@@ -28,19 +27,20 @@ const BaristaPage = () => {
         coffeePot: ''
     })
     
+    const pid = router.query.id
     const ponyService = new PonyService()
-    
+
     // получения данных
     useEffect(() => {
-        ponyService.getBaristaPage(id)
+        ponyService.getBaristaPage(pid)
                         .then(onBaristaLoaded)
                         .catch(onError)
     },[])
     
     //данные загружены успешно
     const onBaristaLoaded = (baristaList) => {
+        console.log(baristaList);
         setBarista(baristaList.user)
-        console.log(baristaList, 'baristaList');
         setCoffeePots(baristaList.coffeePots, baristaList.coffeePots.unshift({address:'Выберите место работы', id: 0}) )
         setUserCoffeePotId(baristaList.user.user_coffee_pot.coffee_pot_id)
         setLoading(false)
@@ -57,7 +57,7 @@ const BaristaPage = () => {
     const changeBarista = async (name, last_name, phone, coffeePot) => {
         await axios({
             method: 'put',
-            url: `http://localhost:8000/api/barista/${id}`,
+            url: `http://localhost:8000/api/barista/${pid}`,
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`

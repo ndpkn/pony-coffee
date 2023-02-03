@@ -5,6 +5,8 @@ import PageHeader from '../../components/ui/PageHeader'
 import { Controller, useForm } from 'react-hook-form'
 import MainButtonType from '../../components/ui/MainButtonType'
 import axios from 'axios'
+import PonyService from '../../services/PonyServices'
+import MainButtonLink from '../../components/ui/MainButtonLink'
 
 
 const Add = () => {
@@ -13,19 +15,6 @@ const Add = () => {
         address:''
     })
 
-    useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/admin/coffeePot', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                err.response.status == '403' ? window.location.href='/404' : '';
-            })
-        },[])
     const addNewCoffeePot = async (name, address) => {
         await axios
         .post('http://localhost:8000/api/admin/coffeePot', {name, address}, {
@@ -72,7 +61,9 @@ const Add = () => {
                         placeholder='Адрес кофейни' 
                         onChange={handleChange}
                         />
-                    <MainButtonType buttonName='добавить' action='confirm' type='submit'/>
+                    <MainButtonType buttonName='добавить' action='access' type='submit'/>
+                    <MainButtonLink buttonName='Вернуться назад' action='confirm' href='/coffeePot'/>
+
                 </form>
             </div>
         </Layout>

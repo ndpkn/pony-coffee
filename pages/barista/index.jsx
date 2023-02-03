@@ -65,7 +65,7 @@ const Barista = () => {
                 {spinner}
                 {content}
 
-                <MainButtonLink buttonName='Добавить сотрудника' action='confirm' href='barista/add'/>
+                <MainButtonLink buttonName='Добавить сотрудника' action='access' href='barista/add'/>
             </div>
         </Layout>
     )

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useState } from "react"
 import styles from '../../styles/Header.module.scss'
 import Image from 'next/image'
 import burger from '../../images/burger.svg'
@@ -16,7 +15,7 @@ const Header = () => {
         <header className={styles.header}>
             <div className={styles.header_block}>
                 <Link href='/'>
-                    <Image className={styles.header_block_logo} src={logo} alt="logo" priority/>
+                    <Image priority rel="preload" as="image" className={styles.header_block_logo} src={logo} alt="logo"/>
                 </Link>
                 <button 
                     className={styles.header_block_button} 

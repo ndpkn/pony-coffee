@@ -18,7 +18,7 @@ const Input = ({type, placeholder, onChange, name, ref, minLength, pattern, valu
                 value={value}
                 minLength={minLength}
                 pattern={pattern}/>
-            {name == 'password'
+            {name == 'password' || name == 'password_confirmation'
             ?   <span 
                     className={styles.input_span}
                     onClick={isShowPass}>

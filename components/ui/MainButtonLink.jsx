@@ -14,6 +14,9 @@ const MainButtonLink = ({buttonName, action, href}) => {
         case 'confirm' : 
             colorChange = '#0082FF';
             break
+        case 'access' : 
+        colorChange = '#41A85F';
+        break
         default: 
             colorChange = '#0082FF';
     }

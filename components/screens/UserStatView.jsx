@@ -3,14 +3,12 @@ import PageHeader from '../ui/PageHeader'
 import styles from '../../styles/UserStatView.module.scss'
 import Input from '../ui/Input'
 import classNames from 'classnames'
-import axios from 'axios'
 import PonyService from '../../services/PonyServices'
-import ErrorMessage from '../ui/ErrorMessage'
-import LoadingMessage from '../ui/LoadingMessage'
 
 const sortItems = [
     {label:'По имени', key:'byName'},
     {label:'Количество бонусов', key:'byQnt'},
+    {label:'По ID', key:'byId'},
     {label:'Использованные бонусы', key:'byUsed'},
     {label:'Сгоревшие бонусы', key:'byBurnt'},
     {label:'Бонусы за неделю', key:'byWeek'},
@@ -43,9 +41,12 @@ const UserStatView = () => {
     function SortByUsing(x,y){
         return y.using_bonuses_count - x.using_bonuses_count
     }
-    function SortByCreate(x,y){
-        return x.created_at.localeCompare(y.created_at)
+    function SortById(x,y){
+        return x.id - y.id
     }
+    // function SortByCreate(x,y){
+    //     return x.created_at.localeCompare(y.created_at)
+    // }
 
     const ponyService = new PonyService()
 
@@ -95,8 +96,12 @@ const UserStatView = () => {
                 newArr = [...userInfo.sort(SortByBurnt)]
                 setUserInfo(newArr)
                 break;
+            case 'byId':
+                newArr = [...userInfo.sort(SortById)]
+                setUserInfo(newArr)
+                break;
             case 'all':
-                newArr = [...userInfo.sort(SortByPhone)]
+                newArr = [...userInfo.sort(SortById)]
                 setUserInfo(newArr)
                 break;
             default: 
@@ -117,7 +122,7 @@ const UserStatView = () => {
 
     const items = filteredUserInfo.map((item,i) => {
             return <tr key={i}>
-                        <td style={{padding:'0.5rem'}}>{i + 1}</td>
+                        <td style={{padding:'0.5rem'}}>{item.id}</td>
                         <td>{item.name == null ? 'Не указано' : item.name}</td>
                         <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
                         <td>{item.active_bonuses_count}</td>
@@ -129,8 +134,22 @@ const UserStatView = () => {
     // {filteredUserInfo.length == 0 ? 
     //     <td colspan={6} style={{fontSize:'1.5rem', padding:'2rem'}}>Нет пользователей с таким номером</td> :
     // }
-    const errorMessage = error ? <tr><td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>Ошибка загрузки данных</td></tr> : null;
-    const spinner = loading ? <tr><td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>Загрузка ...</td></tr> : null;
+    const errorMessage = 
+        error ?
+        <tr>
+            <td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>
+                Ошибка загрузки данных
+            </td>
+        </tr> : 
+        null;
+    const spinner = 
+        loading ? 
+        <tr>
+            <td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>
+                Загрузка ...
+            </td>
+        </tr> : 
+        null;
     const content = !(loading || error) ? items : null;
     return (
         <div className={styles.userStat}>
@@ -158,7 +177,7 @@ const UserStatView = () => {
                 <table className={styles.userStat_table}>
                     <thead>
                         <tr>
-                            <th>№</th>
+                            <th>ID</th>
                             <th>Имя</th>
                             <th>Телефон</th>
                             <th>Кол-во бонусов</th>

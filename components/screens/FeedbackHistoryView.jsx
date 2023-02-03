@@ -3,7 +3,6 @@ import Message from '../../components/ui/Message'
 import styles from '../../styles/FeedbackHistory.module.scss'
 import send from '../../images/send.png'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import PageHeader from '../ui/PageHeader'
 import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
@@ -27,10 +26,12 @@ const FeedbackHistoryView = () => {
     const onFeedbackLoaded = (feedbackList) => {
         setFeedbacks(feedbackList)
         setLoading(false)
+        console.log(feedbackList);
     }
 
     //при загрузке произошла ошибка
-    const onError = () => {
+    const onError = (err) => {
+        console.log(err);
         setError(true)
         setLoading(false)
     }

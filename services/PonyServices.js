@@ -12,7 +12,7 @@ class PonyService {
                         });
 
         if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.log(res));
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
         }
     
         return await res.json();
@@ -25,7 +25,6 @@ class PonyService {
     }
     getBaristaPage = async (id) => {
         const res = await this.getData(`${this._apiBase}/barista/${id}`)
-        console.log(id);
         return res.data
     }
 
@@ -33,6 +32,11 @@ class PonyService {
         const res = await this.getData(`${this._apiBase}/coffeePot`);
         return res.data.coffeePots
     }
+    getCoffeePotPage = async (id) => {
+        const res = await this.getData(`${this._apiBase}/admin/coffeePot/${id}`);
+        return res.data.coffeePot
+    }
+
     getUserStat = async () => {
         const res = await this.getData(`${this._apiBase}/statistic/users`);
         return res.data.user
@@ -56,7 +60,28 @@ class PonyService {
     
 
 //POST
+postData = async (url, data) => {
+    let res = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            accept: 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    },
+                    data);
 
+    if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
+    }
+    return await res.json();
+    
+}
+
+
+addNotification = async (data) => {
+    const res = await this.postData(`${this._apiBase}/admin/notification`, data);
+    return res.data.users
+}
 //PUT
 
 //DELETE

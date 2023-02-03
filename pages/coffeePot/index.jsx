@@ -17,12 +17,12 @@ const CoffeePot = () => {
     // получение данных
     useEffect(() => {
         ponyService.getCoffeePot()
-                        .then(onBaristaLoaded)
+                        .then(onCoffeePotLoaded)
                         .catch(onError)
         },[])
 
     //данные загружены успешно
-    const onBaristaLoaded = (coffeePotList) => {
+    const onCoffeePotLoaded = (coffeePotList) => {
         setCoffeePot(coffeePotList)
         setLoading(false)
     }
@@ -61,7 +61,7 @@ const CoffeePot = () => {
                 {spinner}
                 {content}
 
-                <MainButtonLink buttonName='Добавить кофейню' action='confirm' href='coffeePot/add'/>
+                <MainButtonLink buttonName='Добавить кофейню' action='access' href='coffeePot/add'/>
             </div>
 
         </Layout>
