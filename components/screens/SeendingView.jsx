@@ -3,24 +3,24 @@ import PageHeader from '../ui/PageHeader'
 import styles from '../../styles/Seending.module.scss'
 import MainButtonType from '../ui/MainButtonType'
 import MainButtonLink from '../ui/MainButtonLink'
-import { Checkbox, FormControl, FormControlLabel, FormGroup, Radio, RadioGroup } from '@mui/material'
+import { Checkbox, FormControlLabel } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import { useState } from 'react'
 import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
-import LoadingMessage from '../ui/LoadingMessage'
+import LoadedMessage from '../ui/LoadedMessage'
 
 const options = [
-    {
-        label: 'На почту',
-        value: 'email',
-        default: false
-    },
-    {
-        label: 'На сайт',
-        value: 'site',
-        default: false
-    },
+    // {
+    //     label: 'На почту',
+    //     value: 'email',
+    //     default: false
+    // },
+    // {
+    //     label: 'На сайт',
+    //     value: 'site',
+    //     default: false
+    // },
     {
         label: 'В Telegram',
         value: 'telegram',
@@ -29,13 +29,11 @@ const options = [
 ]
 
 const SeendingView = () => {
-    const { register, handleSubmit, control, reset } = useForm({
-        email: false,
-        telegram: true,
-        site: true
-    });
-    const [loading, setLoading] = useState(false)
+    const { register, handleSubmit, control, reset } = useForm();
+    const [loaded, setLoaded] = useState(false)
     const [error, setError] = useState(false)
+    const [textError, setTextError] = useState([])
+
 
     const ponyService = new PonyService()
     
@@ -44,18 +42,25 @@ const SeendingView = () => {
         ponyService.addNotification(data)
                         .then(onNotificationPosted)
                         .catch(onError)
-        console.log('отправлено:', data);
     }
 
-    const onNotificationPosted = (res) => {
-        console.log(res);
-        setLoading(true)
+    //успешно отправлено
+    const onNotificationPosted = () => {
+        setLoaded(true)
+        reset({
+            text: '',
+            email: false,
+            telegram: false,
+            site: false
+        })
     }
 
     //при загрузке произошла ошибка
-    const onError = () => {
+    const onError = (err) => {
+        const errorMessage = err.response.data.errors.messages
+        setTextError(errorMessage)
         setError(true)
-        setLoading(false)
+        setLoaded(false)
     }
 
     const checkboxesListRender = options.map((singleOption, i) => {
@@ -90,9 +95,9 @@ const SeendingView = () => {
         </form>
 
 
-    const errorMessage = error ? <ErrorMessage/>: null
-    const spinner = loading ? <LoadingMessage/> : null
-    const content = !(loading || error) ? items : null
+    const errorMessage = error ? <ErrorMessage textError={textError}/>: null
+    const spinner = loaded ? <LoadedMessage/> : null
+    const content = items
 
     return (
         <div className={styles.seending}>

@@ -24,11 +24,19 @@ const ProfileView = () => {
         ponyService.getProfile()
                         .then(onProfileLoaded)
                         .catch(onError)
+        ponyService.getBonusesByUser()
+                        .then(onBonusesLoaded)
+                        .catch(onError)
+        
         },[])
 
     //данные загружены успешно
     const onProfileLoaded = (profileList) => {
         setProfileData(profileList)
+        setLoading(false)
+    }
+    const onBonusesLoaded = (bonusesList) => {
+        setBonuses(bonusesList)
         setLoading(false)
     }
 
@@ -45,7 +53,7 @@ const ProfileView = () => {
             <PageHeader text='Личный кабинет'/>
             <Image src={profileIcon} alt='profile icon'/>
             <p className={styles.profile_header_id}>{`Ваш ID: ${profileData.id != null ? profileData.id : 'не найден'}`}</p>
-            <p className={styles.profile_header_bonus}>{`Количество бонусов: ${bonuses.count}`}</p>
+            <p className={styles.profile_header_bonus}>{bonuses.count != undefined ? `У вас ${bonuses.count} бонусов` : 'Бонусы не загружены'}</p>
             <p className={styles.profile_header_bonusDate}>{bonuses.dateBurn == null ? 'Пора выпить кофе, у вас нет бонусов' : `Можно списать до ${bonuses.dateBurn}`}</p>
         </div>
         <div className={styles.profile_main}>
@@ -73,21 +81,23 @@ const ProfileView = () => {
 
     const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
-    const content = !(loading || error) ? items : null
+    const content = items
 
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/user/bonuses', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                console.log(res.data.data);
-                setBonuses(res.data.data)
+        
+        
+        // axios
+        //     .get('http://localhost:8000/api/user/bonuses', {
+        //         headers: {
+        //             accept: 'application/json',
+        //             authorization: `Bearer ${localStorage.getItem('token')}`
+        //         }
+        //     })
+        //     .then((res) => {
+        //         console.log(res.data.data);
+        //         setBonuses(res.data.data)
                 
-            })
+        //     })
     }, [])
 
     return (

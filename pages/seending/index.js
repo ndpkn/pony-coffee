@@ -4,7 +4,7 @@ import SeendingView from '../../components/screens/SeendingView'
 
 const Seending = () => {
     return (
-        <Layout title='Статистика пользователя'>
+        <Layout title='Рассылка'>
             <SeendingView/>
         </Layout>
     )

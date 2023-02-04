@@ -39,7 +39,6 @@ const BaristaPage = () => {
     
     //данные загружены успешно
     const onBaristaLoaded = (baristaList) => {
-        console.log(baristaList);
         setBarista(baristaList.user)
         setCoffeePots(baristaList.coffeePots, baristaList.coffeePots.unshift({address:'Выберите место работы', id: 0}) )
         setUserCoffeePotId(baristaList.user.user_coffee_pot.coffee_pot_id)
