@@ -35,11 +35,26 @@ const SeendingHistoryView = () => {
         setLoading(false)
     }
 
-    const items = notifications.map((singleNotif, i) => {
-        return <div className={styles.singleNotification} key={i}>
-            <p>{singleNotif.text}</p>
-        </div>
-    })
+    // const items = notifications.map((singleNotif, i) => {
+    //     return <div className={styles.singleNotification} key={i}>
+    //                 <p>{singleNotif.text}</p>
+    //                 <b>Отправлено в: {singleNotif.telegram != 0 ? 'telegram' : null}
+    //                                 {singleNotif.email != 0 ? 'email' : null}
+    //                                 {singleNotif.site != 0 ? 'сайт' : null}</b>
+    //             </div>
+    // })
+    const items =   <div className={styles.singleNotification} key={i}>
+                        <div className={styles.singleNotification_info}>
+                            <div className={styles.singleNotification_date}>
+                            </div>
+                            <div className={styles.singleNotification_type}>
+
+                            </div>
+                        </div>
+                        <div className={styles.singleNotification_text}>
+
+                        </div>
+                    </div>
 
     const errorMessage = error ? <ErrorMessage/>: null
     const spinner = loading ? <LoadingMessage/> : null
