@@ -87,7 +87,7 @@ const ProfileView = () => {
         
         
         // axios
-        //     .get('http://localhost:8000/api/user/bonuses', {
+        //     .get('http://localhost:8080/api/user/bonuses', {
         //         headers: {
         //             accept: 'application/json',
         //             authorization: `Bearer ${localStorage.getItem('token')}`

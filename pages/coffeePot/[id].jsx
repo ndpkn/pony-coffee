@@ -47,7 +47,7 @@ const CoffeePotPage = () => {
     const changeCoffeePot = async (name, address) => {
         await axios({
             method: 'put',
-            url: `http://localhost:8000/api/admin/coffeePot/${pid}`,
+            url: `http://localhost:8080/api/admin/coffeePot/${pid}`,
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -82,7 +82,7 @@ const CoffeePotPage = () => {
     //удаление кофейни
     const deleteCoffeePot = (id) => {
         axios
-        .delete(`http://localhost:8000/api/admin/coffeePot/${id}`, {
+        .delete(`http://localhost:8080/api/admin/coffeePot/${id}`, {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`

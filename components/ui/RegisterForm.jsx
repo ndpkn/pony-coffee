@@ -24,7 +24,7 @@ const RegisterForm = () => {
 
     const registerUser = async (phone, password, password_confirmation, name, agreement, code) => {    
         await axios
-            .post('http://localhost:8000/api/register', {phone, password, password_confirmation, name, agreement, code} )
+            .post('http://localhost:8080/api/register', {phone, password, password_confirmation, name, agreement, code} )
             .then(res => {
                 console.log(res);
                 // window.location.href = '/login'
@@ -51,7 +51,7 @@ const RegisterForm = () => {
     const getCode = (e, phone) => {
         e.preventDefault()
         axios
-            .post('http://localhost:8000/api/call', {phone})
+            .post('http://localhost:8080/api/call', {phone})
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }

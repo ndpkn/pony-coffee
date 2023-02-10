@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class PonyService {
-    _apiBase = 'http://localhost:8000/api'
+    _apiBase = 'http://localhost:8080/api'
     
 // GET
     getData = async (url) => {

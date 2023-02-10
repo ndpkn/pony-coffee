@@ -15,15 +15,15 @@ const LoginForm = () => {
 
     const loginUser = async (phone, password) => {
         await axios
-            .post('http://localhost:8000/api/login', {phone, password} )
+            .post('http://localhost:8080/api/login', {phone, password} )
             .then(res => {
                 localStorage.setItem('token', res.data.data.accessToken)
                 window.location.href = '/'
             })
             .catch((err) => {
-                const errors = err.response.data.errors.messages;
-                setError(errors)
-                console.log(err.response.data);
+                const errors = err.response.data.message;
+                // setError(errors)
+                console.log(errors);
             })
     }
 

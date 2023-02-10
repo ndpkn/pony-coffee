@@ -14,7 +14,7 @@ const ChangeName = () => {
     const handleSubmit = (e) => {
         axios({
             method: 'put',
-            url: 'http://localhost:8000/api/profile/name',
+            url: 'http://localhost:8080/api/profile/name',
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`

@@ -56,7 +56,7 @@ const BaristaPage = () => {
     const changeBarista = async (name, last_name, phone, coffeePot) => {
         await axios({
             method: 'put',
-            url: `http://localhost:8000/api/barista/${pid}`,
+            url: `http://localhost:8080/api/barista/${pid}`,
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -97,7 +97,7 @@ const BaristaPage = () => {
     //удаление баристы
     const deleteBarista = (id) => {
         axios
-        .delete(`http://localhost:8000/api/barista/${id}`, {
+        .delete(`http://localhost:8080/api/barista/${id}`, {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -156,7 +156,7 @@ const BaristaPage = () => {
     // //получение данных сотрудника
     // useEffect(() => {
     //     axios
-    //         .get(`http://localhost:8000/api/barista/${id}`, {
+    //         .get(`http://localhost:8080/api/barista/${id}`, {
     //             headers: {
     //                 accept: 'application/json',
     //                 authorization: `Bearer ${localStorage.getItem('token')}`

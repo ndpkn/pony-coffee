@@ -51,7 +51,7 @@ const FeedbackView = () => {
 
         axios
             .post(
-                'http://localhost:8000/api/feedback',
+                'http://localhost:8080/api/feedback',
                 data,
                 { headers: {
                     accept: 'application/json',

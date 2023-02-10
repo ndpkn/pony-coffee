@@ -11,16 +11,16 @@ import ErrorMessage from '../ui/ErrorMessage'
 import LoadedMessage from '../ui/LoadedMessage'
 
 const options = [
-    // {
-    //     label: 'На почту',
-    //     value: 'email',
-    //     default: false
-    // },
-    // {
-    //     label: 'На сайт',
-    //     value: 'site',
-    //     default: false
-    // },
+    {
+        label: 'На почту',
+        value: 'email',
+        default: false
+    },
+    {
+        label: 'На сайт',
+        value: 'site',
+        default: false
+    },
     {
         label: 'В Telegram',
         value: 'telegram',

@@ -17,7 +17,7 @@ const Add = () => {
 
     const addNewCoffeePot = async (name, address) => {
         await axios
-        .post('http://localhost:8000/api/admin/coffeePot', {name, address}, {
+        .post('http://localhost:8080/api/admin/coffeePot', {name, address}, {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
