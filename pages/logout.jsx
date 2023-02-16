@@ -1,22 +1,24 @@
-import axios from "axios"
 import { useEffect } from "react"
+import PonyService from "../services/PonyServices"
 
 const Logout = () => {
-    return(
-        useEffect(() => {
-            axios
-            .post('http://localhost:8080/api/logout', {
-                headers: {
-                    accept: 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then(() => localStorage.removeItem('token'))
-            .then(() => window.location.href = '/')
-        }, [])
 
-    )
+    const ponyService = new PonyService()
 
+    useEffect(() => {
+        ponyService.logout()
+            .then(onLogout)
+            .catch(onError)
+    }, [])
+
+    const onLogout = (res) => {
+        console.log(res)
+        localStorage.removeItem('token')    
+        window.location.href = '/'
+    }
+    const onError = err => {
+        // console.error(`Ошибка: ${err}`)
+    }
 }
 
 export default Logout

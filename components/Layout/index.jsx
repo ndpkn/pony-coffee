@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import Meta from '../../app/utils/Meta'
 import Header from '../ui/Header'
 

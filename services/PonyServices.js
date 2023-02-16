@@ -1,14 +1,14 @@
 import axios from "axios";
 
 class PonyService {
-    _apiBase = 'http://localhost:8080/api'
+    _apiBase = 'http://localhost:8080/api';
     
 // GET
     getData = async (url) => {
         let res = await axios
                             .get(
                                 url,
-                                { 
+                                {   
                                     headers: 
                                         {
                                         accept: 'application/json',
@@ -16,7 +16,7 @@ class PonyService {
                                         }
                                 })
 
-                if (res.status !== 200) {
+                if (res.status < 200 || res.status >= 300) {
                     throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
                 }
                 return res;
@@ -86,6 +86,22 @@ class PonyService {
         const res = await this.getData(`${this._apiBase}/admin/notification`);
         return res.data.data.notifications
     }
+    getFeedbacksAdmin = async () => {
+        const res = await this.getData(`${this._apiBase}/admin/shorts/feedbacks`);
+        return res.data.data.users
+    }
+    getAdminFeedbackById = async (id) => {
+        const res = await this.getData(`${this._apiBase}/admin/feedbacks/user/${id}`);
+        return res.data.data.user
+    }
+    getFeedbackById = async (id) => {
+        const res = await this.getData(`${this._apiBase}/feedback/${id}`);
+        return res.data.data
+    }
+    getChannels = async () => {
+        const res = await this.getData(`${this._apiBase}/channels`);
+        return res.data.data.channels
+    }
     
 
 //POST
@@ -118,14 +134,14 @@ postData = async (url, data) => {
                             data,
                             { 
                                 headers: {
-                                accept: 'application/json',
-                                authorization: `Bearer ${localStorage.getItem('token')}`
+                                    accept: 'application/json',
+                                    authorization: `Bearer ${localStorage.getItem('token')}`
                                 }
                             })
     // if (res) {
     //     console.log(res);
     // }
-    if (res.status !== 200) {
+    if (res.status < 200 || res.status >= 300) {
         throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
     }
     return res;
@@ -134,6 +150,14 @@ postData = async (url, data) => {
 
 addNotification = async (data) => {
     const res = await this.postData(`${this._apiBase}/admin/notification`, data);
+    return res
+}
+sendMessage = async (data, id) => {
+    const res = await this.postData(`${this._apiBase}/feedback/${id}`, );
+    return res
+}
+logout = async () => {
+    const res = await this.postData(`${this._apiBase}/logout`);
     return res
 }
 //PUT
