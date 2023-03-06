@@ -1,3 +1,4 @@
+
 html,
 body {
   font-size: 10px;
@@ -12,6 +13,7 @@ main {
   margin: 0 auto;
   padding: 7rem 0 0 0;
   height: 100vh;
+  scroll-behavior: smooth;
 }
 span {
   font-family: 'Montserrat', sans-serif !important;
@@ -48,6 +50,21 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;
 }
 
+.slick-dots {
+  bottom: -40px !important;
+}
+.slick-dots-coffeePot {
+  bottom: 1rem !important;
+}
+.slick-dots li button:before {
+  color: #fff !important;
+  font-size: 1.5rem !important;
+  opacity: 1 !important;
+}
+.slick-dots li.slick-active button:before {
+  color: #FFAC04 !important;
+}
 
-
-
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+  box-shadow: none !important;
+}

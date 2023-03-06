@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Message from '../ui/Message'
 import Pusher from 'pusher-js'
 import PonyService from '../../services/PonyServices'
-import axios, { all } from 'axios'
+import axios from 'axios'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 
@@ -26,15 +26,19 @@ const FeedbackIdPageView = () => {
 
 
     useEffect(() => {
-        ponyService.getFeedbackById(pid)
+        if(!pid) {
+            return
+        }
+        ponyService.getAdminFeedbackById(pid)
             .then(onFeedbackLoaded)
             .catch(onError)
-    },[])
+    },[pid])
     
     const onFeedbackLoaded = (feedbackList) => {
         setFeedback(feedbackList)
         setMessages(feedbackList.messages)
         setLoading(false)
+        console.error('data fetch');
 
         console.log(feedbackList, 'feedbackList');
     }
@@ -56,27 +60,33 @@ const FeedbackIdPageView = () => {
                     },
             }
         })
-        const privateChannel = pusher.subscribe(`private-user.3`);
-        privateChannel.bind(`message`, function(data) {
-            console.log(data, 'data');
-            allMessages.push(data.message)
-            setMessages(allMessages)
-            // console.log(messages, 'messages');
-        })
+        const privateChannel = pusher.subscribe(`private-admin`);
+            privateChannel.bind(`message`, function(data) {
+                console.log(data, 'datadadadada');
+                allMessages.push(data.message)
+                setMessages(allMessages)
+                // console.log(messages, 'messages');
+            })
+            privateChannel.bind(`feedback`, function(data) {
+                console.log(data, 'datadadadada');
+                allMessages.push(data)
+                setMessages(allMessages)
+                // console.log(allMessages);
+            })
 
         return (() => {
             privateChannel.unbind()
-			pusher.unsubscribe('private-user.3')
+			pusher.unsubscribe('private-admin')
             pusher.disconnect()
 		})
-    }, [messages])
+    },[messages])
 
     const onSubmit = async (e, text) => {
         e.preventDefault()
         console.log(text);
 
         axios({
-            url: `http://localhost:8080/api/feedback/${pid}`,
+            url: `http://localhost:8080/api/admin/feedback/${pid}`,
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -95,6 +105,7 @@ const FeedbackIdPageView = () => {
                 console.log(err);
             });
 
+
         setMessage('');
     }
 
@@ -109,7 +120,7 @@ const FeedbackIdPageView = () => {
 
     const items = 
         <Message 
-            position='right' 
+            position='left' 
             // text={feedback.messages[0].text} 
             grade= {feedback.grade}
             coffeePot={feedback.coffee_pot}
@@ -151,7 +162,7 @@ const FeedbackIdPageView = () => {
                         className={styles.input_send} 
                         type="submit"
                         >
-                        <Image src={send} alt='send' />
+                        <Image src={send} alt='send' width='2rem'/>
                     </button>
                 </form>
             </div>

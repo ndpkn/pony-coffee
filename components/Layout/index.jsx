@@ -1,11 +1,37 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Meta from '../../app/utils/Meta'
+import PonyService from '../../services/PonyServices'
 import Header from '../ui/Header'
+import { useDispatch } from "react-redux";
+
+import { setHeaderMenu, setHeaderMenuLoading, setHeaderMenuError } from '../../store/headerMenuSlice'
 
 const Layout = ({children, title, descr}) => {
   const router = useRouter()
+
+  const dispatch = useDispatch()
+  
+  const ponyService = new PonyService()
+
+  useEffect(() => {
+      ponyService.getHeader()
+                      .then(onHeaderLoaded)
+                      .catch(onError)
+      },[])
+  //данные загружены успешно
+  const onHeaderLoaded = (headerList) => {
+      // setHeader(headerList)
+      dispatch(setHeaderMenu(headerList))
+      dispatch(setHeaderMenuLoading(false))
+  }
+
+  //при загрузке произошла ошибка
+  const onError = () => {
+  dispatch(setHeaderMenuLoading(false))
+  dispatch(setHeaderMenuError(true))
+  }
 
   return (
     <div className='layout'>

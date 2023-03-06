@@ -1,11 +1,11 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-import SeendingView from '../../components/screens/SeendingView'
+import SendingView from '../../components/screens/SendingView'
 
 const Seending = () => {
     return (
         <Layout title='Рассылка'>
-            <SeendingView/>
+            <SendingView/>
         </Layout>
     )
 }

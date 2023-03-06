@@ -4,7 +4,6 @@ import styles from '../../styles/Profile.module.scss'
 import profileIcon from '../../images/profileIcon.svg'
 import EditButton from '../ui/EditButton'
 import MainButtonLink from '../ui/MainButtonLink'
-import axios from 'axios'
 import PageHeader from '../ui/PageHeader'
 import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
@@ -81,24 +80,8 @@ const ProfileView = () => {
 
     const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
-    const content = items
+    const content = !(loading || error) ? items : null
 
-    useEffect(() => {
-        
-        
-        // axios
-        //     .get('http://localhost:8080/api/user/bonuses', {
-        //         headers: {
-        //             accept: 'application/json',
-        //             authorization: `Bearer ${localStorage.getItem('token')}`
-        //         }
-        //     })
-        //     .then((res) => {
-        //         console.log(res.data.data);
-        //         setBonuses(res.data.data)
-                
-        //     })
-    }, [])
 
     return (
         <div className={styles.profile}>

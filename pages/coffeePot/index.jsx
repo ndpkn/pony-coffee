@@ -39,7 +39,8 @@ const CoffeePot = () => {
                 <EditButton
                     actionName={item.address}
                     currentValue={item.name == null ? "Нет названия" : item.name}
-                    link={`coffeePot/${item.id}`}/>
+                    link={`coffeePot/${item.id}`}
+                    />
             </div>
             )
         })

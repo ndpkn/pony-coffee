@@ -37,7 +37,6 @@ const SeendingView = () => {
 
     const ponyService = new PonyService()
     
-
     const onSubmit = (data) => {
         ponyService.addNotification(data)
                         .then(onNotificationPosted)
@@ -105,7 +104,7 @@ const SeendingView = () => {
                 {errorMessage}
                 {spinner}
                 {content}
-            <MainButtonLink buttonName='История рассылки' action='primary' href='/seending/history'/>
+            <MainButtonLink buttonName='История рассылки' action='primary' href='/sending/history'/>
         </div>
     )
 }

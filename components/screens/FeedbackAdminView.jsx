@@ -41,8 +41,8 @@ const FeedbackAdminView = () => {
     const items = feedbacks.map((item, i) => {
         return <EditButton
                     key={i}
-                    actionName={item.name}
-                    currentValue={item.last_message.text}
+                    actionName={item.user.name}
+                    currentValue={item.messages[0].text}
                     link={`/feedback/admin/${item.id}`}/>
     })
 

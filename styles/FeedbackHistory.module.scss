@@ -2,7 +2,8 @@
 
 .history {
     padding-top: 3rem;
-    height: 100%;
+    margin-bottom: 5rem;
+    // height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -13,6 +14,7 @@
         position: fixed;
         bottom: 0;
         width: 100%;
+        max-width: 1200px;
         border-radius: 10rem ;
     }
     &_form {
@@ -27,10 +29,11 @@
         width: 89%;
         border: none;
         padding: 1.5rem;
-        border-radius: 2rem 0 0 0;
+        // border-radius: 2rem 0 0 0;
         outline: none;
         &::placeholder {
             color: $secondaryTextColor;
+            font-size: 1.5rem;
         }
     }
     &_send {
@@ -38,6 +41,6 @@
         border: none;
         background-color: #fff;
         padding: 0.5rem;
-        border-radius: 0 2rem 0 0;
+        // border-radius: 0 2rem 0 0;
     }
 }

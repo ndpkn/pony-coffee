@@ -1,11 +1,11 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-import SeendingHistoryView from '../../components/screens/SeendingHistoryView'
+import SendingHistoryView from '../../components/screens/SendingHistoryView'
 
 const SeendingHistory = () => {
     return (
         <Layout title='История рассылки'>
-            <SeendingHistoryView/>
+            <SendingHistoryView/>
         </Layout>
     )
 }

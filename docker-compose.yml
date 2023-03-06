@@ -1,5 +1,23 @@
+# # docker-compose.yml
+# version: "3.8"
+
+# services:
+#   web:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: web
+#     restart: always
+#     volumes:
+#       - ./:/pony-coffee
+#       - /pony-coffee/node_modules
+#       - /pony-coffee/.next
+#     ports:
+#       - 3000:3000
+
 # docker-compose.yml
-version: "3.8"
+
+version: "3"
 
 services:
   web:
@@ -9,8 +27,8 @@ services:
     container_name: web
     restart: always
     volumes:
-      - ./:/pony-coffee
-      - /pony-coffee/node_modules
-      - /pony-coffee/.next
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
     ports:
       - 3000:3000

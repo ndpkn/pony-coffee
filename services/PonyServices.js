@@ -87,16 +87,16 @@ class PonyService {
         return res.data.data.notifications
     }
     getFeedbacksAdmin = async () => {
-        const res = await this.getData(`${this._apiBase}/admin/shorts/feedbacks`);
-        return res.data.data.users
+        const res = await this.getData(`${this._apiBase}/admin/feedbacks`);
+        return res.data.data.feedbacks
     }
     getAdminFeedbackById = async (id) => {
-        const res = await this.getData(`${this._apiBase}/admin/feedbacks/user/${id}`);
-        return res.data.data.user
+        const res = await this.getData(`${this._apiBase}/admin/feedback/${id}`);
+        return res.data.data.feedback
     }
     getFeedbackById = async (id) => {
         const res = await this.getData(`${this._apiBase}/feedback/${id}`);
-        return res.data.data
+        return res.data.data.feedback
     }
     getChannels = async () => {
         const res = await this.getData(`${this._apiBase}/channels`);

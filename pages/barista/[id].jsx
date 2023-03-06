@@ -14,7 +14,6 @@ import LoadingMessage from '../../components/ui/LoadingMessage'
 
 
 const BaristaPage = () => {
-    const router = useRouter()
     const [coffeePots, setCoffeePots] = useState([])
     const [userCoffeePotId, setUserCoffeePotId] = useState()
     const [errors, setErrors] = useState([])
@@ -26,16 +25,21 @@ const BaristaPage = () => {
         phone:'',
         coffeePot: ''
     })
-    
+
+    const router = useRouter()
     const pid = router.query.id
+
     const ponyService = new PonyService()
 
     // получения данных
     useEffect(() => {
+        if(!pid) {
+            return
+        }
         ponyService.getBaristaPage(pid)
                         .then(onBaristaLoaded)
                         .catch(onError)
-    },[])
+    },[pid])
     
     //данные загружены успешно
     const onBaristaLoaded = (baristaList) => {

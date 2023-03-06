@@ -10,10 +10,10 @@ import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../../components/ui/ErrorMessage'
 import LoadingMessage from '../../components/ui/LoadingMessage'
 
-
 const CoffeePotPage = () => {
     const router = useRouter()
     const pid = router.query.id
+
     const [coffeePot, setCoffeePot] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
@@ -23,10 +23,13 @@ const CoffeePotPage = () => {
     const ponyService = new PonyService()
 
     useEffect(() => {
+        if (!pid) {
+            return
+        }
         ponyService.getCoffeePotPage(pid)
                         .then(onCoffeePotLoaded)
                         .catch(onError)
-    },[])
+    },[pid])
 
     //данные загружены успешно
     const onCoffeePotLoaded = (coffeePotList) => {
