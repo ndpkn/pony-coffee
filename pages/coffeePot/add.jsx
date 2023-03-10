@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Input from '../../components/ui/Input'
+import { useState } from 'react'
 import Layout from '../../components/Layout'
-import PageHeader from '../../components/ui/PageHeader'
-import { Controller, useForm } from 'react-hook-form'
-import MainButtonType from '../../components/ui/MainButtonType'
 import axios from 'axios'
-import PonyService from '../../services/PonyServices'
-import MainButtonLink from '../../components/ui/MainButtonLink'
-
+import CoffeePotAddPageView from '../../components/screens/CoffeePotAddPageView'
 
 const Add = () => {
     const [newCoffeePot, setNewCoffeePot] = useState({
@@ -43,30 +37,9 @@ const Add = () => {
     }
     return (
         <Layout title='Добавление кофейни' descr='Добавление кофейни'>
-            <div
-            style={{
-                padding:'3rem'
-            }}>
-                <PageHeader text='Добавление кофейни'/>
-                <form method="POST" onSubmit={onSubmit}>
-                    <Input 
-                        name='name'
-                        type='text' 
-                        placeholder='Название кофейни' 
-                        onChange={handleChange}
-                        />
-                    <Input 
-                        name='address'
-                        type='text' 
-                        placeholder='Адрес кофейни' 
-                        onChange={handleChange}
-                        />
-                    <MainButtonType buttonName='добавить' action='access' type='submit'/>
-                    <MainButtonLink buttonName='Вернуться назад' action='confirm' href='/coffeePot'/>
-
-                </form>
-            </div>
+            <CoffeePotAddPageView onSubmit={onSubmit} handleChange={handleChange}/>
         </Layout>
+
     )
 }
 

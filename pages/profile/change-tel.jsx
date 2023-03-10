@@ -1,22 +1,42 @@
-import React from 'react'
+import axios from 'axios'
+import { useState } from 'react'
 import Layout from '../../components/Layout'
-import MainButtonLink from '../../components/ui/MainButtonLink'
-import MainButtonType from '../../components/ui/MainButtonType'
-import styles from '../../styles/ChangeProfile.module.scss'
+import ProfileChangeTelView from '../../components/screens/ProfileChangeTelView'
 
 const ChangeTel = () => {
+    const [userTel, setUserTel] = useState('')
+    // const [code, setCode] = useState('')
+    
+    const handleChange = (e) => {
+        setUserTel(e.target.value)
+    }
+    const handleSubmit = (e) => {
+        axios({
+            method: 'put',
+            url: 'http://localhost:8080/api/profile/phone',
+            headers: {
+                accept: 'application/json',
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: {
+                    phone: userTel,
+                    // code: code
+                }
+            })
+            .then((res) => {
+                console.log(res);
+                window.location.href = '/profile'
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            
+            e.preventDefault()
+        
+        }
     return (
         <Layout title='Изменение телефона'>
-            <div className={styles.changeProfile}>
-                <h1 className={styles.changeProfile_header}>Укажите новый номер</h1>
-                <form className={styles.changeProfile_form} action="" method="post">
-                    <input className={styles.changeProfile_input} name='changeTel' type="tel" placeholder='Новый номер телефона' />
-                    <label className={styles.changeProfile_label} htmlFor="changeTel">Например: +78986735473</label>
-                    <label className={styles.changeProfile_label} style={{marginBottom: '2.5rem'}} htmlFor="changeTel">Иногда СМС приходят с задержкой</label>
-                    <MainButtonType buttonName='Изменить номер' action='confirm' type='submit'/>
-                </form>
-                <MainButtonLink buttonName='Вернуться в профиль' action='warning' href='/profile'/>
-            </div>
+            <ProfileChangeTelView handleChange={handleChange} handleSubmit={handleSubmit}/>
         </Layout>
     )
 }

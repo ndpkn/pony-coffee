@@ -1,21 +1,46 @@
 import Layout from '../../components/Layout'
-import MainButtonLink from '../../components/ui/MainButtonLink'
-import MainButtonType from '../../components/ui/MainButtonType'
-import styles from '../../styles/ChangeProfile.module.scss'
+import axios from 'axios'
+import { useState } from 'react'
+import ProfileChangePassView from '../../components/screens/ProfileChangePassView'
 
 const ChangePassword = () => {
+    const [userPass, setUserPass] = useState('')
+    const [userPassConfirm, setUserPassConfirm] = useState('')
+    
+    const handleChange = (e) => {
+        setUserPass(e.target.value)
+    }
+    const handleChangeConfirm = (e) => {
+        setUserPassConfirm(e.target.value)
+    }
+    const handleSubmit = (e) => {
+        axios({
+            method: 'put',
+            url: 'http://localhost:8080/api/profile/password',
+            headers: {
+                accept: 'application/json',
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: {
+                    password: userPass,
+                    password_confirmation: userPassConfirm
+                }
+            })
+            .then((res) => {
+                console.log(res);
+                window.location.href = '/profile'
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            
+            e.preventDefault()
+        
+        }
+
     return (
         <Layout title='Изменение пароля'>
-            <div className={styles.changeProfile}>
-                <h1 className={styles.changeProfile_header}>Укажите новый пароль</h1>
-                <form className={styles.changeProfile_form} action="" method="post">
-                    <input className={styles.changeProfile_input} style={{marginBottom: '3rem'}} name='changeTel' type="password" placeholder='Новый пароль' />
-                    <input className={styles.changeProfile_input} name='changePass' type="password" placeholder='Подтверждение нового пароля' />
-                    <label className={styles.changeProfile_label} style={{marginBottom: '2.5rem'}} htmlFor="changePass">Пароль должен содержать минимум 8 символов</label>
-                    <MainButtonType buttonName='Изменить пароль' action='confirm' type='submit'/>
-                </form>
-                <MainButtonLink buttonName='Вернуться в профиль' action='warning' href='/profile'/>
-            </div>
+            <ProfileChangePassView handleChange={handleChange} handleSubmit={handleSubmit} handleChangeConfirm={handleChangeConfirm}/>
         </Layout>
     )
 }

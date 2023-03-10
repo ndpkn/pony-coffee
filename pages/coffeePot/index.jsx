@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
-import styles from '../../styles/CoffeePot.module.scss'
-import EditButton from '../../components/ui/EditButton'
-import MainButtonLink from '../../components/ui/MainButtonLink'
 import PonyService from '../../services/PonyServices'
-import ErrorMessage from '../../components/ui/ErrorMessage'
-import LoadingMessage from '../../components/ui/LoadingMessage'
+import CoffeePotPageView from '../../components/screens/CoffeePotPageView'
 
 const CoffeePot = () => {
     const [coffeePot, setCoffeePot] = useState([])
@@ -33,38 +29,9 @@ const CoffeePot = () => {
         setLoading(false)
     }
 
-    const items = coffeePot.map((item, i) => {
-        return (
-            <div key={i}>
-                <EditButton
-                    actionName={item.address}
-                    currentValue={item.name == null ? "Нет названия" : item.name}
-                    link={`coffeePot/${item.id}`}
-                    />
-            </div>
-            )
-        })
-    
-    const errorMessage = error ? <ErrorMessage/> : null
-    const spinner = loading ? <LoadingMessage/> : null
-    const content = !(loading || error) ? items : null
-        
     return (
-        <Layout>
-            <div 
-                className={styles.coffeePot}
-            >
-                <h1 style={{
-                    marginBottom:'3rem'
-                }}>кофейни</h1>
-                
-                {errorMessage}
-                {spinner}
-                {content}
-
-                <MainButtonLink buttonName='Добавить кофейню' action='access' href='coffeePot/add'/>
-            </div>
-
+        <Layout title='Список кофеен' descr='Список кофеен'>
+            <CoffeePotPageView coffeePot={coffeePot} loading={loading} error={error} />
         </Layout>
     )
 }

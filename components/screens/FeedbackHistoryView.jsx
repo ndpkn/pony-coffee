@@ -1,39 +1,10 @@
-import { useEffect, useState } from 'react'
 import PageHeader from '../ui/PageHeader'
-import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 import EditButton from '../ui/EditButton'
 import styles from '../../styles/FeedbackHistory.module.scss'
 
-const FeedbackHistoryView = () => {
-    const [feedbacks, setFeedbacks] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-
-    const ponyService = new PonyService()
-
-    // получение данных
-    useEffect(() => {
-        ponyService.getFeedbackHistory()
-                        .then(onFeedbackLoaded)
-                        .catch(onError)
-        },[])
-
-    //данные загружены успешно
-    const onFeedbackLoaded = (feedbackList) => {
-        setFeedbacks(feedbackList)
-        setLoading(false)
-        console.log('FeedbackHistoryView', feedbackList);
-    }
-
-    //при загрузке произошла ошибка
-    const onError = (err) => {
-        console.log(err);
-        setError(true)
-        setLoading(false)
-    }
-
+const FeedbackHistoryView = ({feedbacks, error, loading}) => {
     const items = feedbacks.map((item, i) => {
         return (
             <EditButton

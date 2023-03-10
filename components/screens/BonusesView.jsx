@@ -1,39 +1,14 @@
 import PageHeader from '../ui/PageHeader'
 import styles from '../../styles/BonusesView.module.scss'
 import Input from '../ui/Input'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import MainButtonType from '../ui/MainButtonType'
-import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 
-const BonusesView = () => {
+const BonusesView = ({error, loading, allUsers}) => {
     const [searchTerm, setSearchTerm] = useState('')
-    const [allUsers, setAllusers] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
 
-    const ponyService = new PonyService()
-
-    // получение данных
-    useEffect(() => {
-        ponyService.getBonuses()
-                        .then(onBonusesLoaded)
-                        .catch(onError)
-        },[])
-
-    //данные загружены успешно
-    const onBonusesLoaded = (bonusesList) => {
-        setAllusers(bonusesList)
-        setLoading(false)
-    }
-
-    //при загрузке произошла ошибка
-    const onError = (err) => {
-        setError(true)
-        setLoading(false)
-        console.log(err);
-    }
     const filteredUsers = allUsers.filter(item => {
         return item.phone.includes(searchTerm)
     })

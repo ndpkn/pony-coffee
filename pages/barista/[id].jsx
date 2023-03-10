@@ -1,19 +1,13 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import styles from '../../styles/Feedback.module.scss'
-
 import Layout from '../../components/Layout'
-import InputEditButton from '../../components/ui/InputEditButton'
-import MainButtonType from '../../components/ui/MainButtonType'
-import PageHeader from '../../components/ui/PageHeader'
-import MainButtonLink from '../../components/ui/MainButtonLink'
 import PonyService from '../../services/PonyServices'
-import ErrorMessage from '../../components/ui/ErrorMessage'
-import LoadingMessage from '../../components/ui/LoadingMessage'
+import BaristaIdPageView from '../../components/screens/BaristaIdPageView'
 
 
 const BaristaPage = () => {
+
     const [coffeePots, setCoffeePots] = useState([])
     const [userCoffeePotId, setUserCoffeePotId] = useState()
     const [errors, setErrors] = useState([])
@@ -99,9 +93,9 @@ const BaristaPage = () => {
     }
 
     //удаление баристы
-    const deleteBarista = (id) => {
+    const deleteBarista = (pid) => {
         axios
-        .delete(`http://localhost:8080/api/barista/${id}`, {
+        .delete(`http://localhost:8080/api/barista/${pid}`, {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -111,87 +105,9 @@ const BaristaPage = () => {
             window.location.href = '/barista'
         })
     }
-    
-    const items =   
-        <form 
-            action="" 
-            method="POST" 
-            onSubmit={handleSubmit}>
-            <InputEditButton 
-                inputName='name'
-                actionName='Введите имя'
-                currentValue={barista.name == null ? 'Нет названия' : barista.name}
-                onChange={handleChange}
-                />
-            <InputEditButton 
-                inputName='last_name'
-                actionName='Введите фамилию'
-                currentValue={barista.last_name == null ? 'Фамилия не указана' : barista.last_name}
-                onChange={handleChange}/>
-            <InputEditButton 
-                inputName='phone'
-                actionName='Введите номер'
-                currentValue={barista.phone == null ? 'Номер не указан' : barista.phone}
-                onChange={handleChange}/>
-            <select 
-                className={styles.select} 
-                name='coffeePot' 
-                onChange={handleChange}
-                value={barista.coffeePot}
-                defaultValue={userCoffeePotId}
-                >
-                    {coffeePots.map((item, i) => {
-                        return <option key={i} value={item.id}>{item.address}</option>
-                    })}
-            </select>
-            {errors == null ? ''
-            : errors.map((item, i) => {
-                return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item}</p>
-            })}
-            <MainButtonType buttonName='сохранить' action='access' type='submit'/>
-            <MainButtonType buttonName='Удалить' action='danger' type='submit' onClick={() => deleteBarista(id)}/>
-        </form>
-
-    const errorMessage = error ? <ErrorMessage/> : null
-    const spinner = loading ? <LoadingMessage/> : null
-    const content = !(loading || error) ? items : null
-
-    
-    // //получение данных сотрудника
-    // useEffect(() => {
-    //     axios
-    //         .get(`http://localhost:8080/api/barista/${id}`, {
-    //             headers: {
-    //                 accept: 'application/json',
-    //                 authorization: `Bearer ${localStorage.getItem('token')}`
-    //             }
-    //         })
-    //         .then((data) => {
-    //             const res = data.data.data
-    //             setBarista(res.user)
-    //             setCoffeePots(res.coffeePots, res.coffeePots.unshift({address:'Выберите место работы', id: 0}) )
-    //             setUserCoffeePotId(res.user.user_coffee_pot.coffee_pot_id)
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //             err.response.status == '403' ? window.location.href='/404' : '';
-    //         })
-    //     },[id])
-
     return (
         <Layout title='Страница сотрудника' descr='страница сотрудника'>
-            <div 
-                style={{
-                    padding:'3rem'
-            }}>
-                <PageHeader text='сотрудник'/>
-
-                {errorMessage}
-                {spinner}
-                {content}
-
-                <MainButtonLink buttonName='вернуться назад' action='confirm' href='/barista'/>
-            </div>
+            <BaristaIdPageView coffeePots={coffeePots}  userCoffeePotId={userCoffeePotId} errors={errors} loading={loading} error={error} barista={barista} handleChange={handleChange} handleSubmit={handleSubmit} deleteBarista={deleteBarista} pid={pid}/>
         </Layout>
     )
 }
