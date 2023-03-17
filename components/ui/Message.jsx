@@ -1,6 +1,6 @@
-import { Rating } from '@mui/material'
-import React from 'react'
 import styles from '../../styles/Message.module.scss'
+import AddressBlock from './AddressBlock'
+import RatingBlock from './RatingBlock'
 
 const Message = ({position, text, grade, coffeePot, time}) => {
     return (
@@ -8,16 +8,16 @@ const Message = ({position, text, grade, coffeePot, time}) => {
             <div>
                 <p 
                     style={{
-                            fontSize:'1.3rem', 
+                            fontSize:'1.4rem', 
                             color: 'rgba(0, 0, 0, 0.5)',
                             marginRight: '1rem',
-                            marginBottom: '1rem'
-                            
+                            // marginBottom: '1rem',
+                            wordBreak: 'break-all'
                         }}>
                     {text}
                 </p>
                 {grade ? <RatingBlock grade={grade}/> : null}
-                {coffeePot ? <AddressBlock coffeePot={coffeePot}/>: null}
+                {coffeePot ? <AddressBlock address={coffeePot.address}/>: null}
             </div>
             <p className={position === 'left' ? `${styles.left_time}`: `${styles.right_time}`}>
                 {time}
@@ -26,35 +26,6 @@ const Message = ({position, text, grade, coffeePot, time}) => {
     )
 }
 
-const  RatingBlock = ({grade}) => {
-    return(
-        <p style={{fontSize:'1.1rem', color: '#0082FF'}}>
-            Оценка: 
-                <Rating
-                    name="read-only"
-                    style={{fontSize: '1rem', marginLeft: '1rem'}}
-                    value={grade}
-                    readOnly
-                />
-        </p>
-    )
-}
-const  AddressBlock = ({coffeePot}) => {
-    return(
-        <p style={{
-            fontSize:'1.1rem', 
-            color: '#0082FF',
-            marginRight: '1rem'
-            }}>
-            Адрес кофейни: 
-                    <span style={{
-                        color: 'rgba(0, 0, 0, 0.7)', 
-                            marginLeft: '1rem',
-                            fontWeight:'300'}}>
-                        {coffeePot.address}
-                    </span>
-        </p>
-    )
-}
+
 
 export default Message

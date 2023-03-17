@@ -5,8 +5,6 @@ import MainButtonType from '../ui/MainButtonType'
 import MainButtonLink from '../ui/MainButtonLink'
 import { Checkbox, FormControlLabel } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
-import { useState } from 'react'
-import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadedMessage from '../ui/LoadedMessage'
 
@@ -28,40 +26,8 @@ const options = [
     },
 ]
 
-const SeendingView = () => {
+const SeendingView = ({onSubmit, error, loaded, errors}) => {
     const { register, handleSubmit, control, reset } = useForm();
-    const [loaded, setLoaded] = useState(false)
-    const [error, setError] = useState(false)
-    const [textError, setTextError] = useState([])
-
-
-    const ponyService = new PonyService()
-    
-
-    const onSubmit = (data) => {
-        ponyService.addNotification(data)
-                        .then(onNotificationPosted)
-                        .catch(onError)
-    }
-
-    //успешно отправлено
-    const onNotificationPosted = () => {
-        setLoaded(true)
-        reset({
-            text: '',
-            email: false,
-            telegram: false,
-            site: false
-        })
-    }
-
-    //при загрузке произошла ошибка
-    const onError = (err) => {
-        const errorMessage = err.response.data.errors.messages
-        setTextError(errorMessage)
-        setError(true)
-        setLoaded(false)
-    }
 
     const checkboxesListRender = options.map((singleOption, i) => {
         return <FormControlLabel
@@ -95,17 +61,18 @@ const SeendingView = () => {
         </form>
 
 
-    const errorMessage = error ? <ErrorMessage textError={textError}/>: null
     const spinner = loaded ? <LoadedMessage/> : null
     const content = items
 
     return (
         <div className={styles.seending}>
             <PageHeader text='Рассылка'/>
-                {errorMessage}
+                <ErrorMessage textError={errors}/>
+
                 {spinner}
                 {content}
-            <MainButtonLink buttonName='История рассылки' action='primary' href='/seending/history'/>
+
+            <MainButtonLink buttonName='История рассылки' action='primary' href='/sending/history'/>
         </div>
     )
 }

@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import Input from '../../components/ui/Input'
+import { useState } from 'react'
 import Layout from '../../components/Layout'
-import PageHeader from '../../components/ui/PageHeader'
-import { Controller, useForm } from 'react-hook-form'
-import MainButtonType from '../../components/ui/MainButtonType'
-import axios from 'axios'
+import CoffeePotAddPageView from '../../components/screens/CoffeePotAddPageView'
 import PonyService from '../../services/PonyServices'
-import MainButtonLink from '../../components/ui/MainButtonLink'
-
 
 const Add = () => {
+    const ponyService = new PonyService
+
     const [newCoffeePot, setNewCoffeePot] = useState({
         name:'',
         address:''
     })
 
+
     const addNewCoffeePot = async (name, address) => {
-        await axios
-        .post('http://localhost:8000/api/admin/coffeePot', {name, address}, {
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(res => {
-            console.log(res);
-            window.location.href = '/coffeePot'
-        })
-        .catch((err) => {
-            console.log(err.response);
-        })
+        ponyService.addCoffeePot({name, address})
+            .then(onAddCoffeePot)
+            .catch(onAddError)
     }
+    const onAddCoffeePot = () => {
+        window.location.href = '/coffeePot'
+    }
+    const onAddError = (err) => {
+        console.log(err);
+    }
+
+
     const handleChange = (e) => {
         setNewCoffeePot({
             ...newCoffeePot,
@@ -43,30 +37,12 @@ const Add = () => {
     }
     return (
         <Layout title='Добавление кофейни' descr='Добавление кофейни'>
-            <div
-            style={{
-                padding:'3rem'
-            }}>
-                <PageHeader text='Добавление кофейни'/>
-                <form method="POST" onSubmit={onSubmit}>
-                    <Input 
-                        name='name'
-                        type='text' 
-                        placeholder='Название кофейни' 
-                        onChange={handleChange}
-                        />
-                    <Input 
-                        name='address'
-                        type='text' 
-                        placeholder='Адрес кофейни' 
-                        onChange={handleChange}
-                        />
-                    <MainButtonType buttonName='добавить' action='access' type='submit'/>
-                    <MainButtonLink buttonName='Вернуться назад' action='confirm' href='/coffeePot'/>
-
-                </form>
-            </div>
+            <CoffeePotAddPageView 
+                onSubmit={onSubmit} 
+                handleChange={handleChange}
+            />
         </Layout>
+
     )
 }
 

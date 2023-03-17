@@ -1,52 +1,13 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Profile.module.scss'
 import profileIcon from '../../images/profileIcon.svg'
 import EditButton from '../ui/EditButton'
 import MainButtonLink from '../ui/MainButtonLink'
-import axios from 'axios'
 import PageHeader from '../ui/PageHeader'
-import PonyService from '../../services/PonyServices'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 
-
-const ProfileView = () => {
-    const [profileData, setProfileData] = useState([])
-    const [bonuses, setBonuses] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-
-    const ponyService = new PonyService()
-
-    // получение данных
-    useEffect(() => {
-        ponyService.getProfile()
-                        .then(onProfileLoaded)
-                        .catch(onError)
-        ponyService.getBonusesByUser()
-                        .then(onBonusesLoaded)
-                        .catch(onError)
-        
-        },[])
-
-    //данные загружены успешно
-    const onProfileLoaded = (profileList) => {
-        setProfileData(profileList)
-        setLoading(false)
-    }
-    const onBonusesLoaded = (bonusesList) => {
-        setBonuses(bonusesList)
-        setLoading(false)
-    }
-
-    //при загрузке произошла ошибка
-    const onError = (err) => {
-        setError(true)
-        setLoading(false)
-        console.log(err);
-    }
-
+const ProfileView = ({profileData, bonuses, error, loading}) => {
     const items =   
         <>
         <div className={styles.profile_header}>
@@ -81,24 +42,7 @@ const ProfileView = () => {
 
     const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
-    const content = items
-
-    useEffect(() => {
-        
-        
-        // axios
-        //     .get('http://localhost:8000/api/user/bonuses', {
-        //         headers: {
-        //             accept: 'application/json',
-        //             authorization: `Bearer ${localStorage.getItem('token')}`
-        //         }
-        //     })
-        //     .then((res) => {
-        //         console.log(res.data.data);
-        //         setBonuses(res.data.data)
-                
-        //     })
-    }, [])
+    const content = !(loading || error) ? items : null
 
     return (
         <div className={styles.profile}>

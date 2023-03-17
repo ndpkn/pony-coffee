@@ -1,0 +1,38 @@
+@import './variables.scss';
+
+.feedback {
+    padding: 3rem;
+}
+.input {
+    &_block {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-radius: 10rem ;
+    }
+    &_form {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        // background-color: #fff;
+        
+        // align-items: space-evenly;
+    }
+    &_text {
+        width: 89%;
+        border: none;
+        padding: 1.5rem;
+        border-radius: 2rem 0 0 0;
+        outline: none;
+        &::placeholder {
+            color: $secondaryTextColor;
+        }
+    }
+    &_send {
+        width: 11%;
+        border: none;
+        background-color: #fff;
+        padding: 0.5rem;
+        border-radius: 0 2rem 0 0;
+    }
+}

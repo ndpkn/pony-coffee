@@ -1,21 +1,41 @@
-import React from 'react'
 import Layout from '../../components/Layout'
-import MainButtonLink from '../../components/ui/MainButtonLink'
-import MainButtonType from '../../components/ui/MainButtonType'
-import styles from '../../styles/ChangeProfile.module.scss'
+import { useState } from 'react'
+import ProfileChangeMailView from '../../components/screens/ProfileChangeMailView'
+import PonyService from '../../services/PonyServices'
 
 const ChangeMail = () => {
+    const [userMail, setUserMail] = useState('')
+    const [errors, setErrors] = useState([])
+    const ponyService = new PonyService()
+
+    const handleChange = (e) => {
+        setUserMail(e.target.value)
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        ponyService.changeEmail({
+                email: userMail,
+                // code: code
+            })
+            .then(onChangeEmail)
+            .catch(onChangeError)
+    }
+    const onChangeEmail = (res) => {
+        console.log(res);
+        window.location.href = '/profile'
+    }
+    const onChangeError = (err) => {
+        console.log(err);
+        setErrors(err.response.data.s)
+    }
     return (
         <Layout title='Изменение email'>
-            <div className={styles.changeProfile}>
-                <h1 className={styles.changeProfile_header}>Укажите новый адрес почты</h1>
-                <form className={styles.changeProfile_form} action="" method="post">
-                    <input className={styles.changeProfile_input} name='changeMail' type="mail" placeholder='Новый адрес'/>
-                    <label className={styles.changeProfile_label} style={{marginBottom: '2.5rem'}} htmlFor="changeMail">Например: pony-coffee@yandex.ru</label>
-                    <MainButtonType buttonName='Изменить почту' action='confirm' type='submit'/>
-                </form>
-                <MainButtonLink buttonName='Вернуться в профиль' action='warning' href='/profile'/>
-            </div>
+            <ProfileChangeMailView 
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit}
+                errors={errors}
+                />
         </Layout>
     )
 }

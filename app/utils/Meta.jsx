@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import { title } from 'process'
-import React from 'react'
 
 const Meta = ({title, description }) => {
     return (

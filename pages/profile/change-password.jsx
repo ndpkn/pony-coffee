@@ -1,21 +1,58 @@
 import Layout from '../../components/Layout'
-import MainButtonLink from '../../components/ui/MainButtonLink'
-import MainButtonType from '../../components/ui/MainButtonType'
-import styles from '../../styles/ChangeProfile.module.scss'
+import { useState } from 'react'
+import ProfileChangePassView from '../../components/screens/ProfileChangePassView'
+import PonyService from '../../services/PonyServices'
 
 const ChangePassword = () => {
+    const [userPass, setUserPass] = useState('')
+    const [userPassConfirm, setUserPassConfirm] = useState('')
+    const [isShow, setIsShow] = useState(false)
+    const [errors, setErrors] = useState([])
+
+    
+    const ponyService = new PonyService()
+    
+    const handleChange = (e) => {
+        setUserPass(e.target.value)
+    }
+    const handleChangeConfirm = (e) => {
+        setUserPassConfirm(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        ponyService.changePass({
+                password: userPass,
+                password_confirmation: userPassConfirm
+            })
+            .then(onChangePass)
+            .catch(onChangeError)
+    }
+    const onChangePass = (res) => {
+        console.log(res);
+        window.location.href = '/profile'
+    }
+    const onChangeError = (err) => {
+        console.log(err);
+        setErrors(err.response.data.errors.messages)
+    }
+
+    const isShowPass = (e) => {
+        e.preventDefault()
+        setIsShow(!isShow)
+    }
+
     return (
         <Layout title='Изменение пароля'>
-            <div className={styles.changeProfile}>
-                <h1 className={styles.changeProfile_header}>Укажите новый пароль</h1>
-                <form className={styles.changeProfile_form} action="" method="post">
-                    <input className={styles.changeProfile_input} style={{marginBottom: '3rem'}} name='changeTel' type="password" placeholder='Новый пароль' />
-                    <input className={styles.changeProfile_input} name='changePass' type="password" placeholder='Подтверждение нового пароля' />
-                    <label className={styles.changeProfile_label} style={{marginBottom: '2.5rem'}} htmlFor="changePass">Пароль должен содержать минимум 8 символов</label>
-                    <MainButtonType buttonName='Изменить пароль' action='confirm' type='submit'/>
-                </form>
-                <MainButtonLink buttonName='Вернуться в профиль' action='warning' href='/profile'/>
-            </div>
+            <ProfileChangePassView 
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit} 
+                handleChangeConfirm={handleChangeConfirm}
+                errors={errors}
+                isShow={isShow} 
+                isShowPass={isShowPass} 
+                />
         </Layout>
     )
 }

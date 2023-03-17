@@ -1,9 +1,9 @@
-// import styles from '../styles/Home.module.css'
-import App from '../components/screens/app/App'
+import Main from '../components/screens/app/Main'
+
 
 export default function HomePage() {
   return (
-    <App/>
+    <Main/>
   )
 }
 
