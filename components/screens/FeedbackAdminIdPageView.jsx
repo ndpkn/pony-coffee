@@ -4,26 +4,35 @@ import Image from 'next/image'
 import Message from '../ui/Message'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
+import { createRef, useEffect, useRef } from 'react'
 
 const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, message, onSubmit}) => {
+
+    const refAnchor = useRef(null)
+
+    useEffect(() => {
+        refAnchor.current.scrollIntoView()
+    },[messages])
 
     const messagesRender = messages.map((item, i) => {
         const pos = item.belongToAuthUser == 0 ? 'left' : 'right'
         return <Message 
                     position= {pos} 
                     text={item.text} 
-                    // time={(item.created_at).slice(11,16)}
-                    key={i}/>
+                    time={(item.created_at).slice(11,16)}
+                    key={i}
+                />
     })
 
     const items = 
         <Message 
             position='left' 
-            // text={feedback.messages[0].text} 
+            // text={feedback.messages ? feedback.messages[0].text : null} 
             grade= {feedback.grade}
             coffeePot={feedback.coffee_pot}
-            // time={(feedback.messages[0].created_at).slice(11,16)}
-            key={feedback.id}/>
+            time={feedback.messages ? feedback.messages[0].created_at.slice(11,16) : null}
+            key={feedback.id}
+        />
 
     const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
@@ -45,7 +54,7 @@ const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, m
                         }}>
                         {content}
                         {messagesRender}    
-
+                        <div ref={refAnchor}></div>
                     </div>
             </div>
             <div className={styles.input_block}>

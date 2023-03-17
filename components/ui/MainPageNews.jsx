@@ -8,13 +8,15 @@ import "slick-carousel/slick/slick-theme.css";
 import MotionBlock from '../ui/MotionBlock'
 
 
-
-const news = [
-    {text:'10 стакан бесплатно', buttonText: 'смотреть меню'},
-    {text:'1 стакан бесплатно', buttonText: 'смотреть меню'},
-    {text:'6 стакан бесплатно', buttonText: 'смотреть меню'}
-]
-const MainPageNews = () => {
+const MainPageNews = ({fieldRef}) => {
+    const goToMenu = () => {
+        fieldRef.current.scrollIntoView()
+    }
+    const news = [
+        {text:'10 стакан бесплатно', buttonText: 'смотреть меню', onClick: goToMenu},
+        {text:'1 стакан бесплатно', buttonText: 'смотреть меню', onClick: goToMenu},
+        {text:'6 стакан бесплатно', buttonText: 'смотреть меню', onClick: goToMenu}
+    ]
     const settings = {
         dots: true,
         arrows: false,
@@ -36,7 +38,7 @@ const MainPageNews = () => {
                         <p>{item.text} <br/> <span>69</span> <span style={{color:'#000', fontSize:'1.2rem'}}>рублей</span></p>
                         <Image src={newsCup} alt={'cup of coffee'} className={styles.main_news_block_content_text_image}/>
                     </div>
-                    <button style={{fontSize:'1.3rem'}} className={styles.main_button}>{item.buttonText}</button>
+                    <button style={{fontSize:'1.3rem'}} className={styles.main_button} onClick={item.onClick}>{item.buttonText}</button>
                 </div>
             </div>
         )

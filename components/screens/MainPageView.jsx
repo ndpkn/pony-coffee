@@ -8,13 +8,13 @@ import MainPageMenu from '../ui/MainPageMenu'
 import MainPageAddress from '../ui/MainPageAddress'
 import MainPageReview from '../ui/MainPageReview'
 
-const MainPageView = () => {
+const MainPageView = ({fieldRef}) => {
     return (
         <div className={styles.main}>
-            <MainPageWelcome/>
-            <MainPageNews/>
+            <MainPageWelcome fieldRef={fieldRef}/>
+            <MainPageNews fieldRef={fieldRef}/>
             <MainPageCoffeePot/>
-            <MainPageMenu/>
+            <MainPageMenu fieldRef={fieldRef}/>
             <MainPageAddress/>
             <MainPageReview/>
         </div>

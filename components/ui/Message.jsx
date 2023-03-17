@@ -8,12 +8,11 @@ const Message = ({position, text, grade, coffeePot, time}) => {
             <div>
                 <p 
                     style={{
-                            fontSize:'1.3rem', 
+                            fontSize:'1.4rem', 
                             color: 'rgba(0, 0, 0, 0.5)',
                             marginRight: '1rem',
-                            marginBottom: '1rem',
+                            // marginBottom: '1rem',
                             wordBreak: 'break-all'
-                            
                         }}>
                     {text}
                 </p>

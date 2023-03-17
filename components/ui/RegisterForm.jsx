@@ -1,64 +1,10 @@
-import React, { useState } from 'react'
 import styles from '../../styles/LoginForm.module.scss'
 import Input from './Input'
 import MainButtonType from './MainButtonType'
 import { Checkbox, FormControlLabel } from '@mui/material'
-import axios from 'axios'
+import ErrorMessage from './ErrorMessage'
 
-const RegisterForm = () => {
-    const [user, setUser] = useState({
-        phone: '', 
-        password: '', 
-        password_confirmation: '', 
-        user_name: '', 
-        code:'',
-        agreement: false
-    })
-    const [isShow, setIsShow] = useState(false)
-
-    //кнопка и поле для ввода кода подтверждения под полем телефон 
-    //данные поля телефон брать для отправки запроса кода
-    //выводить ошибку если не введен телефон или введен неверно
-
-    // /call для запроса звонка 
-
-    const registerUser = async (phone, password, password_confirmation, name, agreement, code) => {    
-        await axios
-            .post('http://localhost:8080/api/register', {phone, password, password_confirmation, name, agreement, code} )
-            .then(res => {
-                console.log(res);
-                // window.location.href = '/login'
-
-
-                // localStorage.setItem('token', res.data.token.accessToken)// засунуть в редакс
-            })
-            .catch((err) => {
-                console.log(err.response.data.errors);
-            })
-    }
-
-    const handleChange = event => {
-        setUser({
-            ...user,
-            [event.target.name]: event.target.value})
-    }
-    const handleSubmit = event => {
-        const {phone, password, password_confirmation, user_name, agreement, code} = user
-        event.preventDefault();
-        registerUser(phone, password, password_confirmation, user_name, agreement, code)
-        console.log('форма отправлена');
-    }
-    const getCode = (e, phone) => {
-        e.preventDefault()
-        axios
-            .post('http://localhost:8080/api/call', {phone})
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-    }
-    const isShowPass = (e) => {
-        e.preventDefault()
-        setIsShow(!isShow)
-    }
+const RegisterForm = ({handleSubmit, handleChange, getCode, isShowPass, isShow, errors}) => {
 
     return (
         <div className={styles.formPage}>
@@ -102,9 +48,10 @@ const RegisterForm = () => {
                         />
                     <Input
                         name='password_confirmation' 
-                        type='password'
+                        type={isShow == false ? 'password' : 'text'} 
                         placeholder='Подтверждение пароля' 
                         onChange={handleChange}
+                        isShowPass={isShowPass}
                         isShow={isShow}
                         />
                     <FormControlLabel
@@ -115,6 +62,7 @@ const RegisterForm = () => {
                         sx={{ '& .MuiSvgIcon-root': { fontSize: '3rem' },
                             '& .MuiTypography-root': {fontSize: '1.5rem', lineHeight: '1.3rem', color:'#0000006c'}  }}  
                     />
+                    {errors}
                     <MainButtonType buttonName='Зарегистрироваться' action='confirm' type='submit'/>
                 </div>
             </form>

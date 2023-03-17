@@ -4,7 +4,10 @@ import ellips from '../../images/EllipseWelcome.svg'
 import styles from '../../styles/MainPage.module.scss'
 import { motion } from 'framer-motion'
 
-const MainPageWelcome = () => {
+const MainPageWelcome = ({fieldRef}) => {
+    const goToMenu = () => {
+        fieldRef.current.scrollIntoView()
+    }
     return (
         <div className={styles.main_welcome}>
             <div className={styles.main_welcome_content}>
@@ -25,7 +28,7 @@ const MainPageWelcome = () => {
                 >
                     Pony Coffee
                 </motion.h1>
-                <motion.a 
+                <motion.button 
                     initial={{
                         opacity: 0, 
                         scale: 0.5 
@@ -43,9 +46,10 @@ const MainPageWelcome = () => {
                         marginRight:'2rem'
                     }} 
                     className={styles.main_button}
-                    href='#menu'>
+                    onClick={goToMenu}
+                    >
                     смотреть меню
-                </motion.a>
+                </motion.button>
             </div>
             <motion.div 
                 initial={{
@@ -64,7 +68,7 @@ const MainPageWelcome = () => {
                     кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;
                 </p>
             </motion.div>
-            <Image className={styles.main_welcome_ellips} src={ellips} alt={'ellips'}/>
+            <Image className={styles.main_welcome_ellips} src={ellips} alt={'ellips'} width='auto'/>
             <Image className={styles.main_welcome_cup} src={glass} alt={'cup of coffee'}/>
         </div>
 

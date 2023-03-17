@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import MainButtonType from "../../components/ui/MainButtonType";
 import { Rating } from "@mui/material";
 import MainButtonLink from "../../components/ui/MainButtonLink";
+import ErrorMessage from "../ui/ErrorMessage";
 
 const FeedbackView = ({options, error, loading, onSubmit, errors}) => {
     const { register, handleSubmit, control } = useForm();
@@ -54,7 +55,7 @@ const FeedbackView = ({options, error, loading, onSubmit, errors}) => {
                         )}
                 />
             </div>
-            <Error errors={errors}/>
+            <ErrorMessage textError={errors}/>
             <MainButtonType buttonName='Отправить' action='confirm' type='submit'/>
             <MainButtonLink buttonName='все обращения' action='confirm' href='/feedback/history'/>
         </form>
@@ -63,20 +64,5 @@ const FeedbackView = ({options, error, loading, onSubmit, errors}) => {
 }
 
 
-const Error = ({errors}) => {
-    return (
-        <div>
-            {errors.map((item, i) => {
-                return (<p key={i}
-                            style={{
-                                color:'red',
-                                marginBottom:'1rem'
-                            }}>
-                                {item}
-                        </p>)
-            })}
-        </div>
-    )
-}
 
 export default FeedbackView

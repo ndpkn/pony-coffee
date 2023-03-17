@@ -5,8 +5,21 @@ import PageHeader from '../../components/ui/PageHeader'
 import MainButtonLink from '../../components/ui/MainButtonLink'
 import ErrorMessage from '../../components/ui/ErrorMessage'
 import LoadingMessage from '../../components/ui/LoadingMessage'
+import { useState } from 'react'
+import DeleteConfirm from '../ui/DeleteConfirm'
+
 
 const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePotId, errors, loading, error, barista, deleteBarista, pid}) => {
+    const [openDialog, setOpenDialog] = useState(false)
+
+    const handleOpenDialog = () => {
+        setOpenDialog(true)
+    }
+    const handleCloseDialog = () => {
+        setOpenDialog(false)
+    }
+
+
     const items =   
         <form 
             action="" 
@@ -39,12 +52,15 @@ const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePo
                         return <option key={i} value={item.id}>{item.address}</option>
                     })}
             </select>
-            {errors == null ? ''
-            : errors.map((item, i) => {
-                return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item}</p>
-            })}
+            {errors != null 
+                ?
+                <ErrorMessage textError={errors}/>
+                :
+                null
+            }
+
             <MainButtonType buttonName='сохранить' action='access' type='submit'/>
-            <MainButtonType buttonName='Удалить' action='danger' type='submit' onClick={() => deleteBarista(pid)}/>
+            <MainButtonType buttonName='Удалить' action='danger' type='button' onClick={handleOpenDialog}/>
         </form>
 
     const errorMessage = error ? <ErrorMessage/> : null
@@ -61,6 +77,14 @@ const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePo
                 {errorMessage}
                 {spinner}
                 {content}
+
+                <DeleteConfirm 
+                    handleCloseDialog={handleCloseDialog} 
+                    openDialog={openDialog} 
+                    onClick={() => deleteBarista(pid)}
+                    title='Удаление сотрудника'
+                    description='Вы действиительно хотите удалить этого сотрудника?'
+                    />
 
                 <MainButtonLink buttonName='вернуться назад' action='confirm' href='/barista'/>
             </div>

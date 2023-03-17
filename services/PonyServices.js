@@ -41,7 +41,6 @@ class PonyService {
 
     getBarista = async () => {
         const res = await this.getData(`${this._apiBase}/barista`);
-        console.log(res);
         return res.data.data.users
     }
     getBaristaPage = async (id) => {
@@ -105,27 +104,6 @@ class PonyService {
     
 
 //POST
-// postData = async (url, data) => {
-//     // console.log(url, data)
-//     let res = await fetch(url, {
-//                         method: 'POST',
-//                         headers: {
-//                             Accept: 'application/json',
-//                             Authorization: `Bearer ${localStorage.getItem('token')}`
-//                         }, 
-//                         body: JSON.stringify(data)
-//                     })
-//                     // .then((response) => response.json())
-//                     // .then((data) => console.log(data))
-//                     .catch((err) => console.error(err))
-//                     ;
-
-//     if (!res.ok) {
-//         throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
-//     }
-//     return await res.json();
-    
-// }
 
 postData = async (url, data) => {
     let res = await axios
@@ -152,17 +130,120 @@ addNotification = async (data) => {
     const res = await this.postData(`${this._apiBase}/admin/notification`, data);
     return res
 }
-sendMessage = async (data, id) => {
-    const res = await this.postData(`${this._apiBase}/feedback/${id}`, );
-    return res
-}
+// sendMessage = async (data, id) => {
+//     const res = await this.postData(`${this._apiBase}/feedback/${id}`, );
+//     return res
+// }
 logout = async () => {
     const res = await this.postData(`${this._apiBase}/logout`);
     return res
 }
+
+login = async (data) => {
+    const res = await this.postData(`${this._apiBase}/login`, data)
+    return res
+}
+register = async (data) => {
+    const res = await this.postData(`${this._apiBase}/register`, data)
+    return res
+}
+getCode = async (data) => {
+    const res = await this.postData(`${this._apiBase}/call`, data)
+    return res
+}
+addBarista = async (data) => {
+    const res = await this.postData(`${this._apiBase}/barista`, data)
+    return res
+}
+addCoffeePot = async (data) => {
+    const res = await this.postData(`${this._apiBase}/admin/coffeePot`, data)
+    return res
+}
+addFeedback = async (data) => {
+    const res = await this.postData(`${this._apiBase}/feedback`, data)
+    return res
+}
+addMessageAdmin = async (data, id) => {
+    const res = await this.postData(`${this._apiBase}/admin/feedback/${id}`, data)
+    return res
+}
+addMessageUser = async (data, id) => {
+    const res = await this.postData(`${this._apiBase}/feedback/${id}`, data)
+    return res
+}
+
 //PUT
+putData = async (url, data) => {
+    let res = await axios
+                        .put(
+                            url,
+                            data,
+                            { 
+                                headers: {
+                                    accept: 'application/json',
+                                    authorization: `Bearer ${localStorage.getItem('token')}`
+                                }
+                            })
+    if (res.status < 200 || res.status >= 300) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
+    }
+    return res;
+}
+
+changeBarista = async (data, id) => {
+    const res = await this.putData(`${this._apiBase}/barista/${id}`, data);
+    return res
+}
+changeCoffeePot = async (data, id) => {
+    const res = await this.putData(`${this._apiBase}/admin/coffeePot/${id}`, data);
+    return res
+}
+changeEmail = async (data) => {
+    const res = await this.putData(`${this._apiBase}/profile/email`, data);
+    return res
+}
+changeName = async (data) => {
+    const res = await this.putData(`${this._apiBase}/profile/name`, data);
+    return res
+}
+changePass = async (data) => {
+    const res = await this.putData(`${this._apiBase}/profile/password`, data);
+    return res
+}
+changePhone = async (data) => {
+    const res = await this.putData(`${this._apiBase}/profile/phone`, data);
+    return res
+}
+
 
 //DELETE
+
+deleteData = async (url) => {
+    let res = await axios
+                        .delete(
+                            url,
+                            
+                            { 
+                                headers: {
+                                    accept: 'application/json',
+                                    authorization: `Bearer ${localStorage.getItem('token')}`
+                                }
+                            })
+    if (res.status < 200 || res.status >= 300) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
+    }
+    return res;
+}
+
+deleteBarista = async (id) => {
+    const res = await this.deleteData(`${this._apiBase}/barista/${id}`);
+    return res
+}
+deleteCoffeePot = async (id) => {
+    const res = await this.deleteData(`${this._apiBase}/admin/coffeePot/${id}`);
+    return res
+}
+
 }
 
 export default PonyService

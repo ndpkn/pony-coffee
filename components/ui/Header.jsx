@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import styles from '../../styles/Header.module.scss'
 import Image from 'next/image'
 import burger from '../../images/burger.svg'
@@ -10,6 +10,10 @@ import { motion } from 'framer-motion'
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false) //добавить состояние в редакс и закрывать меню по клику на пустое место
+    const closeMenuRef = useRef(null)
+    const onCloseMenu = () => {
+        setIsOpen(!isOpen)
+    }
     
     return (
         <header className={styles.header}>
@@ -26,7 +30,7 @@ const Header = () => {
                         {isOpen ? <Image src= {closeBurger} alt='burger menu close'/> : <Image src= {burger} alt='burger menu'/>}
                 </motion.button>
             </div>
-            {isOpen ? <HeaderMenu/> : null}
+            {isOpen ? <HeaderMenu closeMenuRef={closeMenuRef} onCloseMenu={onCloseMenu}/> : null}
         </header>
     )
 }

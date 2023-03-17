@@ -6,18 +6,21 @@ import HeaderMenuSkeleton from '../../components/ui/skeletons/HeaderMenuSkeleton
 import { useSelector } from 'react-redux';
 
 
-const HeaderMenu = () => {
+const HeaderMenu = ({closeMenuRef, onCloseMenu}) => {
     const router = useRouter();
     const headerItems = useSelector((state) => state.headerMenu.headerMenuItems)
     const error = useSelector((state) => state.headerMenu.error)
     const loading = useSelector((state) => state.headerMenu.loading)
 
+
     const items = headerItems.map((item, i) => {
-                    return <Link className={router.pathname == `${item.href}` ? `${styles.link_active}` : `${styles.link}`} 
-                                    key={i} 
-                                    href={item.href}>
-                                        {item.text}
-                            </Link>
+                    return  (<Link 
+                                className={router.pathname == `${item.href}` ? `${styles.link_active}` : `${styles.link}`} 
+                                key={i} 
+                                href={item.href}>
+                                    {item.text}
+                            </Link>)
+                        
                     })
     
     const errorMessage = error ? <ErrorMessage/> : null
@@ -32,7 +35,7 @@ return (
                     {content}
                 </nav>
                 {/* пустое место для закрытия меню */}
-                <div style={{height: '100%'}}></div> 
+                <div ref={closeMenuRef} onClick={onCloseMenu} style={{height: '100%'}}></div> 
             </div>
     )
 }

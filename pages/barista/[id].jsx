@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
@@ -39,7 +38,7 @@ const BaristaPage = () => {
     const onBaristaLoaded = (baristaList) => {
         setBarista(baristaList.user)
         setCoffeePots(baristaList.coffeePots, baristaList.coffeePots.unshift({address:'Выберите место работы', id: 0}) )
-        setUserCoffeePotId(baristaList.user.user_coffee_pot.coffee_pot_id)
+        setUserCoffeePotId(baristaList.user.user_coffee_pot ? baristaList.user.user_coffee_pot.coffee_pot_id : null)
         setLoading(false)
     }
     
@@ -52,30 +51,21 @@ const BaristaPage = () => {
 
     //изменение данных сотрудника
     const changeBarista = async (name, last_name, phone, coffeePot) => {
-        await axios({
-            method: 'put',
-            url: `http://localhost:8080/api/barista/${pid}`,
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            data: {
-                    name: name,
-                    last_name: last_name,
-                    phone: phone,
-                    coffee_pot_id: coffeePot
-                }
-            })
-            .then(res => {
-                window.location.href = `/barista`
-
-            })
-            .catch((err) => {
-                console.log(err);
-                setErrors(err.response.data.errors.messages)
-            })
-
-        console.log(name, last_name, phone, coffeePot);
+        ponyService.changeBarista({
+                name: name,
+                last_name: last_name,
+                phone: phone,
+                coffee_pot_id: coffeePot
+            }, pid)
+            .then(onChangeBarista)
+            .catch(onChangeError)
+    }
+    const onChangeBarista = () => {
+        window.location.href = `/barista`
+    }
+    const onChangeError = (err) => {
+            console.log(err);
+            setErrors(err.response.data.errors.messages)
     }
     //получение данных из полей ввода
     const handleChange = e => {
@@ -94,20 +84,31 @@ const BaristaPage = () => {
 
     //удаление баристы
     const deleteBarista = (pid) => {
-        axios
-        .delete(`http://localhost:8080/api/barista/${pid}`, {
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(() => {
-            window.location.href = '/barista'
-        })
+        ponyService.deleteBarista(pid)
+            .then(onDeleteBarista)
+            .catch(onDeleteError)
+    }
+
+    const onDeleteBarista = () => {
+        window.location.href = '/barista'
+    }
+    const onDeleteError = (err) => {
+        console.log(err);
     }
     return (
         <Layout title='Страница сотрудника' descr='страница сотрудника'>
-            <BaristaIdPageView coffeePots={coffeePots}  userCoffeePotId={userCoffeePotId} errors={errors} loading={loading} error={error} barista={barista} handleChange={handleChange} handleSubmit={handleSubmit} deleteBarista={deleteBarista} pid={pid}/>
+            <BaristaIdPageView 
+                coffeePots={coffeePots}  
+                userCoffeePotId={userCoffeePotId} 
+                errors={errors} 
+                loading={loading} 
+                error={error} 
+                barista={barista} 
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit} 
+                deleteBarista={deleteBarista} 
+                pid={pid}
+            />
         </Layout>
     )
 }

@@ -1,41 +1,41 @@
 import Layout from '../../components/Layout'
-import axios from 'axios'
 import { useState } from 'react'
 import ProfileChangeMailView from '../../components/screens/ProfileChangeMailView'
+import PonyService from '../../services/PonyServices'
 
 const ChangeMail = () => {
     const [userMail, setUserMail] = useState('')
-    
+    const [errors, setErrors] = useState([])
+    const ponyService = new PonyService()
+
     const handleChange = (e) => {
         setUserMail(e.target.value)
     }
     const handleSubmit = (e) => {
-        axios({
-            method: 'put',
-            url: 'http://localhost:8080/api/profile/email',
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            data: {
-                    email: userMail,
-                    // code: code
-                }
+        e.preventDefault()
+
+        ponyService.changeEmail({
+                email: userMail,
+                // code: code
             })
-            .then((res) => {
-                console.log(res);
-                window.location.href = '/profile'
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-            
-            e.preventDefault()
-        
-        }
+            .then(onChangeEmail)
+            .catch(onChangeError)
+    }
+    const onChangeEmail = (res) => {
+        console.log(res);
+        window.location.href = '/profile'
+    }
+    const onChangeError = (err) => {
+        console.log(err);
+        setErrors(err.response.data.s)
+    }
     return (
         <Layout title='Изменение email'>
-            <ProfileChangeMailView handleChange={handleChange} handleSubmit={handleSubmit}/>
+            <ProfileChangeMailView 
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit}
+                errors={errors}
+                />
         </Layout>
     )
 }

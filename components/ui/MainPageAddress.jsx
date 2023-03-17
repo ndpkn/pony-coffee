@@ -30,10 +30,10 @@ const MainPageAddress = () => {
                             
                         }}
                         whileTap={{
-                                rotate: [0, 45, 90, 180]
+                                rotate: [0,360 ]
                             }}
                         transition={{
-                            type: 'tween',
+                            // type: 'tween',
                             duration: 2
                         }}
                     >

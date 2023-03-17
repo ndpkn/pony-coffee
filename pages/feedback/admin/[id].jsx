@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import Layout from '../../../components/Layout'
 import Pusher from 'pusher-js'
 import PonyService from '../../../services/PonyServices'
-import axios from 'axios'
 import FeedbackAdminIdPageView from '../../../components/screens/FeedbackAdminIdPageView'
 
 const FeedbackAdminIdPage = () => {
@@ -20,6 +19,7 @@ const FeedbackAdminIdPage = () => {
     let allMessages = [...messages];
 
 
+    
     useEffect(() => {
         if(!pid) {
             return
@@ -43,7 +43,7 @@ const FeedbackAdminIdPage = () => {
     }
 
     useEffect(() => {
-        Pusher.logToConsole = true;
+        // Pusher.logToConsole = true;
 
         const pusher = new Pusher('7f9d43f02a4ad59feb75', {
             cluster:'eu',
@@ -79,28 +79,21 @@ const FeedbackAdminIdPage = () => {
         e.preventDefault()
         console.log(text);
 
-        axios({
-            url: `http://localhost:8080/api/admin/feedback/${pid}`,
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            data: {
-                    text: text,
-                }
-            })
-            .then((res) => {
-                console.log(res);
-                allMessages.push(res.data.data.message)
-                setMessages(allMessages)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
+        ponyService.addMessageAdmin({
+            text: text
+        }, pid)
+            .then(onPushMessage)
+            .catch(onPushError)
 
         setMessage('');
+    }
+    const onPushMessage = (res) => {
+        // console.log(res);
+        allMessages.push(res.data.data.message)
+        setMessages(allMessages)
+    }
+    const onPushError = (err) => {
+        console.log(err);
     }
 
     const handleChange = (e) => {
@@ -108,7 +101,15 @@ const FeedbackAdminIdPage = () => {
     }
     return (
         <Layout title='История обращений' descr='История обращений'>
-            <FeedbackAdminIdPageView messages={messages} feedback={feedback} error={error} loading={loading} handleChange={handleChange} message={message} onSubmit={onSubmit}/>
+            <FeedbackAdminIdPageView
+                messages={messages} 
+                feedback={feedback} 
+                error={error} 
+                loading={loading} 
+                handleChange={handleChange} 
+                message={message} 
+                onSubmit={onSubmit}
+            />
         </Layout>
     )
 }

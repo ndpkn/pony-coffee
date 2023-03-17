@@ -6,7 +6,7 @@ import LoadingMessage from '../../components/ui/LoadingMessage'
 
 const BaristaPageView = ({barista, loading, error}) => {
     const items =  barista.map((item, i) => {
-        const address = item.user_coffee_pot.coffee_pot
+        const address = item.user_coffee_pot ? item.user_coffee_pot.coffee_pot : null
         return (
             <div key={i}>
                 <EditButton

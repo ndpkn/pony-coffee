@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Pusher from 'pusher-js'
 import PonyService from '../../../services/PonyServices'
-import axios from 'axios'
 import FeedbackIdPageView from '../../../components/screens/FeedbackIdPageView'
 
 const FeedbackIdPage = () => {
@@ -18,7 +17,7 @@ const FeedbackIdPage = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     let allMessages = [...messages];
-
+    
 
     useEffect(() => {
         if(!pid) {
@@ -27,7 +26,7 @@ const FeedbackIdPage = () => {
         ponyService.getFeedbackById(pid)
             .then(onFeedbackLoaded)
             .catch(onError)
-    },[])
+    },[pid])
     
     const onFeedbackLoaded = (feedbackList) => {
         setFeedback(feedbackList)
@@ -43,7 +42,7 @@ const FeedbackIdPage = () => {
     }
 
     useEffect(() => {
-        Pusher.logToConsole = true;
+        // Pusher.logToConsole = true;
 
         const pusher = new Pusher('7f9d43f02a4ad59feb75', {
             cluster:'eu',
@@ -61,7 +60,6 @@ const FeedbackIdPage = () => {
             setMessages(allMessages)
             // console.log(messages, 'messages');
         })
-
         return (() => {
             privateChannel.unbind()
 			pusher.unsubscribe('private-user.3')
@@ -73,27 +71,21 @@ const FeedbackIdPage = () => {
         e.preventDefault()
         console.log(text);
 
-        axios({
-            url: `http://localhost:8080/api/feedback/${pid}`,
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            data: {
-                    text: text,
-                }
-            })
-            .then((res) => {
-                console.log(res);
-                allMessages.push(res.data.data.message)
-                setMessages(allMessages)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        ponyService.addMessageUser({
+            text: text
+        }, pid)
+            .then(onPushMessage)
+            .catch(onPushError)
 
         setMessage('');
+    }
+    const onPushMessage = (res) => {
+        // console.log(res);
+        allMessages.push(res.data.data.message)
+        setMessages(allMessages)
+    }
+    const onPushError = (err) => {
+        console.log(err);
     }
 
     const handleChange = (e) => {

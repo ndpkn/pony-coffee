@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Image from 'next/image';
 import { motion } from 'framer-motion'
 import MotionBlock from './MotionBlock';
+import { useRef } from 'react';
 
 
 const imagesLinks = [
@@ -14,7 +15,7 @@ const imagesLinks = [
     {src: menu1, alt: 'coffeePot2'},
 ]
 
-const MainPageMenu = () => {
+const MainPageMenu = ({fieldRef}) => {
     const settings = {
         dots: true,
         arrows: false,
@@ -32,7 +33,7 @@ const MainPageMenu = () => {
     })
     return (
         <div className={styles.main_menu}
-            id='menu'>
+            ref={fieldRef}>
             <h2>меню</h2>
             <MotionBlock>
                 <Slider {...settings}>

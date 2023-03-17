@@ -1,8 +1,10 @@
 import MainButtonLink from '../../components/ui/MainButtonLink'
 import MainButtonType from '../../components/ui/MainButtonType'
 import styles from '../../styles/ChangeProfile.module.scss'
+import ErrorMessage from '../ui/ErrorMessage'
+import Input from '../ui/Input'
 
-const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm}) => {
+const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm, errors, isShow, isShowPass}) => {
   return (
     <div className={styles.changeProfile}>
       <h1 className={styles.changeProfile_header}>Укажите новый пароль</h1>
@@ -10,31 +12,35 @@ const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm}
         className={styles.changeProfile_form} 
         method="post"
         onSubmit={handleSubmit}>
-          <input 
+          <Input 
             onChange={handleChange} 
-            className={styles.changeProfile_input} 
-            style={{marginBottom: '3rem'}} 
-            name='changeTel' 
-            type="password" 
-            placeholder='Новый пароль' />
-          <input 
+            name='password' 
+            type={isShow == false ? 'password' : 'text'}  
+            placeholder='Новый пароль' 
+            isShowPass={isShowPass}
+            isShow={isShow}
+            />
+          <Input 
             onChange={handleChangeConfirm} 
-            className={styles.changeProfile_input} 
-            name='changePass' 
-            type="password" 
-            placeholder='Подтверждение нового пароля' />
+            name='password' 
+            type={isShow == false ? 'password' : 'text'}  
+            placeholder='Подтверждение нового пароля' 
+            isShowPass={isShowPass}
+            isShow={isShow}
+            />
           <label 
             className={styles.changeProfile_label} 
             style={{marginBottom: '2.5rem'}} 
             htmlFor="changePass">Пароль должен содержать минимум 8 символов</label>
+          <ErrorMessage textError={errors}/>
           <MainButtonType 
-            buttonName='Изменить пароль' 
-            action='confirm' 
+            buttonName='Сохранить' 
+            action='access' 
             type='submit'/>
       </form>
       <MainButtonLink 
         buttonName='Вернуться в профиль' 
-        action='warning' 
+        action='confirm' 
         href='/profile'/>
   </div>
   )

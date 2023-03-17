@@ -1,42 +1,44 @@
-import axios from 'axios'
 import { useState } from 'react'
 import Layout from '../../components/Layout'
 import ProfileChangeTelView from '../../components/screens/ProfileChangeTelView'
+import PonyService from '../../services/PonyServices'
 
 const ChangeTel = () => {
     const [userTel, setUserTel] = useState('')
+    const [errors, setErrors] = useState([])
+    
+    const ponyService = new PonyService()
     // const [code, setCode] = useState('')
     
     const handleChange = (e) => {
         setUserTel(e.target.value)
     }
     const handleSubmit = (e) => {
-        axios({
-            method: 'put',
-            url: 'http://localhost:8080/api/profile/phone',
-            headers: {
-                accept: 'application/json',
-                authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            data: {
-                    phone: userTel,
-                    // code: code
-                }
+        e.preventDefault()
+
+        ponyService.changePhone({
+                phone: userTel,
+                // code: code
             })
-            .then((res) => {
-                console.log(res);
-                window.location.href = '/profile'
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-            
-            e.preventDefault()
-        
-        }
+            .then(onChangePhone)
+            .catch(onChangeError)
+    }
+    const onChangePhone = (res) => {
+        console.log(res);
+        window.location.href = '/profile'
+    }
+    const onChangeError = (err) => {
+        console.log(err);
+        setErrors(err.response.data.errors.messages)
+    }
+
     return (
         <Layout title='Изменение телефона'>
-            <ProfileChangeTelView handleChange={handleChange} handleSubmit={handleSubmit}/>
+            <ProfileChangeTelView 
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit}
+                errors={errors}
+                />
         </Layout>
     )
 }

@@ -11,6 +11,7 @@ const FeedbackAdminView = ({feedbacks, error, loading}) => {
                     key={i}
                     actionName={item.user.name}
                     currentValue={item.messages[0].text}
+                    grade={item.grade}
                     link={`/feedback/admin/${item.id}`}/>
     })
 

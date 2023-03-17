@@ -1,8 +1,11 @@
 import MainButtonLink from '../../components/ui/MainButtonLink'
 import MainButtonType from '../../components/ui/MainButtonType'
 import styles from '../../styles/ChangeProfile.module.scss'
+import ErrorMessage from '../ui/ErrorMessage'
+import Input from '../ui/Input'
 
-const ProfileChangeNameView = ({handleSubmit, handleChange}) => {
+const ProfileChangeNameView = ({handleSubmit, handleChange, errors}) => {
+  
   // добавить поле ввода кода и отправку новой почты
   return (
     <div className={styles.changeProfile}>
@@ -11,25 +14,27 @@ const ProfileChangeNameView = ({handleSubmit, handleChange}) => {
           className={styles.changeProfile_form} 
           method="POST" 
           onSubmit={handleSubmit}>
-          <input 
+          <Input 
               onChange={handleChange} 
-              className={styles.changeProfile_input} 
               name='changeName' 
               type="tel" 
-              placeholder='Другое имя' />
-          <label 
+              placeholder='Введите имя' 
+          />
+          {/* <label 
               className={styles.changeProfile_label} 
-              style={{marginBottom: '2.5rem'}} 
+              style={{marginBottom: '2rem'}} 
               htmlFor="changeName"
-              >Например: Иван</label>
+              >Например: Иван
+              </label> */}
+          <ErrorMessage textError={errors}/>
           <MainButtonType 
-              buttonName='Изменить имя' 
-              action='confirm' 
+              buttonName='сохранить' 
+              action='access' 
               type='submit'/>
       </form>
       <MainButtonLink 
           buttonName='Вернуться в профиль' 
-          action='warning' 
+          action='confirm' 
           href='/profile'/>
   </div>
   )
