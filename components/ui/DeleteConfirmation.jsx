@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
-const DeleteConfirm = ({openDialog, handleCloseDialog, title, description, onClick}) => {
+const DeleteConfirmation = ({openDialog, handleCloseDialog, title, description, onClick, cancel, confirm, href}) => {
 
 
     return (
@@ -20,9 +20,9 @@ const DeleteConfirm = ({openDialog, handleCloseDialog, title, description, onCli
                 </DialogContentText>
             </DialogContent>
             <DialogActions >
-                <Button onClick={handleCloseDialog}  style={{fontFamily: 'Montserrat, sans-serif', fontSize:'1.4rem'}}>Отменить</Button>
-                <Button onClick={onClick}  style={{fontFamily: 'Montserrat, sans-serif', color: '#ED2222', fontSize:'1.4rem'}} autoFocus>
-                    Удалить
+                <Button onClick={handleCloseDialog}  style={{fontFamily: 'Montserrat, sans-serif', fontSize:'1.4rem'}}>{cancel}</Button>
+                <Button onClick={onClick} href={href} style={{fontFamily: 'Montserrat, sans-serif', color: '#ED2222', fontSize:'1.4rem'}} autoFocus>
+                    {confirm}
                 </Button>
             </DialogActions>
         </Dialog>
@@ -30,4 +30,4 @@ const DeleteConfirm = ({openDialog, handleCloseDialog, title, description, onCli
     )
 }
 
-export default DeleteConfirm
+export default DeleteConfirmation

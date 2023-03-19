@@ -17,37 +17,53 @@ const sortItems = [
 
 const UserStatView = ({filteredUserInfo, error, loading, getSearchTerm, searchTerm, getKey, activeKey}) => {
 
-    const items = filteredUserInfo.map((item,i) => {
-            return <tr key={i}>
-                        <td style={{padding:'0.5rem'}}>{item.id}</td>
-                        <td>{item.name == null ? 'Не указано' : item.name}</td>
-                        <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
-                        <td>{item.active_bonuses_count}</td>
-                        <td>{item.email  == '' ? 'Не указан' : item.email}</td>
-                        <td>{item.using_bonuses_count}</td>
-                        <td>{item.burnt_bonuses_count}</td>
-                    </tr>
-                    })
+    const items = 
+        filteredUserInfo.length != 0 
+        ?
+        filteredUserInfo.map((item,i) => {
+                return (
+                        <tr key={i}>
+                            <td style={{padding:'0.5rem'}}>{item.id}</td>
+                            <td>{item.name == null ? 'Не указано' : item.name}</td>
+                            <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
+                            <td>{item.active_bonuses_count}</td>
+                            <td>{item.email  == '' ? 'Не указан' : item.email}</td>
+                            <td>{item.using_bonuses_count}</td>
+                            <td>{item.burnt_bonuses_count}</td>
+                        </tr>
+                        )
+                    }) 
+        :
+        <tr>
+            <td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>Нет пользователей с таким номером</td>
+        </tr>
+
     const errorMessage = 
-        error ?
+        error 
+        ?
         <tr>
             <td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>
                 Ошибка загрузки данных
             </td>
-        </tr> : 
-        null;
+        </tr> 
+        : 
+        null
+
     const spinner = 
-        loading ? 
+        loading 
+        ? 
         <tr>
             <td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>
                 Загрузка ...
             </td>
-        </tr> : 
-        null;
+        </tr> 
+        : 
+        null
+
     const content = 
-        !(loading || error || filteredUserInfo.length == 0) ? 
+        !(loading || error) ? 
         items : 
-        <tr><td colSpan={7} style={{fontSize:'1.5rem', padding:'2rem'}}>Нет пользователей с таким номером</td></tr>;
+        null
     return (
         <div className={styles.userStat}>
             <PageHeader text='Статистика пользователя'/>
@@ -66,7 +82,7 @@ const UserStatView = ({filteredUserInfo, error, loading, getSearchTerm, searchTe
                                 key={item.key} 
                                 name={item.label} 
                                 onClick={() => getKey(item.key)}
-                                activeClass={item.key === activeKey ? classNames(styles.userStat_sortItem, styles.userStat_sortItem_active) : styles.userStat_sortItem}
+                                activeClass={item.key == activeKey ? classNames(styles.userStat_sortItem, styles.userStat_sortItem_active) : styles.userStat_sortItem}
                             />
                 })}
             </div>

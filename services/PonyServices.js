@@ -18,26 +18,10 @@ class PonyService {
 
                 if (res.status < 200 || res.status >= 300) {
                     throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
-                }
+                } 
                 return res;
         
     }
-    // getData = async (url) => {
-    //     let res = await fetch(url, {
-    //                         method: 'GET',
-    //                         headers: {
-    //                             accept: 'application/json',
-    //                             authorization: `Bearer ${localStorage.getItem('token')}`
-    //                         }
-    //                     });
-
-    //     if (!res.ok) {
-    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`, console.error(res));
-    //     }
-    
-    //     return await res.json();
-        
-    // }
 
     getBarista = async () => {
         const res = await this.getData(`${this._apiBase}/barista`);

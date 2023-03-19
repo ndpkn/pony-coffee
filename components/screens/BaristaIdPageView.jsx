@@ -6,7 +6,7 @@ import MainButtonLink from '../../components/ui/MainButtonLink'
 import ErrorMessage from '../../components/ui/ErrorMessage'
 import LoadingMessage from '../../components/ui/LoadingMessage'
 import { useState } from 'react'
-import DeleteConfirm from '../ui/DeleteConfirm'
+import DeleteConfirmation from '../ui/DeleteConfirmation'
 
 
 const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePotId, errors, loading, error, barista, deleteBarista, pid}) => {
@@ -78,10 +78,12 @@ const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePo
                 {spinner}
                 {content}
 
-                <DeleteConfirm 
+                <DeleteConfirmation 
                     handleCloseDialog={handleCloseDialog} 
                     openDialog={openDialog} 
                     onClick={() => deleteBarista(pid)}
+                    cancel={'Отменить'}
+                    confirm={'Удалить'}
                     title='Удаление сотрудника'
                     description='Вы действиительно хотите удалить этого сотрудника?'
                     />

@@ -112,7 +112,15 @@ const UserStat = () => {
 
     return (
         <Layout title='Статистика пользователя'>
-            <UserStatView filteredUserInfo={filteredUserInfo} error={error} loading={loading} getSearchTerm={getSearchTerm} searchTerm={searchTerm} getKey={getKey} activeKey={activeKey}/>
+            <UserStatView 
+                filteredUserInfo={filteredUserInfo} 
+                error={error} 
+                loading={loading} 
+                getSearchTerm={getSearchTerm} 
+                searchTerm={searchTerm} 
+                getKey={getKey} 
+                activeKey={activeKey}
+            />
         </Layout>
     )
 }

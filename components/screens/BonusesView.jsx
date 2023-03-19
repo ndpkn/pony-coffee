@@ -8,6 +8,8 @@ import LoadingMessage from '../ui/LoadingMessage'
 
 const BonusesView = ({error, loading, allUsers}) => {
     const [searchTerm, setSearchTerm] = useState('')
+    const [bonusCount, setBonusCount] = useState(0)
+
 
     const filteredUsers = allUsers.filter(item => {
         return item.phone.includes(searchTerm)
@@ -15,7 +17,11 @@ const BonusesView = ({error, loading, allUsers}) => {
 
     const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
-    const content = !(loading || error) ? <Table filteredUsers={filteredUsers}/> : null
+    const content = !(loading || error) ? <Table filteredUsers={filteredUsers} bonusCount={bonusCount} setBonusCount={setBonusCount}/> : null
+
+    const showBonusesCount = (count) => {
+        console.log(count);
+    }
 
     return (
         <div className={styles.bonuses}>
@@ -31,12 +37,12 @@ const BonusesView = ({error, loading, allUsers}) => {
                 {errorMessage}
                 {spinner}
                 {searchTerm != '' ? content : null}
-            <MainButtonType buttonName='Подтвердить' action='confirm' onClick={null}/>
+            <MainButtonType buttonName='Подтвердить' action='confirm' onClick={() => showBonusesCount(bonusCount)}/>
         </div>
     )
 }
 
-const Table = ({filteredUsers}) => {
+const Table = ({filteredUsers, bonusCount, setBonusCount}) => {
     return (
     <div className={styles.bonuses_table_wrap}>
         <table  className={styles.bonuses_table}>
@@ -62,7 +68,10 @@ const Table = ({filteredUsers}) => {
                                 id={item.id} 
                                 phone ={item.phone} 
                                 name={item.name} 
-                                bonuses={item.active_bonuses_count}/>
+                                bonuses={item.active_bonuses_count}
+                                bonusCount={bonusCount}
+                                setBonusCount={setBonusCount}
+                                />
                 })}
             </tbody>
         </table>
@@ -71,8 +80,7 @@ const Table = ({filteredUsers}) => {
 }
 
 
-const BonusesUser = ({id, phone, name, bonuses, number}) => {
-    const [bonus, setBonus] = useState(0)
+const BonusesUser = ({id, phone, name, bonuses, number, bonusCount, setBonusCount }) => {
 
     return (
         <tr key={id}>
@@ -83,13 +91,13 @@ const BonusesUser = ({id, phone, name, bonuses, number}) => {
                 <div 
                     style={{display:'flex', flexDirection: 'column', alignItems:'center'}}>
                     <div>
-                        <p>{bonus}</p>
+                        <p>{bonusCount}</p>
                     </div>
                     <div 
                         style={{display:'flex'}}>
                         <button 
                             className={styles.bonuses_table_button_left} 
-                            onClick={() => setBonus((prevState) => prevState - 1)}>
+                            onClick={() => setBonusCount((prevState) => prevState - 1)}>
                                 -
                         </button>
                         <p 
@@ -98,7 +106,7 @@ const BonusesUser = ({id, phone, name, bonuses, number}) => {
                         </p>
                         <button 
                             className={styles.bonuses_table_button_right} 
-                            onClick={() => setBonus((prevState) => prevState + 1)}>
+                            onClick={() => setBonusCount((prevState) => prevState + 1)}>
                                 +
                         </button>
                     </div>
