@@ -155,6 +155,11 @@ addMessageUser = async (data, id) => {
     const res = await this.postData(`${this._apiBase}/feedback/${id}`, data)
     return res
 }
+addBonus = async (data, id) => {
+    const res = await this.postData(`${this._apiBase}/bonus/${id}`, data)
+    return res
+}
+
 
 //PUT
 putData = async (url, data) => {
