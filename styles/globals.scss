@@ -8,12 +8,17 @@ body {
   background-color: #EBF5FF;
 }
 main {
-  max-width: 100rem;
+  // max-width: 100rem;
   overflow: auto;
   margin: 0 auto;
-  padding: 7rem 0 0 0;
   height: 100vh;
+  position: relative;
+  padding: 7rem 0 0 0;
   scroll-behavior: smooth;
+
+}
+main::-webkit-scrollbar {
+  width: 0;
 }
 span {
   font-family: 'Montserrat', sans-serif !important;

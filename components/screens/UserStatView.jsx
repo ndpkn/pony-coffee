@@ -27,9 +27,9 @@ const UserStatView = ({filteredUserInfo, error, loading, getSearchTerm, searchTe
                             <td>{item.name == null ? 'Не указано' : item.name}</td>
                             <td>{item.phone  == null ? 'Не указан' : item.phone}</td>
                             <td>{item.active_bonuses_count}</td>
-                            <td>{item.email  == '' ? 'Не указан' : item.email}</td>
                             <td>{item.using_bonuses_count}</td>
                             <td>{item.burnt_bonuses_count}</td>
+                            <td>{item.email  == '' ? 'Не указан' : item.email}</td>
                         </tr>
                         )
                     }) 
@@ -94,9 +94,9 @@ const UserStatView = ({filteredUserInfo, error, loading, getSearchTerm, searchTe
                             <th>Имя</th>
                             <th>Телефон</th>
                             <th>Кол-во бонусов</th>
-                            <th>email</th>
                             <th>Потрачено бонусов</th>
                             <th>Сгорело бонусов</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>

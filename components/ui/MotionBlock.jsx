@@ -4,9 +4,8 @@ const MotionBlock = ({children}) => {
     return (
         <motion.div
             initial={{ 
-                opacity: 0, 
-                scale: 0.5 
-            
+                opacity: 0,
+                scale: 0.2
             }}
             whileInView={{ 
                 opacity: 1, 
@@ -18,7 +17,8 @@ const MotionBlock = ({children}) => {
             }}
             viewport={{ 
                 once: true 
-            }}>
+            }}
+        >
                 {children}
         </motion.div>
     )

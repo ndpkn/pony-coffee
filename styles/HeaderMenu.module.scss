@@ -9,6 +9,11 @@
     background-color: #0000009E;
     overflow: auto;
     z-index: 2;
+    height: calc(100vh - 7rem);
+    overflow-y: hidden;
+    &_closeField {
+        height: 100%;
+    }
 }
 
 .menu {

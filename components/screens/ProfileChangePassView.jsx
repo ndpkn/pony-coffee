@@ -35,7 +35,7 @@ const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm,
           <ErrorMessage textError={errors}/>
           <MainButtonType 
             buttonName='Сохранить' 
-            action='access' 
+            action='success' 
             type='submit'/>
       </form>
       <MainButtonLink 

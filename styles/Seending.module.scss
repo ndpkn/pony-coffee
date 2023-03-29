@@ -5,9 +5,12 @@
     &_form {
         display: flex;
         flex-direction: column;
-        
+        max-width: 35rem;
+        width: 100%;
+        margin: 0 auto;
     }
     &_textarea {
+        max-width: 35rem;
         width: 100%;
         background: #FFFFFF;
         border: 1px solid rgba(0, 0, 0, 0.37);

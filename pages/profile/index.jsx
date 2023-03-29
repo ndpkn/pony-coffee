@@ -25,6 +25,7 @@ const Profile = () => {
     //данные загружены успешно
     const onProfileLoaded = (profileList) => {
         setProfileData(profileList)
+        console.log(profileList);
         setLoading(false)
     }
     const onBonusesLoaded = (bonusesList) => {
@@ -41,7 +42,12 @@ const Profile = () => {
 
     return (
         <Layout title='Личный кабинет'>
-            <ProfileView profileData={profileData} bonuses={bonuses} error={error} loading={loading}/>
+            <ProfileView 
+                profileData={profileData} 
+                bonuses={bonuses} 
+                error={error} 
+                loading={loading}
+            />
         </Layout>
     )
 }

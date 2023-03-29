@@ -2,7 +2,7 @@ import axios from "axios";
 
 class PonyService {
     _apiBase = 'http://localhost:8080/api';
-    
+
 // GET
     getData = async (url) => {
         let res = await axios
@@ -63,6 +63,10 @@ class PonyService {
     }
     getBonusesByUser = async () => {
         const res = await this.getData(`${this._apiBase}/user/bonuses`);
+        return res.data.data
+    }
+    getBonusConfig = async () => {
+        const res = await this.getData(`${this._apiBase}/bonus/config`);
         return res.data.data
     }
     getNotifications = async () => {
@@ -201,6 +205,10 @@ changePass = async (data) => {
 }
 changePhone = async (data) => {
     const res = await this.putData(`${this._apiBase}/profile/phone`, data);
+    return res
+}
+putBonus = async (data, id) => {
+    const res = await this.putData(`${this._apiBase}/bonus/${id}`, data);
     return res
 }
 

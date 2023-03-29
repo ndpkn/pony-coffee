@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import styles from '../../styles/MainButton.module.scss'
 
-const MainButtonLink = ({buttonName, action, href}) => {
+const MainButtonLink = ({buttonName, action, href, onClick}) => {
     let colorChange
     switch (action) {
         case 'danger' : 
@@ -14,7 +14,7 @@ const MainButtonLink = ({buttonName, action, href}) => {
         case 'confirm' : 
             colorChange = '#0082FF';
             break
-        case 'access' : 
+        case 'success' : 
         colorChange = '#41A85F';
         break
         default: 
@@ -22,14 +22,15 @@ const MainButtonLink = ({buttonName, action, href}) => {
     }
     return (
         <div style={{
-                
                 display:'flex', 
-                justifyContent:'center'
+                justifyContent:'center',
             }}>
             <Link 
                 href={href} 
                 className={styles.button} 
-                style={{color:`${colorChange}`}}>
+                style={{color:`${colorChange}`}}
+                onClick={onClick}
+            >
                 <p>{buttonName}</p>
             </Link>
 

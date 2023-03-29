@@ -23,7 +23,7 @@ const CoffeePotAddPageView = ({onSubmit, handleChange }) => {
                         placeholder='Адрес кофейни' 
                         onChange={handleChange}
                         />
-                    <MainButtonType buttonName='добавить' action='access' type='submit'/>
+                    <MainButtonType buttonName='добавить' action='success' type='submit'/>
                     <MainButtonLink buttonName='Вернуться назад' action='confirm' href='/coffeePot'/>
 
                 </form>

@@ -75,7 +75,7 @@ const BaristaAddPageView = ({ coffeePots, errors, loading, error, isShow, handle
                     : errors.map((item, i) => {
                         return <p style={{marginTop:'2rem', marginBottom:'2rem', color:'red'}} key={i}>{item}</p>
                     })}
-                    <MainButtonType buttonName='добавить' action='access' type='submit'/>
+                    <MainButtonType buttonName='добавить' action='success' type='submit'/>
                     <MainButtonLink buttonName='Вернуться назад' action='confirm' href='/barista'/>
 
                 </form>

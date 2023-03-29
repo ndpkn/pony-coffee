@@ -41,7 +41,12 @@ const Seending = () => {
 
     return (
         <Layout title='Рассылка'>
-            <SendingView onSubmit={onSubmit} error={error} loaded={loaded} errors={errors}/>
+            <SendingView 
+                onSubmit={onSubmit} 
+                error={error} 
+                loaded={loaded} 
+                errors={errors}
+            />
         </Layout>
     )
 }

@@ -33,7 +33,7 @@ const CoffeePotPageView = ({coffeePot, error, loading }) => {
                 {spinner}
                 {content}
 
-                <MainButtonLink buttonName='Добавить кофейню' action='access' href='coffeePot/add'/>
+                <MainButtonLink buttonName='Добавить кофейню' action='success' href='coffeePot/add'/>
             </div>
 
     )

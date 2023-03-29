@@ -4,8 +4,14 @@ import Image from 'next/image'
 import Message from '../ui/Message'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
+import { Button } from '@mui/material'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useRouter } from 'next/router'
+
 
 const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, message, onSubmit}) => {
+    const router = useRouter()
+
     const messagesRender = messages.map((item, i) => {
         const pos = item.belongToAuthUser == 0 ? 'left' : 'right'
         return <Message 
@@ -34,7 +40,16 @@ const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, m
                     padding:'0 3rem 0 3rem'
             }}>
                 {/* <PageHeader text='история ваших обращений'/> */}
-
+                    <Button
+                        color='primary'
+                        size='large'
+                        onClick={() => {
+                            router.back()
+                        }}
+                        >
+                        <ArrowBackIosIcon/>
+                        назад
+                    </Button>
                     {errorMessage}
                     {spinner}
                     <div style={{
@@ -52,7 +67,7 @@ const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, m
                     <input 
                         type="text"
                         className={styles.input_text}
-                        placeholder={'Сообщение'}
+                        placeholder={'Сообщение...'}
                         value={message}
                         onChange={handleChange}/>
                     <button 

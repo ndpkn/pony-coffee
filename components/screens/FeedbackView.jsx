@@ -28,13 +28,21 @@ const FeedbackView = ({options, error, loading, onSubmit, errors}) => {
                 {spinner}
                 {content}
             </select>
-            <div style={{display:'flex', flexDirection: 'column'}}>
+            <div 
+                style={{
+                    display:'flex', 
+                    flexDirection: 'column',
+                    maxWidth:'35rem',
+                    minWidth: '25rem',
+                    margin: '0 auto'
+                    }}
+                >
                 
                 <textarea 
                     className={styles.feedback_textarea}
                     name="textarea" 
                     rows={5}
-                    placeholder='Введите текст рассылки'
+                    placeholder='Напишите ваш отзыв'
                     {...register("text", { required: true })}
                     >
                 </textarea>
@@ -56,7 +64,7 @@ const FeedbackView = ({options, error, loading, onSubmit, errors}) => {
                 />
             </div>
             <ErrorMessage textError={errors}/>
-            <MainButtonType buttonName='Отправить' action='confirm' type='submit'/>
+            <MainButtonType buttonName='Отправить' action='success' type='submit'/>
             <MainButtonLink buttonName='все обращения' action='confirm' href='/feedback/history'/>
         </form>
     </div>

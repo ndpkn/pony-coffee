@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion'
 import MotionBlock from './MotionBlock';
 import { useRef } from 'react';
+import MotionBlockHeader from './MotionBlockHeader';
 
 
 const imagesLinks = [
@@ -15,13 +16,13 @@ const imagesLinks = [
     {src: menu1, alt: 'coffeePot2'},
 ]
 
-const MainPageMenu = ({fieldRef}) => {
+const MainPageMenu = ({fieldRef, slidesToShow}) => {
     const settings = {
         dots: true,
         arrows: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 1,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
     }
     const images = imagesLinks.map((image, i) => {
@@ -34,7 +35,7 @@ const MainPageMenu = ({fieldRef}) => {
     return (
         <div className={styles.main_menu}
             ref={fieldRef}>
-            <h2>меню</h2>
+            <MotionBlockHeader textSpan={'меню'}/>
             <MotionBlock>
                 <Slider {...settings}>
                     {images}

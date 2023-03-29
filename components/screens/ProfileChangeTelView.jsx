@@ -41,7 +41,7 @@ const ProfileChangeTelView = ({handleSubmit, handleChange, errors}) => {
           <ErrorMessage textError={errors}/>
           <MainButtonType 
             buttonName='сохранить' 
-            action='access' 
+            action='success' 
             type='submit'/>
       </form>
       <MainButtonLink 

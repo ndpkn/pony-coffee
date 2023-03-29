@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import styles from '../../styles/MainButton.module.scss'
 
@@ -14,7 +13,7 @@ const MainButtonType = ({buttonName, action, type, onClick}) => {
         case 'confirm' : 
             colorChange = '#0082FF';
             break
-        case 'access' : 
+        case 'success' : 
             colorChange = '#41A85F';
             break
         default: 
@@ -25,7 +24,7 @@ const MainButtonType = ({buttonName, action, type, onClick}) => {
             style={{flexGrow:'1', 
                     alignItems:'flex-end', 
                     display:'flex', 
-                    justifyContent:'center'
+                    justifyContent:'center',
                 }}
             onClick={onClick}>
             <button type={type} className={styles.button} style={{color:`${colorChange}`, border: 'none'}}>

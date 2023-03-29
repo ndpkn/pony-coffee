@@ -8,13 +8,18 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    &_messages {
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+    }
 }
 .input {
     &_block {
         position: fixed;
         bottom: 0;
         width: 100%;
-        max-width: 1200px;
+        max-width: 100rem;
         border-radius: 10rem ;
     }
     &_form {

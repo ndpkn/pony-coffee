@@ -16,9 +16,16 @@ const MainPageAddress = () => {
     return (
         <div style={{position:'relative'}}>
             <div className={styles.main_address}>
-                <div style={{display:'flex',flexDirection:'column', alignItems:'center', marginBottom:'6rem'}}>
+                <div 
+                    style={{
+                        display:'flex',
+                        flexDirection:'column', 
+                        alignItems:'center', 
+                        marginBottom:'6rem',
+                        }}
+                    >
                     <p className={styles.main_address_slogan}>
-                        от работы дохнут кони <br /> <span style={{textTransform: 'uppercase', fontSize:'2.5rem'}}>ну а я -</span> <br /><span style={{fontWeight:'600'}}>бессмертный</span><br /><span style={{color:'#0082FF', fontWeight:'600', fontSize:'2.5rem'}}>пони</span>
+                        от работы дохнут кони <br /> <span className={styles.main_address_slogan_span1} >ну а я -</span> <br /><span style={{fontWeight:'600'}}>бессмертный</span><br /><span className={styles.main_address_slogan_span2}>пони</span>
                     </p>
                     <motion.div
                         initial={{
@@ -40,16 +47,16 @@ const MainPageAddress = () => {
                         <Image src={pony} alt='pony'/>
                     </motion.div>
                 </div>
-                <div style={{display:'flex', alignItems:'center'}}>
-                    <div>
-                        <p style={{fontSize:'2rem', fontWeight:'500', marginBottom:'1.5rem'}}>Мы ждем вас!</p>
-                        <p style={{fontSize:'2rem', fontWeight:'300'}}>Работаем для вас ежедневно по адресу:</p>
+                <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                    <div className={styles.main_address_header}>
+                        <p style={{fontWeight:'500', marginBottom:'1.5rem'}}>Мы ждем вас!</p>
+                        <p style={{fontWeight:'300'}}>Работаем для вас ежедневно по адресу:</p>
                     </div>
                     <Image src={coffeeCup} alt='coffee cup'/>
                 </div>
                 <MotionBlock>
                     <div className={styles.main_address_maps}>
-                        <div style={{backgroundColor: '#fff', borderRadius:'2rem', padding:'1rem', marginTop:'3rem', marginBottom:'5rem', boxShadow: '4px 3px 12px 2px rgba(0, 0, 0, 0.1)'}}>
+                        <div className={styles.main_address_maps_block}>
                             <Accordion >
                                 <AccordionSummary
                                 expandIcon={<ArrowDownwardIcon sx={{color: '#0080FF'}} fontSize="large" />}
@@ -97,15 +104,10 @@ const MainPageAddress = () => {
                 </MotionBlock>
             </div>
             <Image 
+                className={styles.main_address_ellips}
                 src={ellips} 
                 alt='ellips' 
-                style={{
-                    position:'absolute', 
-                    top:'24%', 
-                    zIndex:'-1',
-                    right: 0,
-                    width: '100%'
-                    }}/>
+            />
         </div>
     )
 }

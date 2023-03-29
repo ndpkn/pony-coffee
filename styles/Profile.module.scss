@@ -20,6 +20,11 @@
             font-weight: normal;
             margin-bottom: 2rem;
         }
+        &_name {
+            color: $accentColor;
+            font-size: 2rem;
+            margin-top: 0.5rem;
+        }
         &_id {
             font-size: 2rem;
             color: $secondaryTextColor;

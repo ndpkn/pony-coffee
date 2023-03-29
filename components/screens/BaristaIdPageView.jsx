@@ -59,7 +59,7 @@ const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePo
                 null
             }
 
-            <MainButtonType buttonName='сохранить' action='access' type='submit'/>
+            <MainButtonType buttonName='сохранить' action='success' type='submit'/>
             <MainButtonType buttonName='Удалить' action='danger' type='button' onClick={handleOpenDialog}/>
         </form>
 
@@ -85,7 +85,7 @@ const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePo
                     cancel={'Отменить'}
                     confirm={'Удалить'}
                     title='Удаление сотрудника'
-                    description='Вы действиительно хотите удалить этого сотрудника?'
+                    description='Вы действительно хотите удалить этого сотрудника?'
                     />
 
                 <MainButtonLink buttonName='вернуться назад' action='confirm' href='/barista'/>

@@ -3,6 +3,8 @@
 
 .input {
     width: 100%;
+    max-width: 35rem;
+    // min-width: 25rem;
     border-radius: 1rem;
     background-color: #fff;
     border: none;
@@ -14,6 +16,10 @@
     // position: relative;
     &_block {
         position: relative;
+        width: 100%;
+        max-width: 35rem;
+        // min-width: 25rem;
+        margin: 0 auto;
     }
 
     &::placeholder {

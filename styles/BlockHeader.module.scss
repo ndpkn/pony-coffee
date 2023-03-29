@@ -1,0 +1,9 @@
+.blockHeader {
+    padding-left: 3rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    @media screen and ( min-width: '551px') {
+        font-size: 3rem;
+    }
+}

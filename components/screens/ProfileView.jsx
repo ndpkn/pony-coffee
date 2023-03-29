@@ -8,13 +8,31 @@ import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 
 const ProfileView = ({profileData, bonuses, error, loading}) => {
+
+    function getNoun(number, one, two, five) {
+        let n = Math.abs(number);
+        n %= 100
+        if (n >= 5 && n <= 20) {
+            return five
+        }
+        n %= 10;
+        if (n === 1) {
+            return one
+        }
+        if (n >= 2 && n <= 4) {
+            return two
+        }
+        return five
+        }
+
     const items =   
         <>
         <div className={styles.profile_header}>
             <PageHeader text='Личный кабинет'/>
             <Image src={profileIcon} alt='profile icon'/>
+            <p className={styles.profile_header_name}>{profileData.name}</p>
             <p className={styles.profile_header_id}>{`Ваш ID: ${profileData.id != null ? profileData.id : 'не найден'}`}</p>
-            <p className={styles.profile_header_bonus}>{bonuses.count != undefined ? `У вас ${bonuses.count} бонусов` : 'Бонусы не загружены'}</p>
+            <p className={styles.profile_header_bonus}>{bonuses.count != undefined ? `У вас ${bonuses.count} ${getNoun(bonuses.count, 'бонус', 'бонуса', 'бонусов')}` : 'Бонусы не загружены'}</p>
             <p className={styles.profile_header_bonusDate}>{bonuses.dateBurn == null ? 'Пора выпить кофе, у вас нет бонусов' : `Можно списать до ${bonuses.dateBurn}`}</p>
         </div>
         <div className={styles.profile_main}>

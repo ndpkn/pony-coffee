@@ -33,7 +33,7 @@ return (
             {spinner}
             {content}
 
-            <MainButtonLink buttonName='Добавить сотрудника' action='access' href='barista/add'/>
+            <MainButtonLink buttonName='Добавить сотрудника' action='success' href='barista/add'/>
         </div>
 )
 }

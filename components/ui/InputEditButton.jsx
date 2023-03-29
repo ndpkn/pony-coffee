@@ -1,6 +1,3 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
 import styles from '../../styles/EditButton.module.scss'
 
 const InputEditButton = ({actionName, currentValue, onChange, inputName}) => {

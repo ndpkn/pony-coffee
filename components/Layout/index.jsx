@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 import { setHeaderMenu, setHeaderMenuLoading, setHeaderMenuError } from '../../store/headerMenuSlice'
 
-const Layout = ({children, title, descr}) => {
+const Layout = ({children, title, descr, maxWidth}) => {
   const router = useRouter()
 
   const dispatch = useDispatch()
@@ -36,8 +36,7 @@ const Layout = ({children, title, descr}) => {
   return (
     <div className='layout'>
       <Meta title={title} description={descr}/>
-      <Header/>
-      <AnimatePresence mode='wait'>
+        <Header/>
         <motion.div
           key={router.route}
           initial="initialState"
@@ -49,20 +48,22 @@ const Layout = ({children, title, descr}) => {
           variants={{
             initialState: {
               opacity: 0,
-              // clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)',
             },
             animateState: {
               opacity: 1,
-              // clipPath: 'polygon(0 0, 100% 0%, 100% 100%, 0% 100%)',
             },
             exitState: {
-              opacity: 1
-              // clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+              opacity: 0
             },
           }}>
-          <main>{children}</main>
+          <main
+            style={{
+              maxWidth: maxWidth ? null : '100rem'
+            }}
+          >
+            {children}
+          </main>
         </motion.div>
-      </AnimatePresence>
     </div>
   )
 }

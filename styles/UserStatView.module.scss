@@ -67,5 +67,10 @@
         overflow-x: auto;
         width: 100%;
         max-width: 100%;
+        margin-top: 3rem;
+        @media screen and (min-width: 675px) {
+            width: 100rem;
+            padding: 0 3rem;
+        }
     }
 }

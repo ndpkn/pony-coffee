@@ -11,6 +11,7 @@ import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion'
 import MotionBlock from './MotionBlock';
+import MotionBlockHeader from './MotionBlockHeader';
 
 
 const reviews = [
@@ -18,13 +19,13 @@ const reviews = [
     {name: 'Дмитрий', text:'Очень понравилось у вас приду еще',  grade: 5, address: 'Ворошиловский просп., 79', date:'22.03.23'},
     {name: 'Иван', text:'Все супер, спасибо вам', img: newsPhoto1, grade: 5, address: 'Ворошиловский просп., 79', date:'22.03.23'}
 ]
-const MainPageReview = () => {
+const MainPageReview = ({slidesToShow}) => {
     const settings = {
         dots: true,
         arrows: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 1,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
         autoplaySpeed: 3000
 
@@ -52,7 +53,7 @@ const MainPageReview = () => {
         <motion.div 
             
             className={styles.main_review}>
-            <h2>наши отзывы</h2>
+            <MotionBlockHeader textSpan={'наши '} text={'отзывы'}/>
             <MotionBlock>
                 <Slider {...settings}>
                     {reviewsRender}

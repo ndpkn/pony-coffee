@@ -38,9 +38,9 @@ const CoffeePotIdPageView = ({handleSubmit, coffeePot, handleChangeAddress, hand
                 :
                 null
             }
-            <MainButtonType buttonName='сохранить' action='access' type='submit'/>
+            <MainButtonType buttonName='сохранить' action='success' type='submit'/>
             <MainButtonType buttonName='Удалить' action='danger' type='button' onClick={handleOpenDialog}/>
-            <p style={{color:'#0000002B', marginTop:'1rem', marginBottom:'1rem'}}>Дата создания: {coffeePot.created_at == null ? 'Нет названия' : coffeePot.created_at.slice(0,10)}</p>
+            <p style={{color:'#0000002B', marginTop:'1rem', marginBottom:'1rem', textAlign:'center'}}>Дата создания: {coffeePot.created_at == null ? 'Нет названия' : coffeePot.created_at.slice(0,10)}</p>
             {/* <p style={{color:'#0000002B', marginTop:'1rem', marginBottom:'1rem'}}>Дата последнего редактирования: {coffeePot.updated_at == null ? 'Нет названия' : coffeePot.updated_at.slice(0,10)}</p> */}
         </form>
 

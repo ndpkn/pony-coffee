@@ -1,8 +1,13 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import Layout from '../components/Layout'
 import MainButtonLink from '../components/ui/MainButtonLink'
 
+// const goBack = window.history.back();
+
 const Page404 = () => {
+    const router = useRouter()
+
     return (
         <Layout title="Ошибка">
             <div style={{
@@ -24,7 +29,7 @@ const Page404 = () => {
                 }}>
                     Такой страницы не существует
                 </h2>
-                <MainButtonLink buttonName='На главную' action='confirm' href='/'/>
+                <MainButtonLink buttonName='Вернуться назад' action='confirm' href={''} onClick={() => router.back()}/>
             </div>
         </Layout>
     )

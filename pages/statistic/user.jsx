@@ -69,7 +69,6 @@ const UserStat = () => {
             case 'byName':
                 newArr = [...userInfo.sort(SortByName)]
                 setUserInfo(newArr)
-                console.log(newArr);
                 break;
             case 'byPhone':
                 newArr = [...userInfo.sort(SortByPhone)]

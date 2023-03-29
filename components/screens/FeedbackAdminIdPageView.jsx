@@ -5,10 +5,15 @@ import Message from '../ui/Message'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 import { createRef, useEffect, useRef } from 'react'
+import { Button } from '@mui/material'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useRouter } from 'next/router'
 
 const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, message, onSubmit}) => {
 
     const refAnchor = useRef(null)
+    const router = useRouter()
+
 
     useEffect(() => {
         refAnchor.current.scrollIntoView()
@@ -44,10 +49,20 @@ const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, m
                     padding:'0 3rem 0 3rem'
             }}>
                 {/* <PageHeader text='история ваших обращений'/> */}
-
+                    <Button
+                        color='primary'
+                        size='large'
+                        onClick={() => {
+                            router.back()
+                        }}
+                        >
+                        <ArrowBackIosIcon/>
+                        назад
+                    </Button>
                     {errorMessage}
                     {spinner}
-                    <div style={{
+                    <div className={styles.history_messages}
+                    style={{
                         display:'flex', 
                         flexDirection:'column',
                         marginTop:'1rem'
@@ -62,7 +77,7 @@ const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, m
                     <input 
                         type="text"
                         className={styles.input_text}
-                        placeholder={'Сообщение'}
+                        placeholder={'Сообщение...'}
                         value={message}
                         onChange={handleChange}/>
                     <button 
