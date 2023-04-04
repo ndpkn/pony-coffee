@@ -13,7 +13,7 @@ const SendingHistory = () => {
     const ponyService = new PonyService()
 
     useEffect(() => {
-        ponyService.getNotifications()
+        ponyService.getAdminNotifications()
                         .then(onNotificationsLoaded)
                         .catch(onError)
         },[])
@@ -21,7 +21,6 @@ const SendingHistory = () => {
     //данные загружены успешно
     const onNotificationsLoaded = (notifications) => {
         setNotifications(notifications)
-        console.log(notifications);
         setLoading(false)
     }
 

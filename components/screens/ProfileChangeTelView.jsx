@@ -4,7 +4,7 @@ import styles from '../../styles/ChangeProfile.module.scss'
 import ErrorMessage from '../ui/ErrorMessage'
 import Input from '../ui/Input'
 
-const ProfileChangeTelView = ({handleSubmit, handleChange, errors}) => {
+const ProfileChangeTelView = ({handleSubmit, handleChange, errors, getCode, userTel}) => {
   //добавить поле ввода кода
   
   return (
@@ -25,7 +25,7 @@ const ProfileChangeTelView = ({handleSubmit, handleChange, errors}) => {
             htmlFor="changeTel">Например: +78986735473
           </label> */}
           <div className={styles.code_block}>
-              <button className={styles.code_btn} onClick={(e) => getCode(e, user.phone) }>Получить код</button>
+              <button className={styles.code_btn} onClick={(e) => getCode(e, userTel) }>Получить код</button>
               <input 
                   className={styles.code_input} 
                   type="text" 
@@ -37,7 +37,7 @@ const ProfileChangeTelView = ({handleSubmit, handleChange, errors}) => {
           <label 
             className={styles.changeProfile_label} 
             style={{marginBottom: '2.5rem'}} 
-            htmlFor="changeTel">Иногда СМС приходят с задержкой</label>
+            htmlFor="changeTel">Введите последние 4 цифры номера входящего звонка</label>
           <ErrorMessage textError={errors}/>
           <MainButtonType 
             buttonName='сохранить' 

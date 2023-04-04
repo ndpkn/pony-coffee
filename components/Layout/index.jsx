@@ -1,12 +1,12 @@
+import Meta from '../../app/utils/Meta'
+import Header from '../ui/Header'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Meta from '../../app/utils/Meta'
 import PonyService from '../../services/PonyServices'
-import Header from '../ui/Header'
 import { useDispatch } from "react-redux";
 
-import { setHeaderMenu, setHeaderMenuLoading, setHeaderMenuError } from '../../store/headerMenuSlice'
+import { setHeaderMenu, setHeaderMenuLoading, setHeaderMenuError, setNotifCounter } from '../../store/headerMenuSlice'
 
 const Layout = ({children, title, descr, maxWidth}) => {
   const router = useRouter()
@@ -20,17 +20,33 @@ const Layout = ({children, title, descr, maxWidth}) => {
                       .then(onHeaderLoaded)
                       .catch(onError)
       },[])
+  
   //данные загружены успешно
   const onHeaderLoaded = (headerList) => {
+      headerList.map(item => {
+        item.href == '/notifications' 
+        ? 
+        ponyService.getNotificationCount()
+          .then(onCountLoaded)
+          .catch(onCountError) 
+        :
+        null
+      })
       // setHeader(headerList)
       dispatch(setHeaderMenu(headerList))
       dispatch(setHeaderMenuLoading(false))
   }
-
   //при загрузке произошла ошибка
   const onError = () => {
-  dispatch(setHeaderMenuLoading(false))
-  dispatch(setHeaderMenuError(true))
+      dispatch(setHeaderMenuLoading(false))
+      dispatch(setHeaderMenuError(true))
+  }
+
+  const onCountLoaded = (count) => {
+    dispatch(setNotifCounter(count))
+  }
+  const onCountError = (err) => {
+      console.log(err);
   }
 
   return (

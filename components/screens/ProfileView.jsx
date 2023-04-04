@@ -6,6 +6,7 @@ import MainButtonLink from '../ui/MainButtonLink'
 import PageHeader from '../ui/PageHeader'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
+import dateFormat from 'dateformat'
 
 const ProfileView = ({profileData, bonuses, error, loading}) => {
 
@@ -33,7 +34,7 @@ const ProfileView = ({profileData, bonuses, error, loading}) => {
             <p className={styles.profile_header_name}>{profileData.name}</p>
             <p className={styles.profile_header_id}>{`Ваш ID: ${profileData.id != null ? profileData.id : 'не найден'}`}</p>
             <p className={styles.profile_header_bonus}>{bonuses.count != undefined ? `У вас ${bonuses.count} ${getNoun(bonuses.count, 'бонус', 'бонуса', 'бонусов')}` : 'Бонусы не загружены'}</p>
-            <p className={styles.profile_header_bonusDate}>{bonuses.dateBurn == null ? 'Пора выпить кофе, у вас нет бонусов' : `Можно списать до ${bonuses.dateBurn}`}</p>
+            <p className={styles.profile_header_bonusDate}>{bonuses.dateBurn == null ? 'Пора выпить кофе, у вас нет бонусов' : `Можно списать до ${bonuses.dateBurn.replace(/-/g, '.')}`}</p>
         </div>
         <div className={styles.profile_main}>
             <div>

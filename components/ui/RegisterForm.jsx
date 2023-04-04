@@ -2,7 +2,6 @@ import styles from '../../styles/LoginForm.module.scss'
 import Input from './Input'
 import MainButtonType from './MainButtonType'
 import { Checkbox, FormControlLabel } from '@mui/material'
-import ErrorMessage from './ErrorMessage'
 
 const RegisterForm = ({handleSubmit, handleChange, getCode, isShowPass, isShow, errors}) => {
 

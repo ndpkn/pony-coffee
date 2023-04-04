@@ -71,7 +71,8 @@ const BaristaIdPageView = ({handleSubmit, handleChange, coffeePots, userCoffeePo
             <div 
                 style={{
                     padding:'3rem'
-            }}>
+            }}
+            >
                 <PageHeader text='сотрудник'/>
 
                 {errorMessage}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageHeader from '../ui/PageHeader'
 import styles from '../../styles/Seending.module.scss'
 import MainButtonType from '../ui/MainButtonType'
@@ -12,7 +12,7 @@ const options = [
     {
         label: 'На почту',
         value: 'email',
-        default: false
+        default: true
     },
     {
         label: 'На сайт',
@@ -29,18 +29,51 @@ const options = [
 const SeendingView = ({onSubmit, error, loaded, errors}) => {
     const { register, handleSubmit, control, reset } = useForm();
 
+    useEffect(() => {
+        console.log('reset');
+        reset({
+            text: '',
+            email: false,
+            telegram: false,
+            site: false
+        })
+    },[loaded])
+
+    // const checkboxesListRender = options.map((singleOption, i) => {
+    //     return <FormControlLabel
+    //                 key={i}
+    //                 label={singleOption.label}
+    //                 control={
+    //                     <Controller
+    //                         defaultValue={singleOption.default}
+    //                         name={singleOption.value}
+    //                         control={control}
+    //                         render={({ field }) => <Checkbox 
+    //                         {...field}  
+    //                         sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }} 
+    //                         />}
+    //                     />}
+    //                 />
+    // })
     const checkboxesListRender = options.map((singleOption, i) => {
         return <FormControlLabel
                     key={i}
-                    control={<Controller
-                        defaultValue={singleOption.default}
-                        name={singleOption.value}
-                        control={control}
-                        render={({ field }) => <Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }} {...field} />}
-                    />}
                     label={singleOption.label}
+                    control={
+                        <Controller
+                            defaultValue={singleOption.default}
+                            name={singleOption.value}
+                            control={control}
+                            render={({ field }) => <Checkbox 
+                            {...field}  
+                            name={singleOption.value}
+                            sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }} 
+                            />}
+                        />}
                     />
     })
+
+
     const items = 
         <form 
             className={styles.seending_form}
@@ -62,13 +95,13 @@ const SeendingView = ({onSubmit, error, loaded, errors}) => {
 
 
     const spinner = loaded ? <LoadedMessage/> : null
+    const errorMessage = error ? <ErrorMessage textError={errors}/> : null
     const content = items
 
     return (
         <div className={styles.seending}>
             <PageHeader text='Рассылка'/>
-                <ErrorMessage textError={errors}/>
-
+                {errorMessage}
                 {spinner}
                 {content}
 

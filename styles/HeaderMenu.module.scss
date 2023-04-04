@@ -33,6 +33,20 @@
     height: 4rem;
     padding: 1rem;
     font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    &_counter {
+        display: block;
+        margin-left: 2rem;
+        background-color: $accentColor;
+        color: #ffffff;
+        width: 2.5rem ;
+        height: 2.5rem ;
+        padding: 0.4rem;
+        text-align: center;
+        border-radius: 100%;
+        font-size: 1.2rem;
+    }
     &_active {
         height: 4rem;
         padding: 1rem;
@@ -40,5 +54,18 @@
         color: $accentColor;
         background-color: $bgColor;
         border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        &_counter {
+            margin-left: 2rem;
+            background-color: $accentColor;
+            color: #ffffff;
+            width: 2.5rem ;
+            height: 2.5rem ;
+            padding: 0.4rem;
+            text-align: center;
+            border-radius: 100%;
+            font-size: 1.2rem;
+        }
     }
 }

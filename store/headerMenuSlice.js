@@ -5,7 +5,8 @@ export const headerMenuSlice= createSlice({
     initialState:{
         headerMenuItems: [],
         loading: true,
-        error: false
+        error: false,
+        notifCounter: null
     },
     reducers:{
         setHeaderMenu: (state, action) => {
@@ -16,10 +17,13 @@ export const headerMenuSlice= createSlice({
         },
         setHeaderMenuError: (state, action) => {
             state.error = action.payload
+        },
+        setNotifCounter: (state, action) => {
+            state.notifCounter = action.payload
         }
     }
 })
 
-export const { setHeaderMenu, setHeaderMenuLoading, setHeaderMenuError } = headerMenuSlice.actions
+export const { setHeaderMenu, setHeaderMenuLoading, setHeaderMenuError, setNotifCounter } = headerMenuSlice.actions
 
 export default headerMenuSlice.reducer

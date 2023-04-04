@@ -4,8 +4,7 @@ import styles from '../../styles/HeaderMenu.module.scss'
 import ErrorMessage from '../../components/ui/ErrorMessage'
 import HeaderMenuSkeleton from '../../components/ui/skeletons/HeaderMenuSkeleton'
 import { useSelector } from 'react-redux';
-import { AnimatePresence, motion } from 'framer-motion'
-
+import { motion } from 'framer-motion';
 
 
 const HeaderMenu = ({closeMenuRef, onCloseMenu, handleOpenDialog, isOpen}) => {
@@ -13,7 +12,8 @@ const HeaderMenu = ({closeMenuRef, onCloseMenu, handleOpenDialog, isOpen}) => {
     const headerItems = useSelector((state) => state.headerMenu.headerMenuItems)
     const error = useSelector((state) => state.headerMenu.error)
     const loading = useSelector((state) => state.headerMenu.loading)
-
+    const notifCount = useSelector((state) => state.headerMenu.notifCounter)
+    // const notifCounter = 3
     const items = headerItems.map((item, i) => {
                     return  (
                             <Link 
@@ -22,7 +22,13 @@ const HeaderMenu = ({closeMenuRef, onCloseMenu, handleOpenDialog, isOpen}) => {
                                 href={item.href != '/logout' ? `${item.href}` : ''}
                                 onClick={item.href == '/logout' ? handleOpenDialog : null}
                                 >
-                                    {item.text}
+                                    {item.text} 
+                                    {notifCount !== 0 && item.href == '/notifications' 
+                                    ? 
+                                    <span className={router.pathname.includes(`/notifications`) ? styles.link_active_counter : styles.link_counter}>{notifCount}</span> 
+                                    : 
+                                    null
+                                    }
                             </Link>
                         )
                     })

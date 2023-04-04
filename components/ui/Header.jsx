@@ -6,7 +6,7 @@ import closeBurger from '../../images/burger-close.svg'
 import HeaderMenu from '../ui/HeaderMenu'
 import logo from '../../images/ponyIcon.svg'
 import Link from "next/link"
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import DeleteConfirmation from "./DeleteConfirmation"
 
 

@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
 import Layout from '../../components/Layout'
 import SendingView from '../../components/screens/SendingView'
 import PonyService from '../../services/PonyServices';
 
 const Seending = () => {
-    const { reset } = useForm();
     const [loaded, setLoaded] = useState(false)
     const [error, setError] = useState(false)
     const [errors, setErrors] = useState([])
@@ -22,12 +20,7 @@ const Seending = () => {
     //успешно отправлено
     const onNotificationPosted = () => {
         setLoaded(true)
-        reset({
-            text: '',
-            email: false,
-            telegram: false,
-            site: false
-        })
+        setError(false)
     }
 
     //при загрузке произошла ошибка
@@ -46,6 +39,7 @@ const Seending = () => {
                 error={error} 
                 loaded={loaded} 
                 errors={errors}
+                onNotificationPosted={onNotificationPosted}
             />
         </Layout>
     )

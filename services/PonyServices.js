@@ -69,7 +69,7 @@ class PonyService {
         const res = await this.getData(`${this._apiBase}/bonus/config`);
         return res.data.data
     }
-    getNotifications = async () => {
+    getAdminNotifications = async () => {
         const res = await this.getData(`${this._apiBase}/admin/notification`);
         return res.data.data.notifications
     }
@@ -88,6 +88,14 @@ class PonyService {
     getChannels = async () => {
         const res = await this.getData(`${this._apiBase}/channels`);
         return res.data.data.channels
+    }
+    getNotifications = async () => {
+        const res = await this.getData(`${this._apiBase}/notification`);
+        return res.data.data.notifications
+    }
+    getNotificationCount = async () => {
+        const res = await this.getData(`${this._apiBase}/notification/count`);
+        return res.data.data.count
     }
     
 
@@ -209,6 +217,10 @@ changePhone = async (data) => {
 }
 putBonus = async (data, id) => {
     const res = await this.putData(`${this._apiBase}/bonus/${id}`, data);
+    return res
+}
+readNotification = async (id) => {
+    const res = await this.putData(`${this._apiBase}/notification/${id}`);
     return res
 }
 

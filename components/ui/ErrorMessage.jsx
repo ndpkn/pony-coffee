@@ -12,7 +12,7 @@ const ErrorMessage = ({textError}) => {
 
 
     return (
-        <div style={{marginBottom:'1rem', marginTop:'1rem'}}>
+        <div style={{marginBottom:'1rem', marginTop:'1rem', maxWidth:'35rem', width: '100%', margin: '0 auto'}}>
             {errors}
         </div>
     )

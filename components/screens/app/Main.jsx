@@ -7,7 +7,7 @@ const Main = () => {
     const fieldRef = useRef(null)
 
     const [isClient, setIsClient] = useState(false)
-
+    //для избежания ошибки гидратации
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setIsClient(true);
@@ -16,11 +16,7 @@ const Main = () => {
 
     return (
         <Layout title="Главная страница" maxWidth>
-            {isClient 
-            ? 
-            <MainPageView fieldRef={fieldRef}/>
-            : 
-            null}
+            {isClient ? <MainPageView fieldRef={fieldRef}/> : null}
         </Layout>
     )
 }
