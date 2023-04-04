@@ -28,4 +28,3 @@ Pony Coffee - основная задача проекта заключалас�
 - Redux Toolkit
 - PusherJS
 - Framer-Motion
-===
