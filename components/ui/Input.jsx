@@ -23,8 +23,8 @@ const Input = ({type, placeholder, onChange, name, ref, minLength, pattern, valu
                     className={styles.input_span}
                     onClick={isShowPass}>
                         {isShow 
-                        ? <Image src={eyeClose} alt="eye" width={30} height={30} />
-                        : <Image src={eyeOpen} alt="eye" width={30} height={30} />
+                        ? <Image src={eyeClose} alt="eye" width={30} height={30} style={{cursor: 'pointer'}} />
+                        : <Image src={eyeOpen} alt="eye" width={30} height={30} style={{cursor: 'pointer'}}/>
                         }
                 </span>
             : null}

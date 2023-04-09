@@ -24,6 +24,7 @@ const ChangeTel = () => {
         console.log(res);
     }
     const onCodeError = (err) => {
+        setErrors(err.response.data.errors.messages)
         console.log(err);
     }
     

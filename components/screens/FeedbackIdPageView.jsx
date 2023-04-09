@@ -4,9 +4,8 @@ import Image from 'next/image'
 import Message from '../ui/Message'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
-import { Button } from '@mui/material'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useRouter } from 'next/router'
+import GoBackButton from '../ui/GoBackButton'
 
 
 const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, message, onSubmit}) => {
@@ -40,22 +39,14 @@ const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, m
                     padding:'0 3rem 0 3rem'
             }}>
                 {/* <PageHeader text='история ваших обращений'/> */}
-                    <Button
-                        color='primary'
-                        size='large'
-                        onClick={() => {
-                            router.back()
-                        }}
-                        >
-                        <ArrowBackIosIcon/>
-                        назад
-                    </Button>
+                    <GoBackButton/>
                     {errorMessage}
                     {spinner}
                     <div style={{
                         display:'flex', 
                         flexDirection:'column',
-                        marginTop:'1rem'
+                        margin:'1rem auto 0',
+                        maxWidth: '50rem'
                         }}>
                         {content}
                         {messagesRender}    

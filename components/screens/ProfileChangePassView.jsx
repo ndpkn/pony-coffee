@@ -2,12 +2,15 @@ import MainButtonLink from '../../components/ui/MainButtonLink'
 import MainButtonType from '../../components/ui/MainButtonType'
 import styles from '../../styles/ChangeProfile.module.scss'
 import ErrorMessage from '../ui/ErrorMessage'
+import GoBackButton from '../ui/GoBackButton'
 import Input from '../ui/Input'
+import PageHeader from '../ui/PageHeader'
 
 const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm, errors, isShow, isShowPass}) => {
   return (
     <div className={styles.changeProfile}>
-      <h1 className={styles.changeProfile_header}>Укажите новый пароль</h1>
+      <GoBackButton/>
+      <PageHeader text='Укажите новый пароль'/>
       <form 
         className={styles.changeProfile_form} 
         method="post"
@@ -30,7 +33,7 @@ const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm,
             />
           <label 
             className={styles.changeProfile_label} 
-            style={{marginBottom: '2.5rem'}} 
+            style={{marginBottom: '2.5rem', maxWidth: '35rem'}} 
             htmlFor="changePass">Пароль должен содержать минимум 8 символов</label>
           <ErrorMessage textError={errors}/>
           <MainButtonType 
@@ -38,10 +41,6 @@ const ProfileChangePassView = ({handleSubmit, handleChange, handleChangeConfirm,
             action='success' 
             type='submit'/>
       </form>
-      <MainButtonLink 
-        buttonName='Вернуться в профиль' 
-        action='confirm' 
-        href='/profile'/>
   </div>
   )
 }

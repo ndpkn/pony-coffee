@@ -2,14 +2,17 @@ import MainButtonLink from '../../components/ui/MainButtonLink'
 import MainButtonType from '../../components/ui/MainButtonType'
 import styles from '../../styles/ChangeProfile.module.scss'
 import ErrorMessage from '../ui/ErrorMessage'
+import GoBackButton from '../ui/GoBackButton'
 import Input from '../ui/Input'
+import PageHeader from '../ui/PageHeader'
 
 const ProfileChangeNameView = ({handleSubmit, handleChange, errors}) => {
   
   // добавить поле ввода кода и отправку новой почты
   return (
     <div className={styles.changeProfile}>
-      <h1 className={styles.changeProfile_header}>Укажите другое имя</h1>
+      <GoBackButton/>
+      <PageHeader text='Укажите другое имя'/>
       <form 
           className={styles.changeProfile_form} 
           method="POST" 
@@ -32,10 +35,6 @@ const ProfileChangeNameView = ({handleSubmit, handleChange, errors}) => {
               action='success' 
               type='submit'/>
       </form>
-      <MainButtonLink 
-          buttonName='Вернуться в профиль' 
-          action='confirm' 
-          href='/profile'/>
   </div>
   )
 }

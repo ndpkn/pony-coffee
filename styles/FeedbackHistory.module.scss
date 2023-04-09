@@ -26,6 +26,8 @@
         display: flex;
         width: 100%;
         justify-content: center;
+        max-width: 50rem;
+        margin: 0 auto;
         // background-color: #fff;
         
         // align-items: space-evenly;
@@ -36,6 +38,7 @@
         padding: 1.5rem;
         // border-radius: 2rem 0 0 0;
         outline: none;
+
         &::placeholder {
             color: $secondaryTextColor;
             font-size: 1.5rem;
