@@ -68,8 +68,18 @@ const MainPageWelcome = ({fieldRef}) => {
                     кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;  кофе на бегу  &bull;
                 </p>
             </motion.div>
-            <Image className={styles.main_welcome_ellips} src={ellips} alt={'ellips'} width='auto'/>
-            <Image className={styles.main_welcome_cup} src={glass} alt={'cup of coffee'}/>
+            <Image 
+                className={styles.main_welcome_ellips} 
+                src={ellips} 
+                alt={'ellips'} 
+                width='auto'
+            />
+            <Image 
+                width='auto' 
+                className={styles.main_welcome_cup} 
+                src={glass} 
+                alt={'cup of coffee'}
+                />
         </div>
 
     )

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import PageHeader from '../ui/PageHeader'
 import styles from '../../styles/UserStatView.module.scss'
 import Input from '../ui/Input'

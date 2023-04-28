@@ -25,6 +25,7 @@
         color: rgba(0, 0, 0, 0.7);
         border: 0.2rem solid transparent;
         transition: all 0.5s;
+        cursor: pointer;
 
         &_active {
             border: 0.2rem solid $accentColor;
@@ -34,20 +35,20 @@
     }
     &_table {
         background-color: #fff;
-        width: 100%;
+        width: 0%;
         padding: 0;
         font-size: 1.3rem;
         text-align: center;
         max-width: 100rem;
         margin: 0 auto;
+        border-radius: 1rem;
         &> thead {
-            
             &> tr {
-                color: rgba(0, 0, 0, 0.6);
-                font-weight: 600;
                 &> th {
-                    padding: 0.3rem;
                     border-bottom: 1px solid $warningColor;
+                    color: rgba(0, 0, 0, 0.6);
+                    font-weight: 600;
+                    padding: 0.1rem;
                 }
             }
         }
@@ -55,8 +56,6 @@
             &>tr {
                 &>td {
                     color: rgba(0, 0, 0, 0.6);
-
-                    padding: 0.1rem 1rem;
                 }
             }
         }
@@ -67,7 +66,7 @@
         overflow-x: auto;
         width: 100%;
         max-width: 100%;
-        margin-top: 3rem;
+        margin-top: 2rem;
         @media screen and (min-width: 675px) {
             width: 100rem;
             padding: 0 3rem;

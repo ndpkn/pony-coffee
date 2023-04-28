@@ -36,6 +36,7 @@
     "react-scroll-to": "^3.0.0-beta.6",
     "react-select": "^5.7.0",
     "react-slick": "^0.29.0",
+    "recaptcha-v3-react-function-async": "^0.0.3",
     "sass": "^1.56.2",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",

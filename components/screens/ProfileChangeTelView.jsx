@@ -4,9 +4,10 @@ import styles from '../../styles/ChangeProfile.module.scss'
 import ErrorMessage from '../ui/ErrorMessage'
 import GoBackButton from '../ui/GoBackButton'
 import Input from '../ui/Input'
+import LoadedMessage from '../ui/LoadedMessage'
 import PageHeader from '../ui/PageHeader'
 
-const ProfileChangeTelView = ({handleSubmit, handleChange, errors, getCode, userTel}) => {
+const ProfileChangeTelView = ({handleSubmit, errors, getCode, userTel, handleChangePhone, handleChangeCode, success}) => {
   //добавить поле ввода кода
   
   return (
@@ -18,7 +19,7 @@ const ProfileChangeTelView = ({handleSubmit, handleChange, errors, getCode, user
         method="post"
         onSubmit={handleSubmit}>
           <Input 
-            onChange={handleChange} 
+            onChange={handleChangePhone} 
             name='changeTel' 
             type="tel" 
             placeholder='Новый номер телефона' 
@@ -35,13 +36,14 @@ const ProfileChangeTelView = ({handleSubmit, handleChange, errors, getCode, user
                   name="code" 
                   placeholder='Введите код'
                   maxLength={4}
-                  onChange={handleChange}/>
+                  onChange={handleChangeCode}/>
           </div>
           <label 
             className={styles.changeProfile_label} 
             style={{marginBottom: '2.5rem', maxWidth: '35rem'}} 
             htmlFor="changeTel">Введите последние 4 цифры номера входящего звонка</label>
           <ErrorMessage textError={errors}/>
+          <LoadedMessage textSuccess={success}/>
           <MainButtonType 
             buttonName='сохранить' 
             action='success' 

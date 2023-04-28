@@ -9,7 +9,6 @@ import GoBackButton from '../ui/GoBackButton'
 
 
 const FeedbackIdPageView = ({messages, feedback, error, loading, handleChange, message, onSubmit}) => {
-    const router = useRouter()
 
     const messagesRender = messages.map((item, i) => {
         const pos = item.belongToAuthUser == 0 ? 'left' : 'right'

@@ -12,7 +12,9 @@ const BaristaPageView = ({barista, loading, error}) => {
                 <EditButton
                     currentValue={`${address == null ? 'Нет места работы' : address.address}`}
                     actionName={`${item.name == null ? "Нет имени" : item.name} ${item.last_name == null ? "" : item.last_name} `}
-                    link={`barista/${item.id}`}/>
+                    link={`barista/${item.id}`}
+                    query={item.id}
+                />
             </div>
             )
     })

@@ -22,7 +22,10 @@ class PonyService {
                 return res;
         
     }
-
+    getHeader = async () => {
+        const res = await this.getData(`${this._apiBase}/header`);
+        return res.data.data.header
+    }
     getBarista = async () => {
         const res = await this.getData(`${this._apiBase}/barista`);
         return res.data.data.users
@@ -43,12 +46,13 @@ class PonyService {
 
     getUserStat = async () => {
         const res = await this.getData(`${this._apiBase}/statistic/users`);
-        return res.data.data.user
+        return res.data.data
     }
-    getHeader = async () => {
-        const res = await this.getData(`${this._apiBase}/header`);
-        return res.data.data.header
+    getBaristaStat = async () => {
+        const res = await this.getData(`${this._apiBase}/statistic`);
+        return res.data.data.barista
     }
+
     getFeedbackHistory = async () => {
         const res = await this.getData(`${this._apiBase}/feedback`);
         return res.data.data.feedbacks
@@ -145,6 +149,10 @@ register = async (data) => {
 }
 getCode = async (data) => {
     const res = await this.postData(`${this._apiBase}/call`, data)
+    return res
+}
+getEmailCode = async (data) => {
+    const res = await this.postData(`${this._apiBase}/mail/verification/code`, data)
     return res
 }
 addBarista = async (data) => {

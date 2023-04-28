@@ -58,15 +58,17 @@ const MainPageWelcomeTablet = ({fieldRef}) => {
                         смотреть меню
                     </motion.button>
                     <Image 
-                    className={styles.main_welcome_cup} 
-                    src={cup} 
-                    alt={'cup of coffee'}
+                        className={styles.main_welcome_cup} 
+                        src={cup} 
+                        alt={'cup of coffee'}
+                        priority
                     />
                     <Image 
                         className={styles.main_welcome_ellips} 
                         src={ellips} 
                         alt={'ellips'} 
                         width='auto'
+                        priority
                     />
                 </div>
             </div>

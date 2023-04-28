@@ -7,8 +7,10 @@ import PageHeader from '../ui/PageHeader'
 import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 import dateFormat from 'dateformat'
+import DeleteConfirmation from '../ui/DeleteConfirmation'
+import MainButtonType from '../ui/MainButtonType'
 
-const ProfileView = ({profileData, bonuses, error, loading}) => {
+const ProfileView = ({profileData, bonuses, error, loading, handleCloseDialog, handleOpenDialog, openDialog}) => {
 
     function getNoun(number, one, two, five) {
         let n = Math.abs(number);
@@ -55,7 +57,7 @@ const ProfileView = ({profileData, bonuses, error, loading}) => {
                     currentValue=' ' 
                     link='/profile/change-password'/>
             </div>
-            <MainButtonLink buttonName='Выйти из аккаунта' action='danger' href='/logout'/>
+            <MainButtonType buttonName='Выйти из аккаунта' action='danger'  onClick={handleOpenDialog}/>
         </div>
     </>
 
@@ -65,9 +67,19 @@ const ProfileView = ({profileData, bonuses, error, loading}) => {
 
     return (
         <div className={styles.profile}>
-                {errorMessage}
-                {spinner}
-                {content}
+            {errorMessage}
+            {spinner}
+            {content}
+            <DeleteConfirmation
+                handleCloseDialog={handleCloseDialog} 
+                openDialog={openDialog} 
+                onClick={null}
+                cancel={'Отменить'}
+                confirm={'Выйти'}
+                href={'/logout'}
+                title='Выход из аккаунта'
+                description='Вы действиительно хотите выйти из этого аккаунта?'
+            />
         </div>
     )
 }

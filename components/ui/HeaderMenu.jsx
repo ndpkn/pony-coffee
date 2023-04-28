@@ -13,11 +13,12 @@ const HeaderMenu = ({closeMenuRef, onCloseMenu, handleOpenDialog, isOpen}) => {
     const error = useSelector((state) => state.headerMenu.error)
     const loading = useSelector((state) => state.headerMenu.loading)
     const notifCount = useSelector((state) => state.headerMenu.notifCounter)
-    // const notifCounter = 3
+
     const items = headerItems.map((item, i) => {
                     return  (
                             <Link 
-                                className={router.pathname.includes(`${item.href}`) && item.href != '/' ? `${styles.link_active}` : `${styles.link}`} 
+                                className={item.href == router.asPath ? styles.link_active : styles.link} 
+                                // className={item.href.includes(router.asPath) && item.href != '/' && item.href == router.asPath ? styles.link_active : styles.link} 
                                 key={i} 
                                 href={item.href != '/logout' ? `${item.href}` : ''}
                                 onClick={item.href == '/logout' ? handleOpenDialog : null}

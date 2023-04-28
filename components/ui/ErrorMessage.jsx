@@ -2,13 +2,30 @@ import { Alert } from "@mui/material"
 
 const ErrorMessage = ({textError}) => {
     const errors = 
-    textError != null
+    textError !== null
     ? 
-    textError.map((item, i) => {
-        return <Alert key={i} sx={{ fontSize: '1.5rem', borderRadius:'1rem', marginBottom:'1rem' }} severity="error">{item}</Alert>
+    textError?.map((item, i) => {
+        return (
+            <Alert 
+                key={i} 
+                sx={{ fontSize: '1.5rem', 
+                        borderRadius:'1rem', 
+                        marginBottom:'1rem' 
+                    }} 
+                severity="error">
+                    {item}
+            </Alert>)
     }) 
     :
-    <Alert sx={{ fontSize: '1.5rem', borderRadius:'1rem', marginBottom:'1rem' }} severity="error">Произошла ошибка!</Alert>
+    <Alert 
+        sx={{ 
+            fontSize: '1.5rem', 
+            borderRadius:'1rem', 
+            marginBottom:'1rem' 
+            }} 
+            severity="error">
+                Произошла ошибка!
+    </Alert>
 
 
     return (

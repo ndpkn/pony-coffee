@@ -61,6 +61,7 @@
             left: 0;
             top: 20%;
             z-index: 2;
+            height: auto;
             @media screen and (min-width: '551px') {
                 height: 30rem;
                 left: -10%;
@@ -71,8 +72,11 @@
             left: 0;
             top: 43%;
             width: 100%;
+            height: auto;
+            // width: auto;
             @media screen and ( min-width: '551px') {
                 height: 45rem;
+                // width: auto;
                 top: 5%;
             }
         }
@@ -97,6 +101,7 @@
             &_image {
                 border-radius: 1.5rem;
                 margin-right: 2rem;
+                width: auto;
             }
             &_content {
                 display: flex;
@@ -119,7 +124,8 @@
                         position: absolute;
                         top: -2rem;
                         right: -1rem;
-                        width: 43%;
+                        width: auto;
+                        // width: 43%;
                     }
                 }
             }

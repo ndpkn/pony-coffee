@@ -9,11 +9,11 @@ const MotionBlock = ({children}) => {
             }}
             whileInView={{ 
                 opacity: 1, 
-                scale: 1 
+                scale: 1,
             }}
             transition={{ 
                 duration: 0.5,
-                delay: 0.5
+                delay: 1
             }}
             viewport={{ 
                 once: true 

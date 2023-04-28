@@ -6,7 +6,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const EditButton = ({actionName, currentValue, link, grade}) => {
     return (
-        <Link href={link}>
+        <Link 
+            href={{
+                pathname: link,
+            }}
+        
+        >
             <div className={styles.button}>
                 <div className={styles.button_left}>
                     <p className={styles.button_action}>{actionName}</p>

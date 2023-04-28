@@ -1,8 +1,8 @@
 import Meta from '../../app/utils/Meta'
 import Header from '../ui/Header'
-import { AnimatePresence, motion } from 'framer-motion'
+import {  motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import PonyService from '../../services/PonyServices'
 import { useDispatch } from "react-redux";
 

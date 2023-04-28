@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import PageHeader from '../ui/PageHeader'
 import styles from '../../styles/Seending.module.scss'
 import MainButtonType from '../ui/MainButtonType'
@@ -30,7 +30,6 @@ const SeendingView = ({onSubmit, error, loaded, errors}) => {
     const { register, handleSubmit, control, reset } = useForm();
 
     useEffect(() => {
-        console.log('reset');
         reset({
             text: '',
             email: false,

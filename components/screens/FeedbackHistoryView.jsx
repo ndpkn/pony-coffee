@@ -3,9 +3,14 @@ import ErrorMessage from '../ui/ErrorMessage'
 import LoadingMessage from '../ui/LoadingMessage'
 import EditButton from '../ui/EditButton'
 import styles from '../../styles/FeedbackHistory.module.scss'
+import GoBackButton from '../ui/GoBackButton'
 
 const FeedbackHistoryView = ({feedbacks, error, loading}) => {
-    const items = feedbacks.map((item, i) => {
+
+    const items = 
+    feedbacks.length !== 0 
+    ?
+    feedbacks.map((item, i) => {
         return (
             <EditButton
                     key={i}
@@ -14,6 +19,8 @@ const FeedbackHistoryView = ({feedbacks, error, loading}) => {
                     link={`/feedback/history/${item.id}`}/>
         )
     })
+    :
+    <p>У вас нет открытых обращений</p>
 
     const errorMessage = error ? <ErrorMessage/> : null
     const spinner = loading ? <LoadingMessage/> : null
@@ -25,7 +32,8 @@ const FeedbackHistoryView = ({feedbacks, error, loading}) => {
                 style={{
                     padding:'0 3rem 0 3rem'
             }}>
-                <PageHeader text='Все ваши обращения'/>
+                <GoBackButton/>
+                <PageHeader text='Ваши обращения'/>
                 <div 
                     style={{
                         display:'flex', 

@@ -8,6 +8,14 @@ const Profile = () => {
     const [bonuses, setBonuses] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const [openDialog, setOpenDialog] = useState(false)
+
+    const handleOpenDialog = () => {
+        setOpenDialog(true)
+    }
+    const handleCloseDialog = () => {
+        setOpenDialog(false)
+    }
 
     const ponyService = new PonyService()
 
@@ -48,6 +56,9 @@ const Profile = () => {
                 bonuses={bonuses} 
                 error={error} 
                 loading={loading}
+                handleOpenDialog={handleOpenDialog}
+                handleCloseDialog={handleCloseDialog}
+                openDialog={openDialog}
             />
         </Layout>
     )

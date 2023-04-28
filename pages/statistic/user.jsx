@@ -9,6 +9,8 @@ const UserStat = () => {
     const [searchTerm, setSearchTerm] = useState('')
 
     const [userInfo, setUserInfo] = useState([])
+    const [userInfoMonth, setUserInfoMonth] = useState([])
+    const [userInfoWeek, setUserInfoWeek] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
@@ -31,6 +33,9 @@ const UserStat = () => {
     function SortById(x,y){
         return x.id - y.id
     }
+    // function SortByMonth(x,y){
+    //     return userInfoMonth
+    // }
     // function SortByCreate(x,y){
     //     return x.created_at.localeCompare(y.created_at)
     // }
@@ -46,8 +51,11 @@ const UserStat = () => {
 
     //данные загружены успешно
     const onUserInfoLoaded = (userInfoList) => {
-        setUserInfo(userInfoList)
-        setData(userInfoList)
+        setUserInfo(userInfoList.users)
+        setUserInfoMonth(userInfoList.users_data_month)
+        setUserInfoWeek(userInfoList.users_data_week)
+
+        setData(userInfoList.users)
         setLoading(false)
     }
 
@@ -67,31 +75,39 @@ const UserStat = () => {
         let newArr
         switch (activeKey) {
             case 'byName':
-                newArr = [...userInfo.sort(SortByName)]
+                newArr = [...data.sort(SortByName)]
                 setUserInfo(newArr)
                 break;
             case 'byPhone':
-                newArr = [...userInfo.sort(SortByPhone)]
+                newArr = [...data.sort(SortByPhone)]
                 setUserInfo(newArr)
                 break;
             case 'byQnt':
-                newArr = [...userInfo.sort(SortByBonuses)]
+                newArr = [...data.sort(SortByBonuses)]
                 setUserInfo(newArr)
                 break;
             case 'byUsed':
-                newArr = [...userInfo.sort(SortByUsing)]
+                newArr = [...data.sort(SortByUsing)]
                 setUserInfo(newArr)
                 break;
             case 'byBurnt':
-                newArr = [...userInfo.sort(SortByBurnt)]
+                newArr = [...data.sort(SortByBurnt)]
                 setUserInfo(newArr)
                 break;
             case 'byId':
-                newArr = [...userInfo.sort(SortById)]
+                newArr = [...data.sort(SortById)]
+                setUserInfo(newArr)
+                break;
+            case 'byMonth':
+                newArr = [...userInfoMonth.sort(SortByBonuses)]
+                setUserInfo(newArr)
+                break;
+            case 'byWeek':
+                newArr = [...userInfoWeek.sort(SortByBonuses)]
                 setUserInfo(newArr)
                 break;
             case 'all':
-                newArr = [...userInfo.sort(SortById)]
+                newArr = [...data.sort(SortById)]
                 setUserInfo(newArr)
                 break;
             default: 

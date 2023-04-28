@@ -4,9 +4,10 @@ import styles from '../../styles/ChangeProfile.module.scss'
 import ErrorMessage from '../ui/ErrorMessage'
 import GoBackButton from '../ui/GoBackButton'
 import Input from '../ui/Input'
+import LoadedMessage from '../ui/LoadedMessage'
 import PageHeader from '../ui/PageHeader'
 
-const ProfileChangeMailView = ({handleSubmit, handleChange, errors}) => {
+const ProfileChangeMailView = ({handleSubmit, handleChangeMail, errors, handleChangeCode, getCode, success}) => {
     // ПОЛУЧЕНИЕ КОДА НЕ РАБОТАЕТ
     return (
         <div className={styles.changeProfile}>
@@ -17,7 +18,7 @@ const ProfileChangeMailView = ({handleSubmit, handleChange, errors}) => {
                 method="post"
                 onSubmit={handleSubmit}>
                 <Input
-                    onChange={handleChange} 
+                    onChange={handleChangeMail} 
                     name='changeMail' 
                     type="mail" 
                     placeholder='Новый адрес почты'
@@ -28,17 +29,18 @@ const ProfileChangeMailView = ({handleSubmit, handleChange, errors}) => {
                     htmlFor="changeMail">Например: pony-coffee@yandex.ru
                 </label> */}
                 <div className={styles.code_block}>
-                    <button className={styles.code_btn} onClick={(e) => getCode(e, user.phone) }>Получить код</button>
+                    <button className={styles.code_btn} onClick={(e) => getCode(e) }>Получить код</button>
                     <input 
                         className={styles.code_input} 
                         type="text" 
                         name="code" 
                         placeholder='Введите код'
                         maxLength={4}
-                        onChange={handleChange}/>
+                        onChange={handleChangeCode}/>
                 </div>
 
                 <ErrorMessage textError={errors}/>
+                <LoadedMessage textSuccess={success}/>
                 <MainButtonType 
                     buttonName='сохранить' 
                     action='success' 
