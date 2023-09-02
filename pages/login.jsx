@@ -4,53 +4,62 @@ import LoginForm from '../components/ui/LoginForm'
 import PonyService from '../services/PonyServices'
 
 const Login = () => {
-    const [user, setUser] = useState({
-        phone: '',
-        password:''
-    })
-    const [error, setError] = useState([])
-    const [isShow, setIsShow] = useState(false)
+	const [user, setUser] = useState({
+		phone: '',
+		password: '',
+	})
+	const [error, setError] = useState([])
+	const [isShow, setIsShow] = useState(false)
 
-    const ponyService = new PonyService()
+	const ponyService = new PonyService()
 
-    const loginUser = async (phone, password) => {  
-        ponyService.login({phone, password})
-                        .then(onLogin)
-                        .catch(onError)
-    }
+	const loginUser = async (phone, password) => {
+		try {
+			const res = await ponyService.login({ phone, password })
+			onLogin(res)
+		} catch (err) {
+			onError(err)
+		}
+	}
 
-    const onLogin = (res) => {
-        localStorage.setItem('token', res.data.data.accessToken)
-        window.location.href = '/'
-    }
-    const onError = (err) => {
-        const errors = err.response.data.errors.messages;
+	const onLogin = res => {
+		localStorage.setItem('token', res.data.data.accessToken)
+		window.location.href = '/'
+	}
+	const onError = err => {
+		const errors = err.response.data.errors.messages
 
-        setError(errors)
-        console.log(errors);
-        console.log(err);
-    }
+		setError(errors)
+		console.log(errors)
+		console.log(err)
+	}
 
-    const handleChange = event => {
-        setUser({
-            ...user,
-            [event.target.name]: event.target.value})
-    }
-    const handleSubmit = event => {
-        const {phone, password} = user
-        event.preventDefault();
-        loginUser(phone, password)
-    }
-    const isShowPass = (e) => {
-        e.preventDefault()
-        setIsShow(!isShow)
-    }
-    return (
-        <Layout title="Вход">
-            <LoginForm handleChange={handleChange} isShowPass={isShowPass} isShow={isShow} error={error} handleSubmit={handleSubmit}/>
-        </Layout>
-    )
+	const handleChange = event => {
+		setUser({
+			...user,
+			[event.target.name]: event.target.value,
+		})
+	}
+	const handleSubmit = event => {
+		const { phone, password } = user
+		event.preventDefault()
+		loginUser(phone, password)
+	}
+	const isShowPass = e => {
+		e.preventDefault()
+		setIsShow(!isShow)
+	}
+	return (
+		<Layout title='Вход'>
+			<LoginForm
+				handleChange={handleChange}
+				isShowPass={isShowPass}
+				isShow={isShow}
+				error={error}
+				handleSubmit={handleSubmit}
+			/>
+		</Layout>
+	)
 }
-
 
 export default Login

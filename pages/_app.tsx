@@ -6,12 +6,12 @@ import store from '../store'
 import { AnimatePresence } from 'framer-motion'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  return (
-    <Provider store={store}>
-      <AnimatePresence>
-        <Component {...pageProps} key={router.pathname}/>
-      </AnimatePresence>
-    </Provider>
-  )
+	const router = useRouter()
+	return (
+		<Provider store={store}>
+			<AnimatePresence>
+				<Component {...pageProps} key={router.pathname} />
+			</AnimatePresence>
+		</Provider>
+	)
 }

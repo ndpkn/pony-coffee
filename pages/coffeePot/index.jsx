@@ -4,36 +4,38 @@ import PonyService from '../../services/PonyServices'
 import CoffeePotPageView from '../../components/screens/CoffeePotPageView'
 
 const CoffeePot = () => {
-    const [coffeePot, setCoffeePot] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-    
-    const ponyService = new PonyService()
+	const [coffeePot, setCoffeePot] = useState([])
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(false)
 
-    // получение данных
-    useEffect(() => {
-        ponyService.getCoffeePot()
-                        .then(onCoffeePotLoaded)
-                        .catch(onError)
-        },[])
+	const ponyService = new PonyService()
 
-    //данные загружены успешно
-    const onCoffeePotLoaded = (coffeePotList) => {
-        setCoffeePot(coffeePotList)
-        setLoading(false)
-    }
+	// получение данных
+	useEffect(() => {
+		ponyService.getCoffeePot().then(onCoffeePotLoaded).catch(onError)
+	}, [])
 
-    //при загрузке произошла ошибка
-    const onError = () => {
-        setError(true)
-        setLoading(false)
-    }
+	//данные загружены успешно
+	const onCoffeePotLoaded = coffeePotList => {
+		setCoffeePot(coffeePotList)
+		setLoading(false)
+	}
 
-    return (
-        <Layout title='Список кофеен' descr='Список кофеен'>
-            <CoffeePotPageView coffeePot={coffeePot} loading={loading} error={error} />
-        </Layout>
-    )
+	//при загрузке произошла ошибка
+	const onError = () => {
+		setError(true)
+		setLoading(false)
+	}
+
+	return (
+		<Layout title='Список кофеен' descr='Список кофеен'>
+			<CoffeePotPageView
+				coffeePot={coffeePot}
+				loading={loading}
+				error={error}
+			/>
+		</Layout>
+	)
 }
 
 export default CoffeePot
